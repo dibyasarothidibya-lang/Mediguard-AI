@@ -1,0 +1,65 @@
+<section id="_about_big_number_v6_001" class="py-20 sm:py-24 bg-white dark:bg-neutral-950">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    
+    <div class="flex flex-col gap-16">
+      
+      <!-- Hero Section with Big Number -->
+      <div class="relative">
+        <!-- Massive Background Number -->
+        <div class="absolute inset-0 flex items-center justify-center pointer-events-none overflow-hidden">
+          <span class="text-indigo-100 dark:text-indigo-900/30 text-[20rem] sm:text-[28rem] font-bold leading-none select-none">12</span>
+        </div>
+        
+        <!-- Content Overlay -->
+        <div class="relative z-10 text-center py-16 sm:py-24 flex flex-col items-center gap-6">
+          <span data-motion="badge" class="text-indigo-600 dark:text-indigo-400 text-sm font-semibold tracking-wide uppercase" style="opacity: 1; transform: translateY(0px); filter: blur(0px);">Est. 2012</span>
+          <h2 class="text-slate-900 dark:text-white text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight max-w-3xl">
+            <span data-animate="heading" style="opacity: 1;"><span class="motion-word" style="display: inline-block; opacity: 1; transform: translateY(0px); filter: blur(0px);">Hello,</span> <span class="motion-word" style="display: inline-block; opacity: 1; transform: translateY(0px); filter: blur(0px);">We</span> <span class="motion-word" style="display: inline-block; opacity: 1; transform: translateY(0px); filter: blur(0px);">are</span> <span class="motion-word" style="display: inline-block; opacity: 1; transform: translateY(0px); filter: blur(0px);">Quantum</span> <span class="motion-word" style="display: inline-block; opacity: 1; transform: translateY(0px); filter: blur(0px);">Digital</span> <span class="motion-word" style="display: inline-block; opacity: 1; transform: translateY(0px); filter: blur(0px);">Studio</span></span>
+          </h2>
+          <p class="text-slate-600 dark:text-neutral-400 text-lg max-w-2xl leading-relaxed" data-animate="text" style="opacity: 1;">
+            <span class="motion-word" style="display: inline-block; opacity: 1; transform: translateY(0px); filter: blur(0px);">Where</span> <span class="motion-word" style="display: inline-block; opacity: 1; transform: translateY(0px); filter: blur(0px);">creativity</span> <span class="motion-word" style="display: inline-block; opacity: 1; transform: translateY(0px); filter: blur(0px);">meets</span> <span class="motion-word" style="display: inline-block; opacity: 1; transform: translateY(0px); filter: blur(0px);">technology.</span> <span class="motion-word" style="display: inline-block; opacity: 1; transform: translateY(0px); filter: blur(0px);">We've</span> <span class="motion-word" style="display: inline-block; opacity: 1; transform: translateY(0px); filter: blur(0px);">been</span> <span class="motion-word" style="display: inline-block; opacity: 1; transform: translateY(0px); filter: blur(0px);">crafting</span> <span class="motion-word" style="display: inline-block; opacity: 1; transform: translateY(0px); filter: blur(0px);">exceptional</span> <span class="motion-word" style="display: inline-block; opacity: 1; transform: translateY(0px); filter: blur(0px);">digital</span> <span class="motion-word" style="display: inline-block; opacity: 1; transform: translateY(0px); filter: blur(0px);">experiences</span> <span class="motion-word" style="display: inline-block; opacity: 1; transform: translateY(0px); filter: blur(0px);">that</span> <span class="motion-word" style="display: inline-block; opacity: 1; transform: translateY(0px); filter: blur(0px);">help</span> <span class="motion-word" style="display: inline-block; opacity: 1; transform: translateY(0px); filter: blur(0px);">brands</span> <span class="motion-word" style="display: inline-block; opacity: 1; transform: translateY(0px); filter: blur(0px);">stand</span> <span class="motion-word" style="display: inline-block; opacity: 1; transform: translateY(0px); filter: blur(0px);">out</span> <span class="motion-word" style="display: inline-block; opacity: 1; transform: translateY(0px); filter: blur(0px);">for</span> <span class="motion-word" style="display: inline-block; opacity: 1; transform: translateY(0px); filter: blur(0px);">over</span> <span class="motion-word" style="display: inline-block; opacity: 0;">a</span> <span class="motion-word" style="display: inline-block; opacity: 0;">decade.</span>
+          </p>
+          <div class="flex items-center gap-2 text-indigo-600 dark:text-indigo-400">
+            <span class="text-5xl font-bold">12</span>
+            <span data-motion="badge" class="text-sm uppercase leading-tight text-left" style="opacity: 1; transform: translateY(0px); filter: blur(0px);">Years of<br>Excellence</span>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Image + Services Grid -->
+      <div class="grid lg:grid-cols-3 gap-6">
+        
+        <!-- Large Image -->
+        <div data-motion="image" class="lg:col-span-2 h-72 sm:h-96 rounded-3xl overflow-hidden" style="opacity: 1; transform: scale(1); filter: blur(0px);">
+          <img data-motion="image" src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=1000&amp;auto=format&amp;fit=crop&amp;q=80" alt="Team collaboration" class="w-full h-full object-cover" style="opacity: 1; transform: scale(1); filter: blur(0px);">
+        </div>
+        
+        <!-- Services List -->
+        <div data-motion="card" class="p-8 bg-indigo-50 dark:bg-indigo-900/20 rounded-3xl flex flex-col justify-center gap-6" style="opacity: 1; transform: translateY(0px); filter: blur(0px);">
+          <h3 class="text-slate-900 dark:text-white text-xl font-bold">What We Do</h3>
+          <div class="flex flex-col gap-4">
+            <div class="flex items-center gap-3">
+              <div class="w-2 h-2 bg-indigo-500 rounded-full"></div>
+              <span class="text-slate-700 dark:text-neutral-300">Brand Strategy</span>
+            </div>
+            <div class="flex items-center gap-3">
+              <div class="w-2 h-2 bg-indigo-500 rounded-full"></div>
+              <span class="text-slate-700 dark:text-neutral-300">Web Development</span>
+            </div>
+            <div class="flex items-center gap-3">
+              <div class="w-2 h-2 bg-indigo-500 rounded-full"></div>
+              <span class="text-slate-700 dark:text-neutral-300">Mobile Apps</span>
+            </div>
+            <div class="flex items-center gap-3">
+              <div class="w-2 h-2 bg-indigo-500 rounded-full"></div>
+              <span class="text-slate-700 dark:text-neutral-300">Digital Marketing</span>
+            </div>
+          </div>
+          <a data-motion="button" href="#" class="inline-flex items-center gap-2 text-indigo-600 dark:text-indigo-400 font-semibold hover:gap-3 transition-all duration-300 w-fit" style="opacity: 1; transform: translateY(0px); filter: blur(0px);">
+            View All Services
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+            </svg>
+          </a>
+        </div>
+      </div>

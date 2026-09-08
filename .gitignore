@@ -1,3 +1,29 @@
+# Local credentials
+.env
+.env.*
+*.pem
+*.key
+*firebase-adminsdk*.json
+*service-account*.json
+*serviceAccount*.json
+
+# Python environments and generated files
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+*.sqlite3
+
+# Frontend dependencies and build output
+node_modules/
+.next/
+out/
+coverage/
+*.tsbuildinfo
+
+# Local logs
+*.log
+
 # Logs
 logs
 *.log
