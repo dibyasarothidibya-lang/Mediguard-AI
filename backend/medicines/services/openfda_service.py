@@ -1,13 +1,16 @@
 import json
 import re
 from datetime import UTC, datetime
+from hashlib import sha256
 from time import monotonic
 from typing import Literal
 from urllib.parse import urlencode
 
 import httpx
 from django.conf import settings
+from django.core.cache import cache
 from django.utils import timezone
+from pydantic import ValidationError
 
 from .source_types import EvidenceRecord, SourceLookupResult
 
@@ -15,7 +18,10 @@ OPENFDA_LABEL_URL="https://api.fda.gov/drug/label.json"
 
 RESULT_LIMIT= 5
 REQUEST_TIMEOUT_SECONDS= 10
+LOOKUP_BUDGET_SECONDS = 15
 MAX_RESPONSE_BYTES = 2_000_000
+CACHE_TTL_SECONDS = 15 * 60
+CACHE_KEY_PREFIX = "mediguard:openfda:label:v1"
 def read_text_list(record: dict, field: str) -> list[str]:
     value = record.get(field)
 
@@ -59,6 +65,9 @@ def lookup_openfda(medicine_name: str) -> SourceLookupResult:
     if not re.fullmatch(r"^[A-Za-z0-9 \-]+$", medicine_name):
         raise ValueError("The name contains unsupported search characters.")
 
+    # Soft budget: checks cannot interrupt blocked I/O or parsing.
+    deadline = monotonic() + LOOKUP_BUDGET_SECONDS
+
     def empty_result(
         status: Literal["unavailable", "no_match"],
         message: str,
@@ -74,6 +83,32 @@ def lookup_openfda(medicine_name: str) -> SourceLookupResult:
             message=message,
         )
 
+    digest = sha256(medicine_name.encode("utf-8")).hexdigest()
+    cache_key = f"{CACHE_KEY_PREFIX}:{digest}"
+    cached_json = cache.get(cache_key)
+    if cached_json is not None:
+        try:
+            cached_result = SourceLookupResult.model_validate_json(cached_json)
+        except ValidationError:
+            cache.delete(cache_key)
+        else:
+            if (
+                cached_result.source_id == "openfda"
+                and cached_result.query == medicine_name
+                and cached_result.status == "found"
+                and cached_result.coverage == "live_endpoint"
+                and cached_result.records
+                and cached_result.checked_at is not None
+            ):
+                if monotonic() >= deadline:
+                    return empty_result(
+                        "unavailable",
+                        "The openFDA lookup exceeded its time budget.",
+                    )
+                # Preserve provenance and expiry: a cache read is not a new retrieval.
+                return cached_result
+            cache.delete(cache_key)
+
     # 2. Build the search expression as a quoted phrase
     search_expression = f'openfda.brand_name:"{medicine_name}" OR openfda.generic_name:"{medicine_name}"'
 
@@ -84,6 +119,12 @@ def lookup_openfda(medicine_name: str) -> SourceLookupResult:
         "limit": RESULT_LIMIT
     }
 
+    if monotonic() >= deadline:
+        return empty_result(
+            "unavailable",
+            "The openFDA lookup exceeded its time budget.",
+        )
+
     try:
         with httpx.stream(
             "GET",
@@ -92,8 +133,32 @@ def lookup_openfda(medicine_name: str) -> SourceLookupResult:
             timeout=REQUEST_TIMEOUT_SECONDS,
             follow_redirects=False,
         ) as response:
+            if monotonic() >= deadline:
+                return empty_result(
+                    "unavailable",
+                    "The openFDA lookup exceeded its time budget.",
+                )
+
+            if response.status_code == 429:
+                return empty_result(
+                    "unavailable",
+                    "The openFDA request limit was reached.",
+                )
+
+            if response.status_code not in (200, 404):
+                return empty_result(
+                    "unavailable",
+                    "openFDA returned an unsuccessful HTTP response.",
+                )
+
             body = bytearray()
             for chunk in response.iter_bytes():
+                if monotonic() >= deadline:
+                    return empty_result(
+                        "unavailable",
+                        "The openFDA lookup exceeded its time budget.",
+                    )
+
                 if len(body) + len(chunk) > MAX_RESPONSE_BYTES:
                     return empty_result(
                         "unavailable",
@@ -106,19 +171,13 @@ def lookup_openfda(medicine_name: str) -> SourceLookupResult:
             "The openFDA request failed.",
         )
 
-    checked_at = timezone.now()    
-
-    if response.status_code == 429:
+    if monotonic() >= deadline:
         return empty_result(
             "unavailable",
-            "The openFDA request limit was reached.",
+            "The openFDA lookup exceeded its time budget.",
         )
 
-    if response.status_code not in (200, 404):
-        return empty_result(
-            "unavailable",
-            "openFDA returned an unsuccessful HTTP response.",
-        )
+    checked_at = timezone.now()
 
     try:
         data = json.loads(body)
@@ -126,6 +185,12 @@ def lookup_openfda(medicine_name: str) -> SourceLookupResult:
         return empty_result(
             "unavailable",
             "openFDA returned invalid JSON.",
+        )
+
+    if monotonic() >= deadline:
+        return empty_result(
+            "unavailable",
+            "The openFDA lookup exceeded its time budget.",
         )
 
     if not isinstance(data, dict):
@@ -183,6 +248,12 @@ def lookup_openfda(medicine_name: str) -> SourceLookupResult:
 
     try:
         for raw in raw_records:
+            if monotonic() >= deadline:
+                return empty_result(
+                    "unavailable",
+                    "The openFDA lookup exceeded its time budget.",
+                )
+
             record_id = raw.get("id")
             if (
                 not isinstance(record_id, str)
@@ -265,7 +336,13 @@ def lookup_openfda(medicine_name: str) -> SourceLookupResult:
             "The returned labels could not be converted into valid evidence.",
         )
 
-    return SourceLookupResult(
+    if monotonic() >= deadline:
+        return empty_result(
+            "unavailable",
+            "The openFDA lookup exceeded its time budget.",
+        )
+
+    result = SourceLookupResult(
         source_id="openfda",
         source_name="openFDA",
         jurisdiction="US",
@@ -279,8 +356,5 @@ def lookup_openfda(medicine_name: str) -> SourceLookupResult:
             "These are not confirmed matches to the user's product."
         ),
     )
-
-
-
-
-
+    cache.set(cache_key, result.model_dump_json(), timeout=CACHE_TTL_SECONDS)
+    return result
