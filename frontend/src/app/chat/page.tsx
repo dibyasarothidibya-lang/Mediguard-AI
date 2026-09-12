@@ -1,5 +1,8 @@
 "use client";
-
+import { Streamdown } from "streamdown";
+import { sendChatMessage } from "@/lib/api";
+import type { PromptInputMessage } from "@/components/ai-elements/prompt-input";
+import QrScannerDialog from "@/components/QR/qr-scanner-dialog";
 import {
   Attachment,
   AttachmentPreview,
@@ -25,7 +28,6 @@ import {
   PromptInputTools,
   usePromptInputAttachments,
 } from "@/components/ai-elements/prompt-input";
-import { SpeechInput } from "@/components/ai-elements/speech-input";
 import { Suggestion, Suggestions } from "@/components/ai-elements/suggestion";
 import { Button } from "@/components/ui/button";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -40,13 +42,20 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
+type ChatMessage = {
+  id: string;
+  role: "user" | "assistant";
+  content: string;
+};
 
 const suggestions = [
-  "Identify a medicine from its packaging",
-  "Explain a batch or expiry label",
-  "Check common medicine warnings",
-  "Help me understand dosage information",
+  { label: "Uses and ingredients", draft: "Explain the uses and ingredients of [medicine name]." },
+  { label: "Packaging text", draft: "Explain this medicine packaging text: [paste label text]." },
+  { label: "Side effects", draft: "What are the common side effects of [medicine name]?" },
+  { label: "Interactions", draft: "Are there known interactions between [medicine one] and [medicine two]?" },
+  { label: "Dosage label", draft: "Explain these dosage instructions: [paste medicine name and label instructions]." },
+  { label: "Storage and expiry", draft: "How should I store [medicine name], and what does its expiry label mean?" },
 ];
 
 function ComposerAttachments() {
@@ -81,9 +90,25 @@ export default function MediGuardChatPage() {
   const [user, setUser] = useState<User | null>(null);
   const [isAuthReady, setIsAuthReady] = useState(false);
   const [isSigningOut, setIsSigningOut] = useState(false);
+  const [isQrScannerOpen, setIsQrScannerOpen] = useState(false);
+  const [messages, setMessages] = useState<ChatMessage[]>([]);
+  const [isSending, setIsSending] = useState(false);
+  const [chatError, setChatError] = useState<string | null>(null);
+
+  const sendingRef = useRef(false);
+  const sessionUidRef = useRef<string | null>(null);
 
   useEffect(() => {
     return onAuthStateChanged(auth, (currentUser) => {
+      const nextUid = currentUser?.uid ?? null;
+      if (sessionUidRef.current !== nextUid) {
+        setMessages([]);
+        setText("");
+        setChatError(null);
+      }
+      sessionUidRef.current = nextUid;
+      setUser(currentUser);
+      setIsAuthReady(Boolean(currentUser));
       if (!currentUser) {
         router.replace("/login");
         return;
@@ -98,13 +123,97 @@ export default function MediGuardChatPage() {
     setText(suggestion);
   }, []);
 
-  const handleTranscription = useCallback((transcript: string) => {
-    setText((current) =>
-      current ? `${current} ${transcript}` : transcript,
-    );
-  }, []);
+  const handleQrConfirm = useCallback((decodedText: string) => {
+  const scannedContent = `Scanned QR content: ${decodedText}`;
 
-  const handleSubmit = useCallback(() => undefined, []);
+  setText((current) =>
+    current ? `${current}\n${scannedContent}` : scannedContent,
+  );
+}, []);
+  const handleSubmit = useCallback(
+  async (message: PromptInputMessage) => {
+    if (sendingRef.current) {
+      throw new Error("A message is already being sent.");
+    }
+
+    const rejectSubmission = (reason: string): never => {
+      setChatError(reason);
+      throw new Error(reason);
+    };
+
+    if (
+      !user ||
+      isSigningOut ||
+      auth.currentUser?.uid !== user.uid
+    ) {
+      return rejectSubmission("Please sign in before sending a message.");
+    }
+
+    if (message.files.length > 0) {
+      rejectSubmission(
+        "Image analysis is not available yet. Remove the images to send a text question.",
+      );
+    }
+
+    const question = message.text.trim();
+
+    if (/\[(medicine[^\]]*|paste[^\]]*)\]/i.test(question)) {
+      return rejectSubmission("Replace the text in brackets with your medicine details before sending.");
+    }
+
+    if (!question || question.length > 4000) {
+      rejectSubmission(
+        "Enter a question between 1 and 4000 characters.",
+      );
+    }
+
+    sendingRef.current = true;
+    setIsSending(true);
+    setChatError(null);
+
+    try {
+      const answer = await sendChatMessage(user, question, messages);
+
+      if (auth.currentUser?.uid !== user.uid) {
+        throw new Error("Your session changed. Please sign in again.");
+      }
+
+      const questionMessage: ChatMessage = {
+        id: crypto.randomUUID(),
+        role: "user",
+        content: question,
+      };
+
+      const answerMessage: ChatMessage = {
+        id: crypto.randomUUID(),
+        role: "assistant",
+        content: answer,
+      };
+
+      setMessages((current) => [
+        ...current,
+        questionMessage,
+        answerMessage,
+      ]);
+
+      setText((current) =>
+        current === message.text ? "" : current,
+      );
+    } catch (error) {
+      setChatError(
+        error instanceof Error
+          ? error.message
+          : "Something went wrong. Please try again.",
+      );
+
+      throw error;
+    } finally {
+      sendingRef.current = false;
+      setIsSending(false);
+    }
+  },
+  [user, isSigningOut, messages],
+);
 
   const handleSignOut = useCallback(async () => {
     setIsSigningOut(true);
@@ -180,34 +289,78 @@ export default function MediGuardChatPage() {
         </header>
 
         <Conversation className="min-h-0 flex-1">
-          <ConversationContent className="mx-auto min-h-full w-full max-w-3xl justify-center px-4 py-10 sm:px-6">
-            <ConversationEmptyState
-              description="Ask about medicine packaging, labels, usage information, warnings, or upload a clear photo for analysis."
-              icon={
-                <span className="flex size-14 items-center justify-center rounded-2xl bg-indigo-50 text-indigo-600 dark:bg-indigo-950/50 dark:text-indigo-300">
-                  <BotIcon className="size-7" />
-                </span>
-              }
-              title="How can MediGuard1 help?"
-            />
-          </ConversationContent>
-        </Conversation>
+  <ConversationContent className="mx-auto min-h-full w-full max-w-3xl px-4 py-10 sm:px-6">
+    {messages.length === 0 && !isSending && (
+      <ConversationEmptyState
+        title="How can MediGuard1 help?"
+        description="Ask about medicine labels, ingredients, uses, or warnings."
+        icon={<BotIcon className="size-7 text-indigo-500" />}
+      />
+    )}
+
+    {messages.map((message) => (
+      <article
+        key={message.id}
+        className={
+          message.role === "user"
+            ? "max-w-[90%] self-end rounded-2xl bg-indigo-600 px-4 py-3 text-white"
+            : "max-w-[90%] self-start rounded-2xl bg-muted px-4 py-3 text-foreground"
+        }
+      >
+        <p className="mb-1 text-xs font-semibold opacity-75">
+          {message.role === "user" ? "You" : "MediGuard"}
+        </p>
+
+        {message.role === "assistant" ? (
+          <Streamdown
+            mode="static"
+            skipHtml
+            rehypePlugins={[]}
+            allowedElements={["p", "strong", "em", "ul", "ol", "li", "h1", "h2", "h3", "h4", "blockquote", "code", "pre", "br", "hr", "a", "table", "thead", "tbody", "tr", "th", "td"]}
+            className="min-w-0 break-words text-sm leading-relaxed [&_p]:my-2 [&_ul]:my-2 [&_ul]:list-disc [&_ul]:pl-5 [&_ol]:my-2 [&_ol]:list-decimal [&_ol]:pl-5"
+          >
+            {message.content}
+          </Streamdown>
+        ) : (
+          <p className="whitespace-pre-wrap break-words text-sm leading-relaxed">
+            {message.content}
+          </p>
+        )}
+      </article>
+    ))}
+
+    {isSending && (
+      <p role="status" className="text-sm text-muted-foreground">
+        MediGuard is preparing an answer…
+      </p>
+    )}
+  </ConversationContent>
+</Conversation>
 
         <section className="shrink-0 border-t bg-background/95 px-4 pb-4 pt-3 backdrop-blur sm:px-6">
           <div className="mx-auto w-full max-w-3xl space-y-3">
             <Suggestions>
               {suggestions.map((suggestion) => (
                 <Suggestion
-                  key={suggestion}
+                  key={suggestion.label}
                   onClick={handleSuggestion}
-                  suggestion={suggestion}
-                />
+                  suggestion={suggestion.draft}
+                >
+                  {suggestion.label}
+                </Suggestion>
               ))}
             </Suggestions>
-
+              {chatError && (
+  <p role="alert" className="text-sm text-destructive">
+    {chatError}
+  </p>
+)}
             <PromptInput
               accept="image/*"
-              globalDrop
+              onDropCapture={(event) => {
+                event.preventDefault();
+                event.stopPropagation();
+              }}
               maxFileSize={10 * 1024 * 1024}
               maxFiles={4}
               multiple
@@ -219,33 +372,46 @@ export default function MediGuardChatPage() {
               <PromptInputBody>
                 <PromptInputTextarea
                   onChange={(event) => setText(event.currentTarget.value)}
-                  placeholder="Ask about a medicine or attach packaging photos..."
+                  placeholder="Ask a question about medicines......"
                   value={text}
                 />
               </PromptInputBody>
               <PromptInputFooter>
                 <PromptInputTools>
                   <PromptInputActionMenu>
-                    <PromptInputActionMenuTrigger />
+                    <PromptInputActionMenuTrigger
+                      disabled
+                      title="Image analysis is not available yet"
+                    />
                     <PromptInputActionMenuContent>
                       <PromptInputActionAddAttachments label="Add medicine photos" />
                     </PromptInputActionMenuContent>
                   </PromptInputActionMenu>
-                  <SpeechInput
-                    onTranscriptionChange={handleTranscription}
-                    size="icon-sm"
-                    variant="ghost"
-                  />
+                  <Button
+                  type="button"
+                  size="sm"
+                  variant="ghost"
+                  onClick={() => setIsQrScannerOpen(true)}
+                >
+                  Scan QR
+                </Button>
                   <span className="inline-flex h-7 items-center gap-1.5 rounded-md bg-muted px-2 text-xs font-medium text-muted-foreground">
                     <SparklesIcon className="size-3" />
                     MediGuard1
                   </span>
                 </PromptInputTools>
                 <PromptInputSubmit
-                  disabled
-                  status="ready"
-                  title="Connect the backend to enable sending"
-                />
+  disabled={
+    !user ||
+    isSending ||
+    isSigningOut ||
+    !text.trim() ||
+    text.trim().length > 4000
+  }
+  status={isSending ? "submitted" : "ready"}
+  title={isSending ? "Waiting for an answer" : "Send message"}
+  aria-label={isSending ? "Waiting for an answer" : "Send message"}
+/>
               </PromptInputFooter>
             </PromptInput>
 
@@ -255,7 +421,13 @@ export default function MediGuardChatPage() {
             </p>
           </div>
         </section>
-      </main>
+            </main>
+
+      <QrScannerDialog
+        open={isQrScannerOpen}
+        onOpenChange={setIsQrScannerOpen}
+        onConfirm={handleQrConfirm}
+      />
     </TooltipProvider>
   );
 }

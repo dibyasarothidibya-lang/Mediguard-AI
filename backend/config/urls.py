@@ -17,8 +17,10 @@ Including another URLconf
 from accounts.views import CurrentUserView
 from django.contrib import admin
 from django.urls import path
+from medicines.views import ChatView
 
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("api/me/", CurrentUserView.as_view()),
+    path("api/chat/", ChatView.as_view(), name="medicine-chat"),
 ]

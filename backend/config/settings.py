@@ -27,7 +27,11 @@ load_dotenv(BASE_DIR / ".env")
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.environ["DJANGO_SECRET_KEY"]
-
+GEMINI_API_KEY= os.environ["GEMINI_API_KEY"]
+OPENFDA_API_KEY= os.environ["OPENFDA_API_KEY"]
+OPENFDA_API_KEY = os.environ.get("OPENFDA_API_KEY", "")
+GEMINI_MODEL= os.environ["GEMINI_MODEL"]
+GEMINI_TIMEOUT_MS= int(os.environ["GEMINI_TIMEOUT_MS"])
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
@@ -46,6 +50,7 @@ INSTALLED_APPS = [
     "rest_framework",
     "accounts",
     "corsheaders",
+    "medicines.apps.MedicinesConfig",
 ]
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
