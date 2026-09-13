@@ -14,8 +14,7 @@ if TYPE_CHECKING:
 
 
 SOURCE_IDS = (
-    "dgda", "openfda", "dailymed", "who_alerts",
-    "who_listings", "who_eml", "ema",
+    "dgda", "openfda", "dailymed",
 )
 # Soft limit between calls, not cancellation of an in-progress connector.
 EVIDENCE_BUDGET_SECONDS = 20

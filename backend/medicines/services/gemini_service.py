@@ -15,7 +15,7 @@ from pydantic import (
     model_validator,
 )
 
-from . import evidence_service
+from . import catalogue_chat_service, evidence_service
 from .grounding_service import (
     GROUNDING_INSTRUCTION,
     GroundedAnswer,
@@ -384,6 +384,9 @@ def ask_gemini(question: str, history=None) -> str:
     if static_reply is not None:
         return static_reply
 
+    choice = catalogue_chat_service.pending_choice(question, history)
+    if choice is not None:
+        numbers, question, history, previous_prompt = choice
     decision = classify_question(question, history)
 
     if decision.category in {"OUT_OF_SCOPE", "MIXED"}:
@@ -393,8 +396,19 @@ def ask_gemini(question: str, history=None) -> str:
     if decision.clarification_reason != "NONE" and not decision.urgent_safety_concern:
         return CLARIFICATION_REPLIES[decision.clarification_reason]
 
+    catalogue_plan = catalogue_chat_service.prepare_catalogue_chat(decision, question)
+    if choice is not None and not decision.urgent_safety_concern:
+        catalogue_plan = catalogue_chat_service.apply_numbered_choice(
+            catalogue_plan, numbers, question, previous_prompt,
+        )
+        if catalogue_plan is None:
+            return "Those options are no longer available. Please ask your medicine question again."
+    if catalogue_plan.clarification is not None:
+        return catalogue_plan.clarification
+
     try:
-        evidence = prepare_evidence(evidence_service.collect_evidence(decision))
+        evidence = prepare_evidence(evidence_service.collect_evidence(catalogue_plan.evidence_decision))
+        evidence = catalogue_chat_service.attach_catalogue_context(evidence, catalogue_plan)
     except RuntimeError:
         log_chat_failure("evidence_preparation")
         raise
@@ -405,7 +419,8 @@ def ask_gemini(question: str, history=None) -> str:
                 model=settings.GEMINI_MODEL,
                 contents=build_request_content(question.strip(), history, decision, evidence),
                 config=types.GenerateContentConfig(
-                    system_instruction=MEDICINE_SYSTEM_INSTRUCTION + GROUNDING_INSTRUCTION,
+                    system_instruction=(MEDICINE_SYSTEM_INSTRUCTION + GROUNDING_INSTRUCTION
+                        + (catalogue_chat_service.CATALOGUE_INSTRUCTION if catalogue_plan.lookups else "")),
                     response_mime_type="application/json",
                     response_schema=gemini_response_schema(GroundedAnswer),
                     max_output_tokens=2048,
@@ -441,10 +456,9 @@ def ask_gemini(question: str, history=None) -> str:
         )
 
     try:
-        return render_grounded_answer(answer, evidence)
+        rendered = render_grounded_answer(answer, evidence)
+        return catalogue_chat_service.append_catalogue_attribution(rendered, catalogue_plan)
     except RuntimeError:
         log_chat_failure("answer_validation")
         raise
-
-
 

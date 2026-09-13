@@ -310,7 +310,7 @@ class OpenFDACacheTests(SimpleTestCase):
         self.stream.return_value.__exit__.assert_called_once()
 
 
-@override_settings(GEMINI_MODEL="test-model")
+@override_settings(GEMINI_MODEL="test-model", CATALOGUE_CHAT_ENABLED=False)
 class MedicineExtractionTests(SimpleTestCase):    
     def setUp(self):
         self.evidence_patch = patch.object(
@@ -441,7 +441,7 @@ class MedicineExtractionTests(SimpleTestCase):
         for question, error in ((None, TypeError), (" ", ValueError), ("a" * 4001, ValueError)):
             with self.subTest(question_type=type(question).__name__):
                 with self.assertRaises(error):
-                    gemini.classify_question(question)
+                    gemini.classify_question(cast(Any, question))  # Intentionally test invalid input.
         self.client_factory.assert_not_called()
 
     def test_unicode_and_maximum_bounds_preserved(self):
@@ -482,7 +482,7 @@ class EvidenceCoordinatorTests(SimpleTestCase):
         data = dict(category="MEDICINE", medicine_names=["Example"] if names is None else names,
                     clarification_reason="NONE", urgent_safety_concern=False)
         data.update(changes)
-        return gemini.ScopeDecision(**data)
+        return gemini.ScopeDecision.model_validate(data)
 
     def result(self, name="Example", status="no_match"):
         return evidence_service.SourceLookupResult.model_validate({
@@ -506,7 +506,7 @@ class EvidenceCoordinatorTests(SimpleTestCase):
         self.rows.assert_called_once_with("source_id", "enabled", "access_method")
         self.assertEqual([item.query for item in bundle.medicines], ["First", "Second"])
         self.assertEqual(self.lookup_result(bundle, 1).query, "Second")
-        self.assertEqual(len(bundle.medicines[0].sources), 7)
+        self.assertEqual(len(bundle.medicines[0].sources), 3)
 
     def test_disabled_source_never_calls_connector(self):
         self.rows.return_value[0]["enabled"] = False
@@ -686,7 +686,7 @@ class EvidenceCoordinatorTests(SimpleTestCase):
             self.assertEqual(check.state, "unavailable")
             self.assertIsNone(check.lookup)
 
-@override_settings(GEMINI_MODEL="test-model")
+@override_settings(GEMINI_MODEL="test-model", CATALOGUE_CHAT_ENABLED=False)
 class GroundedAnswerTests(SimpleTestCase):
     def setUp(self):
         self.client_patch = patch.object(gemini, "create_gemini_client")

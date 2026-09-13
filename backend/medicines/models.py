@@ -133,3 +133,111 @@ class EvidenceRecord(models.Model):
                 name="unique_evidence_source_record",
             ),
         ]
+
+
+class CatalogDataset(models.Model):
+    """Publication details for a CSV catalogue dataset."""
+
+    code = models.SlugField(max_length=50, unique=True)
+    name = models.CharField(max_length=200)
+    dataset_url = models.URLField(max_length=2048)
+    license = models.CharField(max_length=100, blank=True)
+
+    def __str__(self):
+        return self.name
+
+
+class CatalogImportBatch(models.Model):
+    """Track one attempt to import one original CSV file."""
+
+    STATUS_CHOICES = [
+        ("pending", "Pending"),
+        ("running", "Running"),
+        ("completed", "Completed"),
+        ("failed", "Failed"),
+    ]
+
+    dataset = models.ForeignKey(
+        CatalogDataset,
+        on_delete=models.PROTECT,
+        related_name="import_batches",
+    )
+    dataset_version = models.CharField(max_length=100, blank=True)
+    filename = models.CharField(max_length=255)
+    checksum = models.CharField(max_length=64)
+    status = models.CharField(
+        max_length=20, choices=STATUS_CHOICES, default="pending",
+    )
+    started_at = models.DateTimeField(null=True, blank=True)
+    completed_at = models.DateTimeField(null=True, blank=True)
+    rows_received = models.PositiveIntegerField(default=0)
+    rows_accepted = models.PositiveIntegerField(default=0)
+    rows_rejected = models.PositiveIntegerField(default=0)
+
+    def __str__(self):
+        return f"{self.filename} ({self.get_status_display()})"
+
+
+class CatalogProduct(models.Model):
+    """Searchable catalogue identity, not proof of registration or authenticity."""
+
+    brand_name = models.CharField(max_length=500)
+    generic_name = models.CharField(max_length=1000, blank=True)
+    strength_text = models.CharField(max_length=500, blank=True)
+    dosage_form = models.CharField(max_length=300, blank=True)
+    manufacturer = models.CharField(max_length=500, blank=True)
+    medicine_type = models.CharField(max_length=100, blank=True)
+    # The importer/search service will share the normalization rules.
+    normalized_brand_name = models.CharField(max_length=500, db_index=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return " ".join(part for part in (self.brand_name, self.strength_text) if part)
+
+
+class CatalogSourceRecord(models.Model):
+    """Preserve an original CSV row and its reconciliation outcome."""
+
+    STATUS_CHOICES = [
+        ("pending", "Pending"),
+        ("matched", "Matched"),
+        ("ambiguous", "Ambiguous"),
+        ("rejected", "Rejected"),
+    ]
+
+    import_batch = models.ForeignKey(
+        CatalogImportBatch,
+        on_delete=models.PROTECT,
+        related_name="source_records",
+    )
+    product = models.ForeignKey(
+        CatalogProduct,
+        on_delete=models.PROTECT,
+        related_name="source_records",
+        null=True,
+        blank=True,
+    )
+    # One-based data-row ordinal, excluding the CSV header.
+    row_number = models.PositiveIntegerField()
+    source_record_id = models.CharField(max_length=255, blank=True)
+    source_slug = models.CharField(max_length=1000, blank=True)
+    raw_row = models.JSONField()
+    reconciliation_status = models.CharField(
+        max_length=20, choices=STATUS_CHOICES, default="pending", db_index=True,
+    )
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(
+                fields=["import_batch", "row_number"],
+                name="unique_catalog_batch_row",
+            ),
+            models.CheckConstraint(
+                condition=models.Q(row_number__gte=1),
+                name="catalog_row_number_positive",
+            ),
+        ]
+
+    def __str__(self):
+        return f"Row {self.row_number} ({self.get_reconciliation_status_display()})"
