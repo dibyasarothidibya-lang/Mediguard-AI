@@ -153,9 +153,6 @@ MAILERS = {
 # Administrator Access Whitelist for Academic Project Audit
 ADMIN_EMAILS = [
     email.strip().lower()
-    for email in os.getenv(
-        "ADMIN_EMAILS",
-        "dibyasarothidibya@gmail.com,dibyasarothidiibya@gmail.com",
-    ).split(",")
+    for email in os.getenv("ADMIN_EMAILS", "").split(",")
     if email.strip()
 ]

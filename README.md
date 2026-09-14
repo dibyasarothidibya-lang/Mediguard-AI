@@ -8,13 +8,13 @@ MediGuard AI is an independent full-stack healthcare research and educational so
 > **Academic Research Prototype — Not a Medical Device**  
 > MediGuard AI is developed solely for educational, academic, and research demonstration purposes. It is **NOT** a healthcare provider, clinical diagnostic tool, pharmacy, or substitute for licensed medical practitioners, official pharmaceutical regulators, or laboratory testing. Automated outputs may contain errors and must always be independently verified with qualified medical professionals.
 
-Instead of deploying an unconstrained chatbot that blindly forwards medical queries to a Large Language Model (LLM), MediGuard is built on a defensive, multi-tier evidence pipeline:
+Instead of deploying an unconstrained chatbot that blindly forwards medical queries to a Large Language Model (LLM), MediGuard is built on a defensive, multi-tier evidence pipeline engineered for **reducing the risk of unsupported or fabricated outputs**:
 
 ```text
 Classify Query → Extract Medicine Entities → Retrieve Trusted Evidence → Validate Source Records → Generate Grounded Interpretation → Attach Controlled Citations
 ```
 
-The system is **designed to reduce unsupported or fabricated outputs** by ensuring that evidence precedes generation, maintaining strict provenance over all retrieved pharmaceutical data.
+The system ensures that **evidence precedes generation**, reducing the risk of unsupported model assertions and maintaining strict provenance over all retrieved pharmaceutical data.
 
 ---
 
@@ -41,12 +41,12 @@ The platform retrieves structured medicine records from verified sources first, 
 
 ### 1. Evidence-Grounded AI Assistant
 * **Domain Guardrails**: Incoming queries are classified to ensure they fall strictly within supported medicine verification boundaries before triggering evidence retrieval.
-* **Restricted Interpretation Role**: Gemini is constrained to interpret retrieved evidence, although generated outputs may still contain errors; it acts as an explanation layer rather than an unguided medical authority.
+* **Restricted Interpretation Role**: Gemini is constrained to interpret retrieved evidence rather than serving as the primary factual source; generated outputs may nevertheless contain errors.
 * **Safety Terms & Conditions Gating**: Users must authenticate and explicitly acknowledge safety notices and liability terms before accessing the assistant. Declining automatically terminates the session and redirects to the homepage.
 
 ### 2. Multi-Tier Medicine Data Architecture
 * **Live openFDA Drug Label Connector**: Real-time integration with the openFDA Drug Label API for international pharmaceutical evidence, warnings, active ingredients, and indications.
-* **DGDA-Aligned Local Catalogue**: A normalized local catalogue containing structured medicine, generic, dosage-form, and manufacturer records derived from Bangladesh-focused pharmaceutical datasets.
+* **DGDA-Aligned Local Catalogue**: A normalized Bangladesh-focused medicine catalogue containing structured medicine, generic, dosage-form, and manufacturer records derived from public pharmaceutical datasets.
 * **Extensible Trusted-Source Adapter Pipeline**: Modular architecture designed to incorporate additional regulatory sources without refactoring the AI orchestration core.
 
 ### 3. Defensive API & Evidence Validation
@@ -224,7 +224,7 @@ Create a `.env` file in `backend/` and `frontend/` (ensure these are never commi
 ### Backend (`backend/.env`)
 ```env
 DJANGO_SECRET_KEY=your_django_secret_key
-DEBUG=False
+DJANGO_DEBUG=False
 ALLOWED_HOSTS=localhost,127.0.0.1
 CORS_ALLOWED_ORIGINS=http://localhost:3000
 
@@ -261,7 +261,7 @@ NEXT_PUBLIC_API_BASE_URL=http://127.0.0.1:8000
 | **Core Backend Architecture** | ✅ Complete | Modular Django REST Framework services |
 | **Authentication & Token Verification** | ✅ Complete | Firebase Admin SDK + Revoked Token Checking |
 | **openFDA Live Evidence Pipeline** | ✅ Complete | HTTPX connector with timeouts & schema checks |
-| **DGDA-Aligned Local Catalogue** | ✅ Complete | Normalized local catalogue derived from Bangladesh-focused pharmaceutical datasets |
+| **DGDA-Aligned Local Catalogue** | ✅ Complete | Normalized Bangladesh-focused medicine catalogue |
 | **Grounded AI Interpretation Layer** | ✅ Complete | Gemini 2.5 with controlled citation validation |
 | **Admin Cockpit & Audit Telemetry** | ✅ Complete | Role-gated at `/admin` with email whitelisting |
 | **Safety Terms Agreement Modal** | ✅ Complete | Account authentication + popup terms gating on `/chat` |
