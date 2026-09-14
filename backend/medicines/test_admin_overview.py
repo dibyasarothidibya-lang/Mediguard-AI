@@ -7,7 +7,7 @@ from medicines.models import ChatInteraction
 
 User = get_user_model()
 
-@override_settings(ADMIN_EMAILS=["dibyasarothidibya@gmail.com", "dibyasarothidiibya@gmail.com"])
+@override_settings(ADMIN_EMAILS=["admin@example.com", "admin2@example.com"])
 class AdminOverviewSecurityTests(TestCase):
     def setUp(self):
         self.client = APIClient()
@@ -15,13 +15,13 @@ class AdminOverviewSecurityTests(TestCase):
         # Admin user
         self.admin_user = User.objects.create_user(
             username="admin_user",
-            email="dibyasarothidibya@gmail.com",
+            email="admin@example.com",
         )
         UserProfile.objects.create(
             user=self.admin_user,
             firebase_uid="uid-admin-1",
-            email="dibyasarothidibya@gmail.com",
-            display_name="Dibyasarothi",
+            email="admin@example.com",
+            display_name="Admin User",
         )
 
         # Non-admin user
@@ -57,7 +57,7 @@ class AdminOverviewSecurityTests(TestCase):
     def test_admin_user_allowed_200(self, mock_verify):
         mock_verify.return_value = {
             "uid": "uid-admin-1",
-            "email": "dibyasarothidibya@gmail.com",
+            "email": "admin@example.com",
         }
         response = self.client.get(
             "/api/admin/overview/",

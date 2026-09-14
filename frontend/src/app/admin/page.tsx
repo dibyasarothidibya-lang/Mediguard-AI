@@ -29,17 +29,10 @@ import {
   Eye,
 } from "lucide-react";
 
-const DEFAULT_ADMIN_EMAILS = [
-  "dibyasarothidibya@gmail.com",
-  "dibyasarothidiibya@gmail.com",
-];
-
-const envAdminEmails = (process.env.NEXT_PUBLIC_ADMIN_EMAILS || "")
+const ADMIN_EMAILS = (process.env.NEXT_PUBLIC_ADMIN_EMAILS || "")
   .split(",")
   .map((e) => e.trim().toLowerCase())
   .filter(Boolean);
-
-const ADMIN_EMAILS = Array.from(new Set([...DEFAULT_ADMIN_EMAILS, ...envAdminEmails]));
 
 function isUserAdmin(user: User | null): boolean {
   if (!user || !user.email) return false;
@@ -255,7 +248,7 @@ export default function AdminDashboardPage() {
             </div>
 
             <div className="mt-6 border-t border-slate-100 pt-4 text-[11px] text-slate-400 dark:border-neutral-800 dark:text-neutral-500">
-              Authorized Administrator: <span className="font-mono text-indigo-500 dark:text-indigo-400">dibyasarothidibya@gmail.com</span>
+              Authorized Administrator: <span className="font-mono text-indigo-500 dark:text-indigo-400">Restricted Access (System Administrator)</span>
             </div>
           </div>
         </main>

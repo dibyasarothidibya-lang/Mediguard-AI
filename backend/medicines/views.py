@@ -115,10 +115,7 @@ class AdminOverviewView(APIView):
         claims = request.auth if isinstance(request.auth, dict) else {}
         claims_email = (claims.get("email") or "").strip().lower()
 
-        admin_emails = getattr(settings, "ADMIN_EMAILS", [
-            "dibyasarothidibya@gmail.com",
-            "dibyasarothidiibya@gmail.com",
-        ])
+        admin_emails = getattr(settings, "ADMIN_EMAILS", [])
 
         is_authorized = (
             user.is_superuser
