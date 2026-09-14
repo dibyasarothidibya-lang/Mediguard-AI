@@ -82,7 +82,7 @@ export default function HowItWorks() {
               How MediGuard AI Works
             </h1>
             <p className="mx-auto mt-4 max-w-2xl text-base text-slate-600 sm:text-lg dark:text-neutral-400">
-              Explore the 4-stage evidence-grounded architecture built to evaluate queries, cross-reference trusted records, and deliver verified medicine insights.
+              Explore the 4-stage evidence-grounded architecture built to evaluate queries, cross-reference available catalogue records, and provide structured medicine explanations.
             </p>
           </div>
 

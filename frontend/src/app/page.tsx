@@ -45,7 +45,7 @@ export default function Home() {
                 </h1>
 
                 <p className="mb-8 max-w-xl text-base leading-relaxed text-slate-600 sm:text-lg dark:text-neutral-400">
-                  Multi-source verification combining GS1 DataMatrix decoding, packaging label OCR, and direct synchronization with national drug registries to protect against counterfeit or expired medications.
+                  Multi-source evidence platform combining GS1 DataMatrix barcode decoding, a DGDA-aligned local catalogue, and openFDA retrieval to support safer medicine verification.
                 </p>
               </div>
 
@@ -214,7 +214,7 @@ export default function Home() {
                   GS1 DataMatrix Scanning
                 </h3>
                 <p className="mt-2 text-sm leading-relaxed text-slate-600 dark:text-neutral-400">
-                  Extracts GTIN, lot/batch numbers, serial numbers, and expiration dates in under 50ms across 2D DataMatrix and QR standards.
+                  Extracts GTIN, lot/batch numbers, serial numbers, and expiration dates across 2D DataMatrix and QR standards directly in the browser.
                 </p>
               </div>
 

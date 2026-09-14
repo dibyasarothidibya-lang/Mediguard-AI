@@ -104,7 +104,7 @@ export default function Features() {
               Medication Safety Tools
             </h1>
             <p className="mx-auto mt-4 max-w-2xl text-base text-slate-600 sm:text-lg dark:text-neutral-400">
-              Explore the evidence-grounded pipeline built to support medicine transparency, package label understanding, and multi-source reference checks.
+              Built to help users cross-reference medicine information against available evidence and understand pharmaceutical packaging.
             </p>
           </div>
 
