@@ -2,14 +2,12 @@ import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 import {
   QrCode,
-  ScanText,
   Database,
   ShieldAlert,
   HeartPulse,
   FileCheck,
   ArrowRight,
   Sparkles,
-  Layers,
   Cpu,
   CheckCircle2,
 } from "lucide-react";
@@ -18,74 +16,74 @@ import Link from "next/link";
 const FEATURES_LIST = [
   {
     icon: QrCode,
-    badge: "Sub-50ms Decode Latency",
-    title: "Multi-Carrier Barcode & GS1 Decoder",
+    badge: "Browser-Based Decoding",
+    title: "GS1 DataMatrix & Barcode Reader",
     description:
-      "High-speed extraction of GS1 Application Identifiers across 2D GS1 DataMatrix, standard QR codes, and 1D EAN/UPC linear barcodes. Instantly decodes GTIN (01), Serial Number (21), Expiration Date (17), and Lot / Batch Number (10).",
+      "Extracts product identifiers, lot numbers, and expiration details from 2D GS1 DataMatrix codes, QR codes, and linear barcodes directly in the browser without sending camera feeds to external servers.",
     specs: [
-      "Hardware-accelerated capture",
-      "Full GS1 AI syntax parser",
-      "Support for curved & blister packaging",
-    ],
-  },
-  {
-    icon: ScanText,
-    badge: "Neural Vision OCR",
-    title: "Multimodal Packaging OCR & Anomaly Vision",
-    description:
-      "Advanced optical character recognition trained to handle foil reflections, typography defects, and skewed blister-pack geometry. Isolates printed brand names, active molecules, dosage strengths (e.g., 500mg), and regulatory DAR numbers.",
-    specs: [
-      "Glare and perspective skew mitigation",
-      "Multi-field dosage extraction",
-      "Packaging seal anomaly detection",
+      "Client-side optical barcode decoding",
+      "GS1 standard DataMatrix compliance",
+      "Direct camera capture & manual upload",
     ],
   },
   {
     icon: Database,
-    badge: "Live Regulatory Sync",
-    title: "Direct Pharmaceutical Registry Cross-Check",
+    badge: "Dual-Source Pipeline",
+    title: "Local Catalogue & openFDA Evidence",
     description:
-      "Real-time synchronization against national and international pharmaceutical gazettes, including the Directorate General of Drug Administration (DGDA) and US FDA National Drug Code (NDC) Directory.",
+      "Combines a structured DGDA-aligned local medicine catalogue for domestic brand and generic lookups with the live openFDA Drug Label API for official international pharmaceutical documentation.",
     specs: [
-      "Live market authorization status",
-      "Licensed manufacturer identity matching",
-      "Instant withdrawn/recalled drug alerts",
+      "DGDA-aligned generic & brand indexing",
+      "Live openFDA Drug Label API connector",
+      "Extensible trusted-source architecture",
     ],
   },
   {
-    icon: ShieldAlert,
-    badge: "Anti-Counterfeit Protection",
-    title: "Dual-Stream Verification & Tamper Detection",
+    icon: Cpu,
+    badge: "Evidence-Grounded AI",
+    title: "Controlled AI Explanation Engine",
     description:
-      "Continuously reconciles physical printed label typography against digital 2D barcode payloads. Automatically raises high-priority alerts when printed expiration dates or lot numbers do not match digital signatures.",
+      "Uses pre-retrieved medicine records as the strict foundation for model outputs, reducing unsupported AI claims and keeping explanations grounded in verified pharmaceutical data.",
     specs: [
-      "Printed vs encoded payload mismatch detector",
-      "Duplicate serialization scan checks",
-      "Altered packaging vector analysis",
-    ],
-  },
-  {
-    icon: HeartPulse,
-    badge: "Clinical Intelligence",
-    title: "Clinical Drug Intelligence & RxNorm Mapping",
-    description:
-      "Maps active pharmaceutical molecules via NLM RxNorm and openFDA endpoints. Evaluates drug-drug interactions, pregnancy advisories, boxed warnings, and food/alcohol contraindications.",
-    specs: [
-      "RxNorm clinical ontology aggregation",
-      "Boxed warnings & contraindications",
-      "Polypharmacy risk evaluation",
+      "Evidence retrieved before generation",
+      "Google Gemini 2.5 Flash orchestration",
+      "Structured JSON output contract",
     ],
   },
   {
     icon: FileCheck,
-    badge: "Patient-First Clarity",
-    title: "Plain-Language Patient Summaries",
+    badge: "Server-Verified References",
+    title: "Controlled Citation Integrity",
     description:
-      "Translates complex pharmacological inserts into easy-to-understand guidance. Clearly explains therapeutic uses, proper administration directions, missed dosage protocols, and optimal storage conditions.",
+      "Citation identifiers are minted, validated, and rendered by the backend. The model cannot invent arbitrary links, ensuring all sources lead to official documentation.",
     specs: [
-      "Jargon-free therapeutic explanation",
-      "Optimal temperature & storage instructions",
-      "Direct regulatory incident reporting flow",
+      "Backend-controlled citation identifiers",
+      "Arbitrary URL hallucination filtering",
+      "Full source metadata & listing status",
+    ],
+  },
+  {
+    icon: ShieldAlert,
+    badge: "Safety & Guardrails",
+    title: "Domain Filtering & Defensive Throttling",
+    description:
+      "Classifies incoming user questions to maintain strict medicine verification boundaries, applying server-side rate limiting and graceful failure handling.",
+    specs: [
+      "Domain query classifier",
+      "Token-bucket rate limiting",
+      "Resilient timeout & error handling",
+    ],
+  },
+  {
+    icon: HeartPulse,
+    badge: "Patient-First Clarity",
+    title: "Plain-Language Medicine Summaries",
+    description:
+      "Translates dense pharmaceutical inserts and technical packaging terminology into clear explanations of active ingredients, general precautions, and proper storage.",
+    specs: [
+      "Accessible active ingredient breakdowns",
+      "General precautions & storage guidance",
+      "Prominent clinician-verification notices",
     ],
   },
 ];
@@ -106,7 +104,7 @@ export default function Features() {
               Medication Safety Tools
             </h1>
             <p className="mx-auto mt-4 max-w-2xl text-base text-slate-600 sm:text-lg dark:text-neutral-400">
-              Explore the multi-source verification pipeline engineered to ensure every medicine you examine is authentic, verified, and clinically transparent.
+              Explore the evidence-grounded pipeline built to support medicine transparency, package label understanding, and multi-source reference checks.
             </p>
           </div>
 
@@ -158,7 +156,7 @@ export default function Features() {
               Experience the verification assistant live
             </h2>
             <p className="mx-auto mt-2 max-w-xl text-sm text-slate-300 sm:text-base">
-              Test queries about medicine packaging, scan GS1 barcodes, and receive instant clinical insights.
+              Test queries about medicine packaging, scan GS1 barcodes, and receive evidence-grounded insights.
             </p>
             <div className="mt-8 flex justify-center">
               <Link

@@ -162,17 +162,17 @@ export function RelaxingSwipeCarousel() {
           <div className="flex items-center gap-2.5">
             <span className="flex size-2 rounded-full bg-emerald-500 animate-pulse" />
             <span className="text-xs font-bold tracking-wider text-slate-500 uppercase dark:text-neutral-400">
-              Live Stream Telemetry
+              Sample Indexed Records
             </span>
             <span className="rounded-full bg-emerald-500/10 px-2.5 py-0.5 text-[10px] font-bold text-emerald-600 dark:bg-emerald-500/15 dark:text-emerald-400">
-              Zero Dispensing Errors
+              Evidence-Grounded AI
             </span>
           </div>
           <h3 className="mt-2 text-xl font-extrabold tracking-tight text-slate-900 sm:text-2xl dark:text-white">
-            Continuously Audited Medications
+            Supported Medicine Records
           </h3>
           <p className="mt-0.5 text-xs text-slate-600 dark:text-neutral-400">
-            Swipe or drag through recent packaging verifications cross-checked against national regulatory registries.
+            Swipe or drag through sample medicine records indexed from structured local and international pharmaceutical catalogues.
           </p>
         </div>
 
@@ -239,7 +239,7 @@ export function RelaxingSwipeCarousel() {
 
               <span className="inline-flex items-center gap-1 rounded-full bg-emerald-500/10 px-2 py-0.5 text-[9.5px] font-bold text-emerald-600 dark:bg-emerald-500/15 dark:text-emerald-400 shrink-0">
                 <CheckCircle2 className="size-3" />
-                {med.safetyScore}
+                Indexed
               </span>
             </div>
 

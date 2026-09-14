@@ -840,10 +840,10 @@ export default function AdminDashboardPage() {
                     Key Innovations & Regulatory Rigor
                   </h3>
                   <ul className="mt-3 space-y-2 text-xs text-slate-600 dark:text-neutral-300">
-                    <li>• <strong>Zero Hallucination:</strong> Direct lookup against 50,000+ indexed pharmaceutical items.</li>
-                    <li>• <strong>Multi-Carrier Vision:</strong> GS1 DataMatrix + packaging label OCR synchronization.</li>
-                    <li>• <strong>Mandatory Auth Gating:</strong> Clinical auditability compliance protecting data integrity.</li>
-                    <li>• <strong>Tamper Defense:</strong> Discrepancy flagging between physical packaging and national registries.</li>
+                    <li>• <strong>Evidence Grounding:</strong> Pre-retrieval pipeline cross-referencing structured medicine records.</li>
+                    <li>• <strong>Multi-Carrier Scanning:</strong> GS1 DataMatrix + barcode extraction directly in the browser.</li>
+                    <li>• <strong>Mandatory Auth Gating:</strong> User access auditability protecting platform safety.</li>
+                    <li>• <strong>Candidate Matching:</strong> Multi-source retrieval across DGDA-aligned records and openFDA.</li>
                   </ul>
                 </div>
               </div>

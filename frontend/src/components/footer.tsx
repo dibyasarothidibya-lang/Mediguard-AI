@@ -70,17 +70,17 @@ export function Footer() {
             </ul>
           </div>
 
-          {/* Col 3: Regulatory & Standards */}
+          {/* Col 3: Evidence Sources */}
           <div>
             <h4 className="text-xs font-semibold uppercase tracking-wider text-slate-900 dark:text-white">
-              Standards Synced
+              Evidence Sources
             </h4>
             <ul className="mt-4 space-y-2 text-xs text-slate-600 dark:text-neutral-400">
-              <li>GS1 DataMatrix & 2D Barcodes</li>
-              <li>DGDA Drug Administration Gazettes</li>
-              <li>US FDA National Drug Code (NDC)</li>
-              <li>NLM RxNorm Clinical Vocabulary</li>
-              <li>DailyMed Structured Product Labels</li>
+              <li>openFDA Drug Label API (Live)</li>
+              <li>DGDA-Aligned Local Catalogue</li>
+              <li>GS1 DataMatrix &amp; 2D Barcodes</li>
+              <li>Controlled Citation Integrity</li>
+              <li>Extensible Source Adapters</li>
             </ul>
           </div>
 

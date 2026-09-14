@@ -158,22 +158,21 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Live Sovereign Registry Sync Strip */}
+          {/* Multi-Source Registry & Evidence Status Strip */}
           <div className="mt-6 flex flex-wrap items-center justify-between gap-4 rounded-2xl border border-slate-200/80 bg-slate-50/70 p-4 backdrop-blur-md dark:border-neutral-800/80 dark:bg-neutral-900/60">
             <div className="flex items-center gap-3">
               <span className="flex size-2 rounded-full bg-emerald-500 animate-ping" />
               <span className="text-xs font-bold text-slate-800 dark:text-slate-200">
-                Sovereign Registry Telemetry Live
+                Evidence Pipeline Active
               </span>
               <span className="rounded-full bg-emerald-500/10 px-2.5 py-0.5 text-[10px] font-bold text-emerald-600 dark:bg-emerald-500/15 dark:text-emerald-400">
-                50,000+ Items Active
+                Multi-Source Retrieval
               </span>
             </div>
             <div className="flex flex-wrap items-center gap-4 text-xs font-semibold text-slate-500 dark:text-neutral-400">
-              <span className="flex items-center gap-1.5"><ShieldCheck className="size-3.5 text-indigo-500" /> DGDA Gazette</span>
-              <span className="flex items-center gap-1.5"><Database className="size-3.5 text-cyan-500" /> US FDA NDC</span>
-              <span className="flex items-center gap-1.5"><QrCode className="size-3.5 text-emerald-500" /> GS1 DataMatrix</span>
-              <span className="flex items-center gap-1.5"><CheckCircle2 className="size-3.5 text-indigo-500" /> RxNorm Synced</span>
+              <span className="flex items-center gap-1.5"><Database className="size-3.5 text-indigo-500" /> DGDA-Aligned Catalogue</span>
+              <span className="flex items-center gap-1.5"><ShieldCheck className="size-3.5 text-cyan-500" /> openFDA Live Connector</span>
+              <span className="flex items-center gap-1.5"><QrCode className="size-3.5 text-emerald-500" /> GS1 DataMatrix &amp; Barcode</span>
             </div>
           </div>
         </div>
@@ -189,12 +188,12 @@ export default function Home() {
                   Medication Safety Tools
                 </span>
                 <h2 className="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl lg:text-5xl dark:text-white">
-                  Engineered for Zero Dispensing Errors
+                  Built to Support Safer Medicine Verification
                 </h2>
               </div>
               <div className="lg:text-right">
                 <p className="text-base text-slate-600 dark:text-neutral-400">
-                  From high-speed barcode parsing to automated drug-drug interaction alerts, MediGuard equips you with clinical clarity.
+                  From barcode parsing to evidence-grounded medicine explanations, MediGuard provides structured support for medicine transparency.
                 </p>
                 <Link
                   href="/features"
@@ -251,10 +250,10 @@ export default function Home() {
                   <AlertTriangle className="size-6" />
                 </div>
                 <h3 className="mt-5 text-xl font-bold text-slate-900 dark:text-white">
-                  Batch & Expiry Mismatch Alert
+                  Packaging &amp; Label Verification
                 </h3>
                 <p className="mt-2 text-sm leading-relaxed text-slate-600 dark:text-neutral-400">
-                  Automatically compares printed typography with digital 2D barcode data to detect repackaged or relabeled expired pharmaceuticals.
+                  Cross-references packaging details, manufacturer names, and active ingredients against structured pharmaceutical records.
                 </p>
               </div>
 
@@ -264,10 +263,10 @@ export default function Home() {
                   <HeartPulse className="size-6" />
                 </div>
                 <h3 className="mt-5 text-xl font-bold text-slate-900 dark:text-white">
-                  Drug Interaction Matrix
+                  Active Ingredient &amp; Safety Guidance
                 </h3>
                 <p className="mt-2 text-sm leading-relaxed text-slate-600 dark:text-neutral-400">
-                  Queries RxNorm clinical intelligence to warn against dangerous contraindications, pregnancy risks, and active ingredient overlap.
+                  Retrieves official openFDA drug label warnings, contraindications, and active ingredient details to support informed review.
                 </p>
               </div>
 

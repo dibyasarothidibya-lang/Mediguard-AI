@@ -14,7 +14,7 @@ Instead of deploying an unconstrained chatbot that blindly forwards medical quer
 Classify Query → Extract Medicine Entities → Retrieve Trusted Evidence → Validate Source Records → Generate Grounded Interpretation → Attach Controlled Citations
 ```
 
-The system ensures that **evidence precedes generation**, preventing hallucinations and maintaining strict provenance over all retrieved pharmaceutical data.
+The system ensures that **evidence precedes generation**, reducing unsupported model outputs and maintaining strict provenance over all retrieved pharmaceutical data.
 
 ---
 
@@ -46,8 +46,8 @@ The platform retrieves structured medicine records from verified sources first, 
 
 ### 2. Multi-Tier Medicine Data Architecture
 * **Live openFDA Drug Label Connector**: Real-time integration with the openFDA Drug Label API for international pharmaceutical evidence, warnings, active ingredients, and indications.
-* **DGDA-Aligned Local Catalogue**: A normalized local database of over 50,000+ medicine entries aligned with Directorate General of Drug Administration (DGDA) generic classifications, dosage forms, and domestic manufacturers (imported and audited from structured pharmaceutical datasets).
-* **Extensible Trusted-Source Adapter Pipeline**: Modular architecture designed to incorporate additional national regulatory registries (e.g., DailyMed, WHO) without refactoring the AI orchestration core.
+* **DGDA-Aligned Local Catalogue**: A structured Bangladesh-focused medicine catalogue aligned with Directorate General of Drug Administration (DGDA) generic classifications, dosage forms, and domestic manufacturers (imported and audited from structured pharmaceutical datasets).
+* **Extensible Trusted-Source Adapter Pipeline**: Modular architecture designed to incorporate additional regulatory sources without refactoring the AI orchestration core.
 
 ### 3. Defensive API & Evidence Validation
 * **Strict Source Provenance**: Every piece of retrieved data retains source metadata, retrieval timestamps, official URLs, and listing status.
@@ -258,7 +258,7 @@ NEXT_PUBLIC_API_BASE_URL=http://127.0.0.1:8000
 | **Core Backend Architecture** | ✅ Complete | Modular Django REST Framework services |
 | **Authentication & Token Verification** | ✅ Complete | Firebase Admin SDK + Revoked Token Checking |
 | **openFDA Live Evidence Pipeline** | ✅ Complete | HTTPX connector with timeouts & schema checks |
-| **DGDA-Aligned Local Catalogue** | ✅ Complete | 50,000+ imported records with checksum validation |
+| **DGDA-Aligned Local Catalogue** | ✅ Complete | Structured local catalogue with checksum audit validation |
 | **Grounded AI Interpretation Layer** | ✅ Complete | Gemini 2.5 with controlled citation validation |
 | **Admin Cockpit & Audit Telemetry** | ✅ Complete | Role-gated at `/admin` with email whitelisting |
 | **Safety Terms Agreement Modal** | ✅ Complete | Mandatory login + popup gating on `/chat` |

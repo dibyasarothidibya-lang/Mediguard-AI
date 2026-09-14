@@ -100,10 +100,19 @@ export default function TermsDialog({
 
             <div className="pt-3">
               <h3 className="font-bold text-slate-900 dark:text-white text-xs sm:text-sm">
-                5. Use Entirely at Your Own Risk &amp; Limitation of Liability
+                5. User Responsibility &amp; Limitation of Liability
               </h3>
               <p className="text-xs text-slate-500 dark:text-neutral-400 mt-1">
-                The platform is provided on an &quot;AS IS&quot; and &quot;AS AVAILABLE&quot; basis. Users accept full sole responsibility for evaluating information. The student developer disclaims all liability for health outcomes or decisions made based on automated outputs.
+                The platform is provided on an &quot;AS IS&quot; and &quot;AS AVAILABLE&quot; basis for educational evaluation. Users assume sole responsibility for independently verifying all medical information with licensed clinicians. The developer disclaims all liability for clinical outcomes or decisions made based on automated outputs.
+              </p>
+            </div>
+
+            <div className="pt-3">
+              <h3 className="font-bold text-slate-900 dark:text-white text-xs sm:text-sm">
+                6. Query Logging &amp; Academic Research Disclosure
+              </h3>
+              <p className="text-xs text-slate-500 dark:text-neutral-400 mt-1">
+                To support academic research, security auditing, debugging, and service improvements, submitted search queries and interactions may be recorded. Search data is maintained strictly for research and platform safety, and is never sold to commercial third parties. See Section 24 of the full terms.
               </p>
             </div>
           </div>

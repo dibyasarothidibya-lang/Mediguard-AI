@@ -8,62 +8,60 @@ import {
   ArrowRight,
   CheckCircle2,
   Sparkles,
-  Layers,
-  FileSearch,
 } from "lucide-react";
 import Link from "next/link";
 
 const PIPELINE_STAGES = [
   {
     step: "01",
-    name: "Capture & Preprocessing",
+    name: "Input & Barcode Decoding",
     icon: Camera,
-    subtitle: "Perspective correction & Dual-ROI segmentation",
+    subtitle: "Manual packaging input & optical barcode capture",
     description:
-      "The user captures packaging via camera or uploaded image. Edge-detection algorithms isolate the packaging plane, correcting skew, perspective distortion, and blister-pack flash glare. The frame is segmented into two parallel processing streams: 2D data carrier zone (GS1 DataMatrix / Barcode) and typography zone (printed text).",
+      "Users submit medicine queries via conversation or scan packaging labels using their camera. The browser-based scanner decodes standard GS1 DataMatrix codes, QR codes, and linear barcodes to extract product identifiers, lot numbers, and expiry strings without sending video streams to external servers.",
     details: [
-      "Sub-50ms edge detection & plane isolation",
-      "Adaptive contrast & glare suppression on foil blister packs",
-      "Dual-ROI splitting for concurrent parallel processing",
+      "Client-side optical barcode & DataMatrix decoding",
+      "Extraction of GTIN, lot/batch, and expiry strings",
+      "Accessible browser camera capture or manual text input",
     ],
   },
   {
     step: "02",
-    name: "Optical Extraction & Carrier Parsing",
+    name: "Domain Guardrails & Entity Classification",
     icon: Cpu,
-    subtitle: "GS1 AI syntax parsing & typography OCR",
+    subtitle: "Request validation & medicine entity extraction",
     description:
-      "A high-speed 2D decoder parses standard GS1 Application Identifiers: GTIN (01), Serial Number (21), Expiration Date (17), and Batch / Lot (10). In parallel, an optical character recognition (OCR) engine extracts printed brand names, active molecules, dosage strengths (e.g. 500mg), and DAR regulatory codes.",
+      "The backend evaluates incoming requests to verify they fall within supported pharmaceutical information boundaries. The system identifies brand names, active generic compounds, and dosage forms while refusing out-of-scope non-medical queries or clinical diagnosis requests.",
     details: [
-      "GS1-128 and GS1 DataMatrix standard compliance",
-      "Optical character recognition tuned for medical typography",
-      "Normalization of brand and generic molecule names",
+      "Domain safety classifier prevents unsupported requests",
+      "Identification of brand, generic, and strength entities",
+      "Controlled fallback for requests requiring clinical doctors",
     ],
   },
   {
     step: "03",
-    name: "Multi-Vector Cross-Verification",
+    name: "Multi-Source Evidence Coordination",
     icon: Database,
-    subtitle: "Internal consistency, registry check & duplicate velocity",
+    subtitle: "DGDA-aligned catalogue & live openFDA queries",
     description:
-      "The extracted data passes through three rigorous validation layers: (1) Internal Consistency: confirms printed batch and expiry match the digital 2D barcode payload; (2) Regulatory Sync: queries the DGDA Gazette and US FDA NDC Directory; (3) Velocity Analysis: flags duplicate serial scans across conflicting geographic vectors.",
+      "The Evidence Coordinator queries two complementary pharmaceutical repositories: the DGDA-aligned local catalogue for domestic market records and the live openFDA API for official drug labels. All retrieved records are treated as candidate references, never as definitive proof of physical medicine authenticity.",
     details: [
-      "Physical vs digital mismatch detection (catches relabeled expired stock)",
-      "Live DGDA & FDA National Drug Code validation",
-      "Serial anomaly flagging for suspected counterfeit clones",
+      "Structured DGDA-aligned local catalogue lookup",
+      "Live openFDA Drug Label API connector",
+      "Candidate match status (no physical authenticity claims)",
     ],
   },
   {
     step: "04",
-    name: "Clinical Intelligence & Actionable Verdict",
+    name: "Evidence-Grounded Interpretation",
     icon: ShieldCheck,
-    subtitle: "RxNorm mapping, patient guidance & incident reporting",
+    subtitle: "Strict prompt contracts & verified citation references",
     description:
-      "Once verified, the engine maps the active molecules via NLM RxNorm and openFDA endpoints. It delivers a consolidated status HUD: Authenticity Status (Authentic, Tampered, or Expired), plain-language dosage instructions, boxed warnings, food/drug interactions, and an immediate incident reporting pathway.",
+      "Retrieved records are assembled into a structured prompt contract. Google Gemini summarizes active ingredients, indications, and general precautions based strictly on the retrieved evidence. Every citation is validated by the backend before the response is delivered.",
     details: [
-      "Clear status HUD: Authentic, Unverified, or Suspicious",
-      "Drug-drug interactions and critical boxed warnings",
-      "One-click incident submission for regulatory review",
+      "Evidence-first assembly reduces unsupported AI claims",
+      "Server-minted citation validation & arbitrary link filtering",
+      "Mandatory clinical consultation disclaimers on every output",
     ],
   },
 ];
@@ -78,19 +76,19 @@ export default function HowItWorks() {
           {/* Header */}
           <div className="text-center">
             <span className="inline-flex items-center gap-1.5 rounded-full bg-indigo-50 px-3.5 py-1 text-xs font-semibold text-indigo-600 dark:bg-indigo-950/50 dark:text-indigo-400">
-              <Sparkles className="size-3.5" /> Optical & Clinical Pipeline
+              <Sparkles className="size-3.5" /> Optical &amp; Evidence Pipeline
             </span>
             <h1 className="mt-4 text-4xl font-extrabold tracking-tight sm:text-5xl lg:text-6xl">
               How MediGuard AI Works
             </h1>
             <p className="mx-auto mt-4 max-w-2xl text-base text-slate-600 sm:text-lg dark:text-neutral-400">
-              Explore the 4-stage optical and clinical verification architecture engineered to ensure every medicine you evaluate is authentic, verified, and safe.
+              Explore the 4-stage evidence-grounded architecture built to evaluate queries, cross-reference trusted records, and deliver verified medicine insights.
             </p>
           </div>
 
           {/* 4 Pipeline Stages */}
           <div className="mt-16 space-y-8">
-            {PIPELINE_STAGES.map((stage, idx) => {
+            {PIPELINE_STAGES.map((stage) => {
               const Icon = stage.icon;
               return (
                 <div
@@ -149,7 +147,7 @@ export default function HowItWorks() {
               Try the AI Assistant on your medicines
             </h2>
             <p className="mx-auto mt-2 max-w-xl text-sm text-slate-300 sm:text-base">
-              Identify packaging labels, check potential drug interactions, and get clear plain-language guidance.
+              Identify packaging labels, search active ingredients, and get clear plain-language guidance.
             </p>
             <div className="mt-8 flex justify-center gap-4">
               <Link

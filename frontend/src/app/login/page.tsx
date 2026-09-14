@@ -374,11 +374,11 @@ function AuthContent() {
                         MacBook Pro · Web Console
                       </span>
                       <span className="rounded-full bg-emerald-500/10 px-2 py-0.5 text-[9.5px] font-bold text-emerald-600 dark:bg-emerald-500/15 dark:text-emerald-400">
-                        ● DGDA Live Handshake
+                        Multi-Source Pipeline
                       </span>
                     </div>
                     <p className="mt-1 text-[11px] text-slate-500 dark:text-neutral-400 leading-snug">
-                      Ultra-wide clinical cockpit with 50,000+ indexed pharmaceutical items and zero-hallucination verification.
+                      Responsive web console with indexed pharmaceutical records and evidence-grounded AI explanations.
                     </p>
                   </div>
                 </div>
@@ -398,14 +398,14 @@ function AuthContent() {
                     <div className="flex items-center justify-between">
                       <span className="text-xs font-bold text-slate-900 dark:text-white flex items-center gap-1.5">
                         <Tablet className="size-3.5 text-cyan-600 dark:text-cyan-400" />
-                        iPad Pro · Clinical Field Station
+                        iPad Pro · Tablet Interface
                       </span>
                       <span className="rounded-full bg-indigo-500/10 px-2 py-0.5 text-[9.5px] font-bold text-indigo-600 dark:bg-indigo-500/15 dark:text-indigo-400">
-                        Hospital Ward Ready
+                        Responsive Layout
                       </span>
                     </div>
                     <p className="mt-1 text-[11px] text-slate-500 dark:text-neutral-400 leading-snug">
-                      Mobile hospital cart and nursing station view with fast RxNorm contraindication lookups and touch controls.
+                      Touch-friendly interface with fast medicine lookups, detailed summaries, and accessible packaging reference tools.
                     </p>
                   </div>
                 </div>
@@ -425,14 +425,14 @@ function AuthContent() {
                     <div className="flex items-center justify-between">
                       <span className="text-xs font-bold text-slate-900 dark:text-white flex items-center gap-1.5">
                         <Smartphone className="size-3.5 text-emerald-600 dark:text-emerald-400" />
-                        iPhone 16 Pro · Pocket Optical Lens
+                        iPhone 16 Pro · Pocket Scanner
                       </span>
                       <span className="rounded-full bg-emerald-500/10 px-2 py-0.5 text-[9.5px] font-bold text-emerald-600 dark:bg-emerald-500/15 dark:text-emerald-400">
-                        &lt; 50ms Capture
+                        Camera Scanner
                       </span>
                     </div>
                     <p className="mt-1 text-[11px] text-slate-500 dark:text-neutral-400 leading-snug">
-                      Hardware-accelerated 2D DataMatrix scanning with foil glare mitigation and immediate tamper alerts.
+                      Fast browser-based 2D DataMatrix and barcode scanning to extract GTIN, lot, and expiry details directly from packaging.
                     </p>
                   </div>
                 </div>
