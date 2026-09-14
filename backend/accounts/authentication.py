@@ -40,11 +40,23 @@ def get_verified_firebase_claims(request):
         raise AuthenticationServiceUnavailable() from exc
 
 
-def get_or_create_local_user(firebase_uid):
+def get_or_create_local_user(firebase_uid, claims=None):
     profiles = UserProfile.objects.select_related("user")
     profile = profiles.filter(firebase_uid=firebase_uid).first()
 
+    email = claims.get("email", "") if isinstance(claims, dict) else ""
+    name = claims.get("name", "") if isinstance(claims, dict) else ""
+
     if profile is not None:
+        needs_save = False
+        if email and profile.email != email:
+            profile.email = email
+            needs_save = True
+        if name and profile.display_name != name:
+            profile.display_name = name
+            needs_save = True
+        if needs_save:
+            profile.save(update_fields=["email", "display_name", "last_active_at"])
         return profile.user
 
     try:
@@ -52,11 +64,14 @@ def get_or_create_local_user(firebase_uid):
             user = get_user_model().objects.create_user(
                 username=f"firebase_{uuid4().hex}",
                 password=None,
+                email=email or "",
             )
 
             UserProfile.objects.create(
                 user=user,
                 firebase_uid=firebase_uid,
+                email=email,
+                display_name=name,
             )
 
         return user
@@ -85,7 +100,7 @@ class FirebaseAuthentication(BaseAuthentication):
         if not isinstance(uid, str) or not uid or len(uid) > 128:
             raise AuthenticationFailed("Verified token has no valid user ID.")
 
-        user = get_or_create_local_user(uid)
+        user = get_or_create_local_user(uid, claims=claims)
 
         if not user.is_active:
             raise AuthenticationFailed("This account is disabled.")

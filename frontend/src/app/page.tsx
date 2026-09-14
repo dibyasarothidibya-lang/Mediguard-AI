@@ -1,589 +1,329 @@
-// MEDIGUARD AI LANDING PAGE
-
-import ThemeToggle from "./components/theme-toggle";
+import { Navbar } from "@/components/navbar";
+import { Footer } from "@/components/footer";
+import Link from "next/link";
+import {
+  ShieldCheck,
+  QrCode,
+  ScanText,
+  Database,
+  HeartPulse,
+  ArrowRight,
+  Sparkles,
+  CheckCircle2,
+  AlertTriangle,
+  FileCheck,
+  Zap,
+} from "lucide-react";
 
 export default function Home() {
   return (
-    <>
-      <header
-        id="_header_centered_logo_h2_001"
-        className="relative bg-white/80 backdrop-blur-2xl dark:bg-neutral-950/80"
-      >
+    <div className="flex min-h-screen flex-col bg-white text-slate-900 dark:bg-neutral-950 dark:text-white">
+      <Navbar />
+
+      {/* Hero Section */}
+      <section className="relative overflow-hidden pt-10 pb-8 sm:pt-14 sm:pb-10">
+        {/* Soothing Ambient Breathing Glows */}
+        <div className="pointer-events-none absolute -top-40 left-1/3 -z-10 h-96 w-96 -translate-x-1/2 rounded-full bg-indigo-500/10 blur-3xl dark:bg-indigo-500/20 animate-relaxing-breathe" />
+        <div className="pointer-events-none absolute top-1/3 -right-20 -z-10 size-80 rounded-full bg-cyan-400/10 blur-3xl dark:bg-cyan-500/10 animate-relaxing-breathe" />
+
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="grid h-20 grid-cols-3 items-center">
-            <nav
-              data-motion="nav-left"
-              className="hidden items-center justify-start gap-8 lg:flex"
-            >
-              <a
-                href="/features"
-                className="text-sm font-medium text-slate-600 transition-colors hover:text-slate-900 dark:text-neutral-400 dark:hover:text-white"
-              >
-                Features
-              </a>
-              <a
-                href="/howitworks"
-                className="text-sm font-medium text-slate-600 transition-colors hover:text-slate-900 dark:text-neutral-400 dark:hover:text-white"
-              >
-                How It Works
-              </a>
-              <a
-                href="about"
-                className="text-sm font-medium text-slate-600 transition-colors hover:text-slate-900 dark:text-neutral-400 dark:hover:text-white"
-              >
-                About
-              </a>
-            </nav>
+          <div className="grid gap-6 lg:grid-cols-3">
+            {/* Left Hero Main Card */}
+            <div className="flex flex-col justify-between rounded-3xl bg-indigo-50/70 p-8 sm:p-12 lg:col-span-2 dark:bg-indigo-950/30 dark:border dark:border-indigo-900/40">
+              <div>
+                <span className="mb-6 inline-flex items-center gap-2 rounded-full bg-indigo-100/80 px-3.5 py-1.5 text-xs font-semibold tracking-wide text-indigo-700 uppercase dark:bg-indigo-900/50 dark:text-indigo-300">
+                  <span className="size-2 rounded-full bg-indigo-500 animate-pulse" />
+                  AI PHARMA SAFETY PLATFORM
+                </span>
 
-            <a
-              data-motion="logo"
-              href="#"
-              className="flex items-center justify-center"
-            >
-              <img
-              src="mediguard_blank.png"
-              alt="MediGuard AI"
-              className="h-9 w-auto sm:h-10 md:h-12 lg:h-14"
-            />
-            </a>
+                <h1 className="mb-6 text-4xl font-extrabold leading-[1.1] tracking-tight sm:text-5xl lg:text-6xl">
+                  <span>Verify Your Medicines.</span>
+                  <br />
+                  <span className="bg-gradient-to-r from-indigo-600 via-indigo-500 to-cyan-500 bg-clip-text text-transparent dark:from-indigo-400 dark:via-indigo-300 dark:to-cyan-400">
+                    Stay Safer Every Day.
+                  </span>
+                </h1>
 
-            <div
-              data-motion="actions"
-              className="flex items-center justify-end gap-3"
-            >
-              <ThemeToggle />
+                <p className="mb-8 max-w-xl text-base leading-relaxed text-slate-600 sm:text-lg dark:text-neutral-400">
+                  Multi-source verification combining GS1 DataMatrix decoding, packaging label OCR, and direct synchronization with national drug registries to protect against counterfeit or expired medications.
+                </p>
+              </div>
 
-              <a
-                href="login"
-                className="hidden h-10 items-center gap-2 rounded-xl bg-linear-to-r from-indigo-500 to-indigo-600 px-5 text-sm font-semibold text-white transition-all duration-300 hover:shadow-lg hover:shadow-indigo-500/25 sm:flex"
-              >
-                Get Started
-                <svg
-                  className="h-4 w-4"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
+              <div className="flex flex-wrap items-center gap-4">
+                <Link
+                  href="/chat"
+                  className="group relative inline-flex items-center gap-2 overflow-hidden rounded-full bg-indigo-600 px-6 py-3.5 text-sm font-semibold text-white shadow-lg shadow-indigo-500/25 transition-all duration-300 hover:scale-[1.03] hover:bg-indigo-500 hover:shadow-indigo-500/40 active:scale-95"
                 >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M17 8l4 4m0 0l-4 4m4-4H3"
-                  />
-                </svg>
-              </a>
+                  <span className="pointer-events-none absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/20 to-transparent transition-transform duration-700 ease-out group-hover:translate-x-full" />
+                  <Sparkles className="size-4 text-cyan-300 transition-transform duration-300 group-hover:rotate-12 group-hover:scale-110" />
+                  <span>Open AI Assistant</span>
+                  <ArrowRight className="size-4 transition-transform duration-300 group-hover:translate-x-1" />
+                </Link>
+                <Link
+                  href="/howitworks"
+                  className="inline-flex items-center gap-2 rounded-full border border-slate-300 bg-white/80 px-6 py-3.5 text-sm font-semibold text-slate-700 backdrop-blur-sm transition-all duration-200 hover:scale-[1.02] hover:border-indigo-500 hover:text-indigo-600 hover:shadow-xs active:scale-95 dark:border-neutral-800 dark:bg-neutral-900/80 dark:text-neutral-300 dark:hover:border-indigo-400 dark:hover:text-indigo-400"
+                >
+                  See How It Works
+                </Link>
+              </div>
+            </div>
+
+            {/* Right Metric Card */}
+            <div className="relative flex flex-col justify-between overflow-hidden rounded-3xl border border-slate-200/80 bg-white/80 p-6 sm:p-7 shadow-xl shadow-slate-900/5 backdrop-blur-xl dark:border-neutral-800/90 dark:bg-neutral-900/80">
+              {/* Subtle Ambient Glow */}
+              <div className="pointer-events-none absolute -top-12 -right-12 size-44 rounded-full bg-indigo-500/10 blur-2xl dark:bg-indigo-500/15" />
+
+              <div className="relative z-10 space-y-3.5">
+                {/* Telemetry Header */}
+                <div className="flex items-center justify-between pb-1">
+                  <span className="text-[11px] font-bold tracking-wider text-slate-400 uppercase dark:text-neutral-500">
+                    Platform Telemetry
+                  </span>
+                  <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-500/10 px-2.5 py-0.5 text-[10px] font-semibold text-emerald-600 dark:bg-emerald-500/15 dark:text-emerald-400">
+                    <span className="size-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                    Live Audited
+                  </span>
+                </div>
+
+                {/* Metric 1: Multi-Source Registry Coverage */}
+                <div className="group rounded-2xl border border-slate-100 bg-slate-50/70 p-4 transition-all duration-200 hover:border-indigo-200 hover:bg-white hover:shadow-xs dark:border-neutral-800/80 dark:bg-neutral-850/60 dark:hover:border-indigo-500/30 dark:hover:bg-neutral-800/70">
+                  <div className="flex items-start justify-between">
+                    <div>
+                      <div className="text-xl font-black tracking-tight text-slate-900 sm:text-2xl dark:text-white">
+                        MULTI-SOURCE
+                      </div>
+                      <div className="text-xs font-bold uppercase tracking-wider text-indigo-600 dark:text-indigo-400">
+                        Registry Coverage
+                      </div>
+                      <p className="mt-1.5 text-xs font-medium text-slate-600 dark:text-neutral-400 leading-snug">
+                        DGDA-aligned local medicine records<br />and openFDA public datasets
+                      </p>
+                    </div>
+                    <div className="flex size-9 shrink-0 items-center justify-center rounded-xl bg-indigo-50 text-indigo-600 transition-transform duration-200 group-hover:scale-110 dark:bg-indigo-950/80 dark:text-indigo-400">
+                      <Database className="size-4.5" />
+                    </div>
+                  </div>
+                </div>
+
+                {/* Metric 2: Fast Lookup */}
+                <div className="group rounded-2xl border border-slate-100 bg-slate-50/70 p-4 transition-all duration-200 hover:border-cyan-200 hover:bg-white hover:shadow-xs dark:border-neutral-800/80 dark:bg-neutral-850/60 dark:hover:border-cyan-500/30 dark:hover:bg-neutral-800/70">
+                  <div className="flex items-start justify-between">
+                    <div>
+                      <div className="text-xl font-black tracking-tight text-slate-900 sm:text-2xl dark:text-white">
+                        FAST LOOKUP
+                      </div>
+                      <p className="mt-1.5 text-xs font-medium text-slate-600 dark:text-neutral-400 leading-snug">
+                        Optimized medicine search,<br />matching, and registry retrieval
+                      </p>
+                    </div>
+                    <div className="flex size-9 shrink-0 items-center justify-center rounded-xl bg-cyan-50 text-cyan-600 transition-transform duration-200 group-hover:scale-110 dark:bg-cyan-950/80 dark:text-cyan-400">
+                      <Zap className="size-4.5" />
+                    </div>
+                  </div>
+                </div>
+
+                {/* Metric 3: 3-TIER */}
+                <div className="group rounded-2xl border border-slate-100 bg-slate-50/70 p-4 transition-all duration-200 hover:border-emerald-200 hover:bg-white hover:shadow-xs dark:border-neutral-800/80 dark:bg-neutral-850/60 dark:hover:border-emerald-500/30 dark:hover:bg-neutral-800/70">
+                  <div className="flex items-start justify-between">
+                    <div>
+                      <div className="text-xl font-black tracking-tight text-slate-900 sm:text-2xl dark:text-white">
+                        3-TIER
+                      </div>
+                      <p className="mt-1.5 text-xs font-medium text-slate-600 dark:text-neutral-400 leading-snug">
+                        Medicine information, packaging analysis,<br />and registry-based verification
+                      </p>
+                    </div>
+                    <div className="flex size-9 shrink-0 items-center justify-center rounded-xl bg-emerald-50 text-emerald-600 transition-transform duration-200 group-hover:scale-110 dark:bg-emerald-950/80 dark:text-emerald-400">
+                      <ShieldCheck className="size-4.5" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Evidence-Grounded AI Disclaimer */}
+              <div className="relative z-10 mt-4 rounded-2xl border border-indigo-100/80 bg-indigo-50/60 p-3.5 text-xs text-indigo-950 dark:border-indigo-900/50 dark:bg-indigo-950/40 dark:text-indigo-300">
+                <div className="flex items-start gap-2.5">
+                  <Sparkles className="size-4 text-indigo-600 shrink-0 mt-0.5 dark:text-indigo-400" />
+                  <div className="leading-relaxed">
+                    <p>
+                      <strong className="font-semibold text-slate-900 dark:text-white">Evidence-Grounded AI:</strong>{" "}
+                      Responses use retrieved medicine records and trusted source data where available.
+                    </p>
+                    <p className="mt-1 text-[11px] font-medium text-slate-600 dark:text-neutral-400">
+                      Automated outputs may still be incorrect.
+                    </p>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
-        </div>
 
-        <div className="h-px bg-linear-to-r from-transparent via-indigo-500/50 to-transparent" />
-      </header>
-
-      <section
-        id="_hero_project_management_v6_001"
-        className="bg-white py-20 sm:py-24 dark:bg-neutral-950"
-      >
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="grid gap-5 lg:grid-cols-3">
-            <div
-              data-motion="hero"
-              className="rounded-3xl bg-indigo-50 p-8 lg:col-span-2 lg:p-12 dark:bg-indigo-950/30"
-            >
-              <span
-                data-motion="badge"
-                className="mb-6 inline-flex items-center gap-2 text-sm font-semibold tracking-wide text-indigo-600 uppercase dark:text-indigo-400"
-              >
-                <span className="h-1.5 w-1.5 rounded-full bg-indigo-500" />
-                AI HEALTHCARE
+          {/* Live Sovereign Registry Sync Strip */}
+          <div className="mt-6 flex flex-wrap items-center justify-between gap-4 rounded-2xl border border-slate-200/80 bg-slate-50/70 p-4 backdrop-blur-md dark:border-neutral-800/80 dark:bg-neutral-900/60">
+            <div className="flex items-center gap-3">
+              <span className="flex size-2 rounded-full bg-emerald-500 animate-ping" />
+              <span className="text-xs font-bold text-slate-800 dark:text-slate-200">
+                Sovereign Registry Telemetry Live
               </span>
-
-              <h1 className="mb-6 text-4xl leading-[1.1] font-bold text-slate-900 sm:text-5xl dark:text-white">
-                <span data-animate="heading">Understand Your Medicines</span>
-                <span
-                  data-animate="heading"
-                  className="text-indigo-600 dark:text-indigo-400"
-                >
-                  {" "}Stay Safer Every Day
-                </span>
-              </h1>
-
-              <p
-                data-animate="text"
-                className="mb-8 max-w-lg text-lg text-slate-600 dark:text-neutral-400"
-              >
-                Track tasks, collaborate with your team, and hit every deadline.
-                The modern project management tool built for speed.
-              </p>
-
-              <div className="flex flex-wrap gap-4">
-                <a
-                  data-motion="button"
-                  href="login"
-                  className="inline-flex items-center gap-2 rounded-full bg-indigo-600 px-6 py-3 font-semibold text-white transition-colors hover:bg-indigo-700"
-                >
-                  Start Here
-                  <svg
-                    className="h-4 w-4"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      d="M17 8l4 4m0 0l-4 4m4-4H3"
-                    />
-                  </svg>
-                </a>
-                <a
-                  data-motion="button"
-                  href="/features"
-                  className="inline-flex items-center gap-2 font-semibold text-indigo-600 transition-all duration-300 hover:gap-3 dark:text-indigo-400"
-                >
-                  Check Features
-                  <svg
-                    className="h-5 w-5"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      d="M17 8l4 4m0 0l-4 4m4-4H3"
-                    />
-                  </svg>
-                </a>
-              </div>
+              <span className="rounded-full bg-emerald-500/10 px-2.5 py-0.5 text-[10px] font-bold text-emerald-600 dark:bg-emerald-500/15 dark:text-emerald-400">
+                50,000+ Items Active
+              </span>
             </div>
-
-            <div
-              data-motion="card"
-              className="flex flex-col justify-center rounded-3xl bg-slate-50 p-8 dark:bg-neutral-900"
-            >
-              <div className="space-y-6">
-                <div>
-                  <span className="block text-4xl font-bold text-slate-900 dark:text-white">
-                    12
-                  </span>
-                  <span className="text-sm text-slate-500 dark:text-neutral-400">
-                    Your medicine searches today
-                  </span>
-                </div>
-                <div className="h-px w-full bg-slate-200 dark:bg-neutral-800" />
-                <div>
-                  <span className="block text-4xl font-bold text-indigo-600 dark:text-indigo-400">
-                    98%
-                  </span>
-                  <span className="text-sm text-slate-500 dark:text-neutral-400">
-                    Medicines
-                  </span>
-                </div>
-              </div>
-            </div>
-
-            <div
-              data-motion="image"
-              className="aspect-video overflow-hidden rounded-3xl lg:col-span-2"
-            >
-              <img
-                data-motion="image"
-                src="https://images.unsplash.com/photo-1659353888906-adb3e0041693?ixid=M3wzOTQxMzN8MHwxfHNlYXJjaHwxfHxtZWRpY2FsJTIwZG9jdG9yJTIwaGVhbHRoY2FyZSUyMHNwYXxlbnwxfDB8fHwxNzY5MzE5MjI0fDA&ixlib=rb-4.1.0&w=1200&auto=format&fit=crop&q=80"
-                alt="Project dashboard"
-                className="h-full w-full object-cover"
-              />
-            </div>
-
-            <div
-              data-motion="card"
-              className="rounded-3xl bg-slate-50 p-6 dark:bg-neutral-900"
-            >
-              <p className="mb-4 text-sm text-slate-500 dark:text-neutral-400">
-                Users
-              </p>
-              <div className="mb-4 flex -space-x-2">
-                <img
-                  data-motion="avatar"
-                  src="https://images.unsplash.com/photo-1659353888818-0e41520d086a?ixid=M3wzOTQxMzN8MHwxfHNlYXJjaHwyfHxtZWRpY2FsJTIwZG9jdG9yJTIwaGVhbHRoY2FyZSUyMHNwYXxlbnwxfDB8fHwxNzY5MzE5MjI0fDA&ixlib=rb-4.1.0&w=1200&auto=format&fit=crop&q=80"
-                  alt="Team member"
-                  className="h-10 w-10 rounded-full border-2 border-white object-cover dark:border-neutral-900"
-                />
-                <img
-                  data-motion="avatar"
-                  src="https://images.unsplash.com/photo-1659353887488-b3c443982a57?ixid=M3wzOTQxMzN8MHwxfHNlYXJjaHwzfHxtZWRpY2FsJTIwZG9jdG9yJTIwaGVhbHRoY2FyZSUyMHNwYXxlbnwxfDB8fHwxNzY5MzE5MjI0fDA&ixlib=rb-4.1.0&w=1200&auto=format&fit=crop&q=80"
-                  alt="Team member"
-                  className="h-10 w-10 rounded-full border-2 border-white object-cover dark:border-neutral-900"
-                />
-                <img
-                  data-motion="avatar"
-                  src="https://images.unsplash.com/photo-1659353885824-1199aeeebfc6?ixid=M3wzOTQxMzN8MHwxfHNlYXJjaHw0fHxtZWRpY2FsJTIwZG9jdG9yJTIwaGVhbHRoY2FyZSUyMHNwYXxlbnwxfDB8fHwxNzY5MzE5MjI0fDA&ixlib=rb-4.1.0&w=1200&auto=format&fit=crop&q=80"
-                  alt="User"
-                  className="h-10 w-10 rounded-full border-2 border-white object-cover dark:border-neutral-900"
-                />
-                <div className="flex h-10 w-10 items-center justify-center rounded-full border-2 border-white bg-indigo-100 dark:border-neutral-900 dark:bg-indigo-900/30">
-                  <span
-                    data-motion="badge"
-                    className="text-xs font-semibold text-indigo-600 dark:text-indigo-400"
-                  >
-                    +5
-                  </span>
-                </div>
-              </div>
-              <p className="font-semibold text-slate-900 dark:text-white">
-                8 members online
-              </p>
-              <p className="text-sm text-slate-500 dark:text-neutral-400">
-                Collaborating now
-              </p>
+            <div className="flex flex-wrap items-center gap-4 text-xs font-semibold text-slate-500 dark:text-neutral-400">
+              <span className="flex items-center gap-1.5"><ShieldCheck className="size-3.5 text-indigo-500" /> DGDA Gazette</span>
+              <span className="flex items-center gap-1.5"><Database className="size-3.5 text-cyan-500" /> US FDA NDC</span>
+              <span className="flex items-center gap-1.5"><QrCode className="size-3.5 text-emerald-500" /> GS1 DataMatrix</span>
+              <span className="flex items-center gap-1.5"><CheckCircle2 className="size-3.5 text-indigo-500" /> RxNorm Synced</span>
             </div>
           </div>
         </div>
       </section>
 
-
-      <section
-        id="_features_colorful_cards_v6_001"
-        className="bg-white py-20 sm:py-24 dark:bg-neutral-950"
-      >
+      {/* Features Overview Section */}
+      <section className="bg-slate-50/50 py-14 sm:py-18 dark:bg-neutral-900/40">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col gap-16">
-            <div className="grid items-end gap-12 lg:grid-cols-2">
-              <div data-motion="hero">
-                <span
-                  data-motion="badge"
-                  className="mb-4 block text-sm font-semibold tracking-wide text-indigo-600 uppercase dark:text-indigo-400"
-                >
+            <div className="grid items-end gap-8 lg:grid-cols-2">
+              <div>
+                <span className="mb-3 inline-flex items-center gap-1.5 text-xs font-semibold tracking-wider text-indigo-600 uppercase dark:text-indigo-400">
                   Medication Safety Tools
                 </span>
-                <h2
-                  data-animate="heading"
-                  className="text-4xl leading-tight font-bold text-slate-900 sm:text-5xl lg:text-6xl dark:text-white"
-                >
-                  Built for Safer Medication Use
+                <h2 className="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl lg:text-5xl dark:text-white">
+                  Engineered for Zero Dispensing Errors
                 </h2>
               </div>
-
-              <div data-motion="card" className="lg:text-right">
-                <p
-                  data-animate="text"
-                  className="mb-6 text-lg text-slate-600 dark:text-neutral-400"
-                >
-                  Streamline your daily workflow with intelligent tools designed
-                  to boost productivity and keep your team aligned.
+              <div className="lg:text-right">
+                <p className="text-base text-slate-600 dark:text-neutral-400">
+                  From high-speed barcode parsing to automated drug-drug interaction alerts, MediGuard equips you with clinical clarity.
                 </p>
-                <a
-                  data-motion="button"
+                <Link
                   href="/features"
-                  className="inline-flex items-center gap-2 rounded-full bg-indigo-600 px-6 py-3 font-semibold text-white transition-colors hover:bg-indigo-700"
+                  className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-indigo-600 hover:text-indigo-700 dark:text-indigo-400"
                 >
-                  Explore Features
-                  <svg
-                    className="h-4 w-4"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      d="M17 8l4 4m0 0l-4 4m4-4H3"
-                    />
-                  </svg>
-                </a>
+                  View full feature specifications <ArrowRight className="size-4" />
+                </Link>
               </div>
             </div>
 
-            <div className="grid gap-6 lg:grid-cols-12">
-              <div
-                data-motion="card"
-                className="flex flex-col gap-6 rounded-3xl bg-indigo-50 p-8 lg:col-span-5 dark:bg-indigo-900/20"
-              >
-                <div
-                  data-motion="icon"
-                  className="flex h-14 w-14 items-center justify-center rounded-2xl bg-white dark:bg-neutral-800"
-                >
-                  <svg
-                    className="h-7 w-7 text-indigo-600 dark:text-indigo-400"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="1.5"
-                      d="M9 12h3.75M9 15h3.75M9 18h3.75m3 .75H18a2.25 2.25 0 0 0 2.25-2.25V6.108c0-1.135-.845-2.098-1.976-2.192a48.424 48.424 0 0 0-1.123-.08m-5.801 0c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 0 0 .75-.75 2.25 2.25 0 0 0-.1-.664m-5.8 0A2.251 2.251 0 0 1 13.5 2.25H15c1.012 0 1.867.668 2.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V8.25m0 0H4.875c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V9.375c0-.621-.504-1.125-1.125-1.125H8.25ZM6.75 12h.008v.008H6.75V12Zm0 3h.008v.008H6.75V15Zm0 3h.008v.008H6.75V18Z"
-                    />
-                  </svg>
+            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+              {/* Feature 1 */}
+              <div className="group lucid-card-hover rounded-3xl border border-slate-200/80 bg-white p-8 shadow-xs hover:border-indigo-500/40 hover:shadow-xl hover:shadow-indigo-500/5 dark:border-neutral-800 dark:bg-neutral-900">
+                <div className="flex size-12 items-center justify-center rounded-2xl bg-indigo-100 text-indigo-600 transition-transform duration-300 group-hover:scale-110 group-hover:-rotate-3 dark:bg-indigo-950 dark:text-indigo-400">
+                  <QrCode className="size-6" />
                 </div>
-                <div>
-                  <h3 className="mb-3 text-2xl font-bold text-slate-900 dark:text-white">
-                    Drug Interaction Checker
-                  </h3>
-                  <p className="leading-relaxed text-slate-600 dark:text-neutral-400">
-                    Organize projects with intuitive boards, smart prioritization,
-                    and automated workflows that adapt to your team&apos;s needs.
-                  </p>
-                </div>
-                <div className="mt-auto flex items-center gap-4 pt-4">
-                  <span className="text-3xl font-bold text-indigo-600 dark:text-indigo-400">
-                    2.5x
-                  </span>
-                  <span className="text-sm text-slate-600 dark:text-neutral-400">
-                    faster project delivery
-                  </span>
-                </div>
+                <h3 className="mt-5 text-xl font-bold text-slate-900 dark:text-white">
+                  GS1 DataMatrix Scanning
+                </h3>
+                <p className="mt-2 text-sm leading-relaxed text-slate-600 dark:text-neutral-400">
+                  Extracts GTIN, lot/batch numbers, serial numbers, and expiration dates in under 50ms across 2D DataMatrix and QR standards.
+                </p>
               </div>
 
-              <div className="flex flex-col gap-6 lg:col-span-7">
-                <div className="grid gap-6 sm:grid-cols-2">
-                  <div
-                    data-motion="card"
-                    className="flex flex-col gap-4 rounded-2xl bg-slate-50 p-6 dark:bg-neutral-900"
-                  >
-                    <div
-                      data-motion="icon"
-                      className="flex h-12 w-12 items-center justify-center rounded-xl bg-indigo-100 dark:bg-indigo-900/40"
-                    >
-                      <svg
-                        className="h-6 w-6 text-indigo-600 dark:text-indigo-400"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth="1.5"
-                          d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
-                        />
-                      </svg>
-                    </div>
-                    <h3 className="text-lg font-semibold text-slate-900 dark:text-white">
-                      Medication Searches
-                    </h3>
-                    <p className="text-sm text-slate-600 dark:text-neutral-400">
-                      Automatic time logs with detailed reports and insights.
-                    </p>
-                  </div>
-
-                  <div
-                    data-motion="card"
-                    className="flex flex-col gap-4 rounded-2xl bg-slate-50 p-6 dark:bg-neutral-900"
-                  >
-                    <div
-                      data-motion="icon"
-                      className="flex h-12 w-12 items-center justify-center rounded-xl bg-indigo-100 dark:bg-indigo-900/40"
-                    >
-                      <svg
-                        className="h-6 w-6 text-indigo-600 dark:text-indigo-400"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth="1.5"
-                          d="M18 18.72a9.094 9.094 0 0 0 3.741-.479 3 3 0 0 0-4.682-2.72m.94 3.198.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0 1 12 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 0 1 6 18.719m12 0a5.971 5.971 0 0 0-.941-3.197m0 0A5.995 5.995 0 0 0 12 12.75a5.995 5.995 0 0 0-5.058 2.772m0 0a3 3 0 0 0-4.681 2.72 8.986 8.986 0 0 0 3.74.477m.94-3.197a5.971 5.971 0 0 0-.94 3.197M15 6.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm6 3a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0Zm-13.5 0a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0Z"
-                        />
-                      </svg>
-                    </div>
-                    <h3 className="text-lg font-semibold text-slate-900 dark:text-white">
-                      Medicine Information
-                    </h3>
-                    <p className="text-sm text-slate-600 dark:text-neutral-400">
-                      Real-time collaboration with instant updates.
-                    </p>
-                  </div>
+              {/* Feature 2 */}
+              <div className="group lucid-card-hover rounded-3xl border border-slate-200/80 bg-white p-8 shadow-xs hover:border-cyan-500/40 hover:shadow-xl hover:shadow-cyan-500/5 dark:border-neutral-800 dark:bg-neutral-900">
+                <div className="flex size-12 items-center justify-center rounded-2xl bg-cyan-100 text-cyan-600 transition-transform duration-300 group-hover:scale-110 group-hover:-rotate-3 dark:bg-cyan-950 dark:text-cyan-400">
+                  <ScanText className="size-6" />
                 </div>
+                <h3 className="mt-5 text-xl font-bold text-slate-900 dark:text-white">
+                  Packaging OCR & Anomaly Vision
+                </h3>
+                <p className="mt-2 text-sm leading-relaxed text-slate-600 dark:text-neutral-400">
+                  Optical character recognition isolates brand names, active ingredients, dosage strengths, and regulatory registration numbers from foil blister packs.
+                </p>
+              </div>
 
-                <div
-                  data-motion="card"
-                  className="flex flex-col items-start gap-6 rounded-2xl bg-slate-50 p-6 sm:flex-row dark:bg-neutral-900"
-                >
-                  <div
-                    data-motion="icon"
-                    className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-indigo-100 dark:bg-indigo-900/40"
-                  >
-                    <svg
-                      className="h-6 w-6 text-indigo-600 dark:text-indigo-400"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="1.5"
-                        d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 0 1 3 19.875v-6.75ZM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V8.625ZM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V4.125Z"
-                      />
-                    </svg>
-                  </div>
-                  <div className="flex-1">
-                    <h3 className="mb-2 text-lg font-semibold text-slate-900 dark:text-white">
-                      Personal Medication Summary
-                    </h3>
-                    <p className="text-sm text-slate-600 dark:text-neutral-400">
-                      Visual dashboards to track progress, measure outcomes, and
-                      make data-driven decisions for your team.
-                    </p>
-                  </div>
-                  <a
-                    href="#"
-                    className="whitespace-nowrap text-sm font-medium text-indigo-600 hover:underline dark:text-indigo-400"
-                  >
-                    Learn more →
-                  </a>
+              {/* Feature 3 */}
+              <div className="group lucid-card-hover rounded-3xl border border-slate-200/80 bg-white p-8 shadow-xs hover:border-emerald-500/40 hover:shadow-xl hover:shadow-emerald-500/5 dark:border-neutral-800 dark:bg-neutral-900">
+                <div className="flex size-12 items-center justify-center rounded-2xl bg-emerald-100 text-emerald-600 transition-transform duration-300 group-hover:scale-110 group-hover:-rotate-3 dark:bg-emerald-950 dark:text-emerald-400">
+                  <Database className="size-6" />
                 </div>
+                <h3 className="mt-5 text-xl font-bold text-slate-900 dark:text-white">
+                  Regulatory Database Sync
+                </h3>
+                <p className="mt-2 text-sm leading-relaxed text-slate-600 dark:text-neutral-400">
+                  Live verification against DGDA (Directorate General of Drug Administration) gazettes and the US FDA National Drug Code Directory.
+                </p>
+              </div>
+
+              {/* Feature 4 */}
+              <div className="group lucid-card-hover rounded-3xl border border-slate-200/80 bg-white p-8 shadow-xs hover:border-rose-500/40 hover:shadow-xl hover:shadow-rose-500/5 dark:border-neutral-800 dark:bg-neutral-900">
+                <div className="flex size-12 items-center justify-center rounded-2xl bg-rose-100 text-rose-600 transition-transform duration-300 group-hover:scale-110 group-hover:-rotate-3 dark:bg-rose-950 dark:text-rose-400">
+                  <AlertTriangle className="size-6" />
+                </div>
+                <h3 className="mt-5 text-xl font-bold text-slate-900 dark:text-white">
+                  Batch & Expiry Mismatch Alert
+                </h3>
+                <p className="mt-2 text-sm leading-relaxed text-slate-600 dark:text-neutral-400">
+                  Automatically compares printed typography with digital 2D barcode data to detect repackaged or relabeled expired pharmaceuticals.
+                </p>
+              </div>
+
+              {/* Feature 5 */}
+              <div className="group lucid-card-hover rounded-3xl border border-slate-200/80 bg-white p-8 shadow-xs hover:border-amber-500/40 hover:shadow-xl hover:shadow-amber-500/5 dark:border-neutral-800 dark:bg-neutral-900">
+                <div className="flex size-12 items-center justify-center rounded-2xl bg-amber-100 text-amber-600 transition-transform duration-300 group-hover:scale-110 group-hover:-rotate-3 dark:bg-amber-950 dark:text-amber-400">
+                  <HeartPulse className="size-6" />
+                </div>
+                <h3 className="mt-5 text-xl font-bold text-slate-900 dark:text-white">
+                  Drug Interaction Matrix
+                </h3>
+                <p className="mt-2 text-sm leading-relaxed text-slate-600 dark:text-neutral-400">
+                  Queries RxNorm clinical intelligence to warn against dangerous contraindications, pregnancy risks, and active ingredient overlap.
+                </p>
+              </div>
+
+              {/* Feature 6 */}
+              <div className="group lucid-card-hover rounded-3xl border border-slate-200/80 bg-white p-8 shadow-xs hover:border-purple-500/40 hover:shadow-xl hover:shadow-purple-500/5 dark:border-neutral-800 dark:bg-neutral-900">
+                <div className="flex size-12 items-center justify-center rounded-2xl bg-purple-100 text-purple-600 transition-transform duration-300 group-hover:scale-110 group-hover:-rotate-3 dark:bg-purple-950 dark:text-purple-400">
+                  <FileCheck className="size-6" />
+                </div>
+                <h3 className="mt-5 text-xl font-bold text-slate-900 dark:text-white">
+                  Plain-Language Patient Guide
+                </h3>
+                <p className="mt-2 text-sm leading-relaxed text-slate-600 dark:text-neutral-400">
+                  Converts dense pharmacological documentation into readable summaries with dosage directions, storage rules, and side effects.
+                </p>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-
-    <section
-      id="_testimonial_tall_quote_cards_carousel_t21_001"
-      className="bg-white py-20 sm:py-24 dark:bg-neutral-950"
-    >
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div data-motion="header" className="mb-14 text-center">
-          <span
-            data-motion="badge"
-            className="mb-3 block text-sm font-semibold tracking-wide text-indigo-600 uppercase dark:text-indigo-400"
-          >
-            Example Use Cases
-          </span>
-          <h2 className="text-3xl font-bold text-slate-900 sm:text-4xl lg:text-5xl dark:text-white">
-            How MediGuard Helps in Everyday Situations
-          </h2>
+      {/* Sleek CTA Banner */}
+      <section className="py-16 sm:py-20">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-indigo-900 via-indigo-950 to-slate-900 p-8 text-center text-white sm:p-14 shadow-2xl">
+            <div className="relative z-10 mx-auto max-w-2xl">
+              <span className="inline-flex items-center gap-1.5 rounded-full bg-indigo-500/20 px-3.5 py-1 text-xs font-semibold text-indigo-300 ring-1 ring-indigo-500/30">
+                <Sparkles className="size-3.5 text-cyan-300" /> Start Protecting Your Family Today
+              </span>
+              <h2 className="mt-4 text-3xl font-extrabold sm:text-4xl">
+                Ready to verify a medication?
+              </h2>
+              <p className="mt-3 text-sm text-slate-300 sm:text-base">
+                Ask about indications, contraindications, and dosage instructions with our AI-powered clinical assistant.
+              </p>
+              <div className="mt-8 flex flex-wrap justify-center gap-4">
+                <Link
+                  href="/chat"
+                  className="group relative inline-flex items-center gap-2 overflow-hidden rounded-xl bg-indigo-600 px-6 py-3.5 text-sm font-semibold text-white shadow-lg transition-all duration-300 hover:scale-[1.03] hover:bg-indigo-500 hover:shadow-indigo-500/40 active:scale-95"
+                >
+                  <span className="pointer-events-none absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/20 to-transparent transition-transform duration-700 ease-out group-hover:translate-x-full" />
+                  <span>Launch Assistant</span>
+                  <ArrowRight className="size-4 transition-transform duration-300 group-hover:translate-x-1" />
+                </Link>
+                <Link
+                  href="/howitworks"
+                  className="inline-flex items-center gap-2 rounded-xl border border-slate-700 bg-slate-800/80 px-6 py-3.5 text-sm font-semibold text-slate-200 transition-all duration-200 hover:scale-[1.02] hover:bg-slate-800 hover:border-slate-600 active:scale-95"
+                >
+                  Learn the Pipeline
+                </Link>
+              </div>
+            </div>
+          </div>
         </div>
+      </section>
 
-        <div className="grid gap-6 md:grid-cols-3">
-          <article
-            data-motion="card"
-            className="flex min-h-[400px] flex-col rounded-3xl border border-slate-200 bg-slate-50 p-8 dark:border-neutral-800 dark:bg-neutral-900"
-          >
-            <svg
-              className="mb-6 h-8 w-8 text-indigo-500"
-              viewBox="0 0 24 24"
-              fill="currentColor"
-            >
-              <path d="M11.192 15.757c0-.88-.23-1.618-.69-2.217-.326-.412-.768-.683-1.327-.812-.55-.128-1.07-.137-1.54-.028-.16-.95.1-1.956.76-3.022.66-1.065 1.515-1.867 2.558-2.403L9.373 5c-.8.396-1.56.898-2.26 1.505-.71.607-1.34 1.305-1.9 2.094s-.98 1.68-1.25 2.69-.346 2.04-.217 3.1c.168 1.4.62 2.52 1.356 3.35.735.84 1.652 1.26 2.748 1.26.965 0 1.766-.29 2.4-.878.628-.576.94-1.365.94-2.368l.002.004zm9.124 0c0-.88-.23-1.618-.69-2.217-.326-.42-.768-.695-1.327-.825-.55-.13-1.07-.14-1.54-.03-.16-.94.09-1.95.75-3.02.66-1.06 1.514-1.86 2.557-2.4L18.49 5c-.8.396-1.555.898-2.26 1.505-.708.607-1.34 1.305-1.894 2.094-.556.79-.97 1.68-1.24 2.69-.273 1-.345 2.04-.217 3.1.168 1.4.62 2.52 1.356 3.35.735.84 1.652 1.26 2.748 1.26.965 0 1.766-.29 2.4-.878.628-.576.94-1.365.94-2.368l-.007.004z" />
-            </svg>
-            <p className="grow text-lg leading-relaxed font-medium text-slate-800 dark:text-neutral-200">
-              Lost 30 pounds in 4 months. The personalized coaching made all the
-              difference in my journey.
-            </p>
-            <div className="mt-6 flex items-center gap-4 border-t border-slate-200 pt-6 dark:border-neutral-800">
-              <img
-                data-motion="avatar"
-                src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150&auto=format&fit=crop&q=80"
-                alt="Sarah Mitchell"
-                className="h-12 w-12 rounded-full object-cover"
-              />
-              <div>
-                <h3 className="font-semibold text-slate-900 dark:text-white">
-                  Sarah Mitchell
-                </h3>
-                <p className="text-sm text-indigo-600 dark:text-indigo-400">
-                  @sarahmfit
-                </p>
-              </div>
-            </div>
-          </article>
-
-          <article
-            data-motion="card"
-            className="flex min-h-[400px] flex-col rounded-3xl border border-slate-200 bg-slate-50 p-8 dark:border-neutral-800 dark:bg-neutral-900"
-          >
-            <svg
-              className="mb-6 h-8 w-8 text-indigo-500"
-              viewBox="0 0 24 24"
-              fill="currentColor"
-            >
-              <path d="M11.192 15.757c0-.88-.23-1.618-.69-2.217-.326-.412-.768-.683-1.327-.812-.55-.128-1.07-.137-1.54-.028-.16-.95.1-1.956.76-3.022.66-1.065 1.515-1.867 2.558-2.403L9.373 5c-.8.396-1.56.898-2.26 1.505-.71.607-1.34 1.305-1.9 2.094s-.98 1.68-1.25 2.69-.346 2.04-.217 3.1c.168 1.4.62 2.52 1.356 3.35.735.84 1.652 1.26 2.748 1.26.965 0 1.766-.29 2.4-.878.628-.576.94-1.365.94-2.368l.002.004zm9.124 0c0-.88-.23-1.618-.69-2.217-.326-.42-.768-.695-1.327-.825-.55-.13-1.07-.14-1.54-.03-.16-.94.09-1.95.75-3.02.66-1.06 1.514-1.86 2.557-2.4L18.49 5c-.8.396-1.555.898-2.26 1.505-.708.607-1.34 1.305-1.894 2.094-.556.79-.97 1.68-1.24 2.69-.273 1-.345 2.04-.217 3.1.168 1.4.62 2.52 1.356 3.35.735.84 1.652 1.26 2.748 1.26.965 0 1.766-.29 2.4-.878.628-.576.94-1.365.94-2.368l-.007.004z" />
-            </svg>
-            <p className="grow text-lg leading-relaxed font-medium text-slate-800 dark:text-neutral-200">
-              Finally found a program that fits my busy schedule. Energy levels
-              are through the roof!
-            </p>
-            <div className="mt-6 flex items-center gap-4 border-t border-slate-200 pt-6 dark:border-neutral-800">
-              <img
-                data-motion="avatar"
-                src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&auto=format&fit=crop&q=80"
-                alt="Marcus Chen"
-                className="h-12 w-12 rounded-full object-cover"
-              />
-              <div>
-                <h3 className="font-semibold text-slate-900 dark:text-white">
-                  Marcus Chen
-                </h3>
-                <p className="text-sm text-indigo-600 dark:text-indigo-400">
-                  @marcuswellness
-                </p>
-              </div>
-            </div>
-          </article>
-
-          <article
-            data-motion="card"
-            className="flex min-h-[400px] flex-col rounded-3xl border border-slate-200 bg-slate-50 p-8 dark:border-neutral-800 dark:bg-neutral-900"
-          >
-            <svg
-              className="mb-6 h-8 w-8 text-indigo-500"
-              viewBox="0 0 24 24"
-              fill="currentColor"
-            >
-              <path d="M11.192 15.757c0-.88-.23-1.618-.69-2.217-.326-.412-.768-.683-1.327-.812-.55-.128-1.07-.137-1.54-.028-.16-.95.1-1.956.76-3.022.66-1.065 1.515-1.867 2.558-2.403L9.373 5c-.8.396-1.56.898-2.26 1.505-.71.607-1.34 1.305-1.9 2.094s-.98 1.68-1.25 2.69-.346 2.04-.217 3.1c.168 1.4.62 2.52 1.356 3.35.735.84 1.652 1.26 2.748 1.26.965 0 1.766-.29 2.4-.878.628-.576.94-1.365.94-2.368l.002.004zm9.124 0c0-.88-.23-1.618-.69-2.217-.326-.42-.768-.695-1.327-.825-.55-.13-1.07-.14-1.54-.03-.16-.94.09-1.95.75-3.02.66-1.06 1.514-1.86 2.557-2.4L18.49 5c-.8.396-1.555.898-2.26 1.505-.708.607-1.34 1.305-1.894 2.094-.556.79-.97 1.68-1.24 2.69-.273 1-.345 2.04-.217 3.1c.168 1.4.62 2.52 1.356 3.35.735.84 1.652 1.26 2.748 1.26.965 0 1.766-.29 2.4-.878.628-.576.94-1.365.94-2.368l-.007.004z" />
-            </svg>
-            <p className="grow text-lg leading-relaxed font-medium text-slate-800 dark:text-neutral-200">
-              The nutrition guidance changed everything. I feel stronger and more
-              confident than ever.
-            </p>
-            <div className="mt-6 flex items-center gap-4 border-t border-slate-200 pt-6 dark:border-neutral-800">
-              <img
-                data-motion="avatar"
-                src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&auto=format&fit=crop&q=80"
-                alt="Emma Rodriguez"
-                className="h-12 w-12 rounded-full object-cover"
-              />
-              <div>
-                <h3 className="font-semibold text-slate-900 dark:text-white">
-                  Emma Rodriguez
-                </h3>
-                <p className="text-sm text-indigo-600 dark:text-indigo-400">
-                  @emmastrong
-                </p>
-              </div>
-            </div>
-          </article>
-        </div>
-      </div>
-    </section>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-      
-    </>
+      <Footer />
+    </div>
   );
 }

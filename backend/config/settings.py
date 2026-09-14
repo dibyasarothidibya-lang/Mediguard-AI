@@ -32,9 +32,13 @@ OPENFDA_API_KEY = os.environ.get("OPENFDA_API_KEY", "")
 GEMINI_MODEL= os.environ["GEMINI_MODEL"]
 GEMINI_TIMEOUT_MS= int(os.environ["GEMINI_TIMEOUT_MS"])
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.getenv("DJANGO_DEBUG", "True").lower() in ("true", "1")
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    h.strip()
+    for h in os.getenv("ALLOWED_HOSTS", "localhost,127.0.0.1,testserver").split(",")
+    if h.strip()
+]
 
 
 # Application definition
@@ -51,7 +55,13 @@ INSTALLED_APPS = [
     "corsheaders",
     "medicines.apps.MedicinesConfig",
 ]
+
+_cors_env = os.getenv("CORS_ALLOWED_ORIGINS", "")
 CORS_ALLOWED_ORIGINS = [
+    origin.strip()
+    for origin in _cors_env.split(",")
+    if origin.strip()
+] if _cors_env else [
     "http://localhost:3000",
     "http://127.0.0.1:3000",
 ]
@@ -68,12 +78,6 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
-CORS_ALLOWED_ORIGINS = [
-    "http://localhost:3000",
-    "http://127.0.0.1:3000",
-]
-
-CORS_URLS_REGEX = r"^/api/.*$"
 
 ROOT_URLCONF = "config.urls"
 
@@ -145,6 +149,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/6.1/howto/static-files/
 
 STATIC_URL = "static/"
+STATIC_ROOT = BASE_DIR / "staticfiles"
 
 
 # Email
@@ -155,3 +160,14 @@ MAILERS = {
         "BACKEND": "django.core.mail.backends.console.EmailBackend",
     },
 }
+
+
+# Administrator Access Whitelist for Academic Project Audit
+ADMIN_EMAILS = [
+    email.strip().lower()
+    for email in os.getenv(
+        "ADMIN_EMAILS",
+        "dibyasarothidibya@gmail.com,dibyasarothidiibya@gmail.com",
+    ).split(",")
+    if email.strip()
+]

@@ -1,5 +1,10 @@
 import type { User } from "firebase/auth"
 
+export const BACKEND_URL =
+  process.env.NEXT_PUBLIC_BACKEND_URL ||
+  process.env.NEXT_PUBLIC_API_URL ||
+  "http://127.0.0.1:8000"
+
 export class BackendAuthError extends Error {}
 
 export async function getCurrentBackendUser(user: User) {
@@ -8,7 +13,7 @@ export async function getCurrentBackendUser(user: User) {
   let response: Response
 
   try {
-    response = await fetch("http://127.0.0.1:8000/api/me/", {
+    response = await fetch(`${BACKEND_URL}/api/me/`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -56,7 +61,7 @@ export async function sendChatMessage(
   let response: Response;
 
   try {
-    response = await fetch("http://127.0.0.1:8000/api/chat/", {
+    response = await fetch(`${BACKEND_URL}/api/chat/`, {
       method: "POST",
       headers: {
         Authorization: `Bearer ${token}`,
@@ -107,4 +112,59 @@ export async function sendChatMessage(
   }
 
   return data.answer;
+}
+
+export type AdminOverviewData = {
+  stats: {
+    total_registered_users: number;
+    active_users: number;
+    total_queries: number;
+  };
+  users: Array<{
+    id: number;
+    email: string;
+    display_name: string;
+    firebase_uid: string;
+    created_at: string;
+    last_active_at: string;
+    query_count: number;
+  }>;
+  queries: Array<{
+    id: number;
+    user_email: string;
+    user_name: string;
+    question: string;
+    answer: string;
+    created_at: string;
+    client_ip: string;
+  }>;
+};
+
+export async function fetchAdminOverview(user: User): Promise<AdminOverviewData> {
+  const token = await user.getIdToken();
+  let response: Response;
+  try {
+    response = await fetch(`${BACKEND_URL}/api/admin/overview/`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      cache: "no-store",
+    });
+  } catch {
+    throw new Error("Could not connect to MediGuard Admin API. Please ensure backend is running.");
+  }
+
+  if (response.status === 403) {
+    throw new Error("Access denied. You do not have administrator permissions.");
+  }
+
+  if (response.status === 401) {
+    throw new Error("Authentication required. Please sign in with an administrator account.");
+  }
+
+  if (!response.ok) {
+    throw new Error("Failed to load admin analytics telemetry.");
+  }
+
+  return response.json();
 }

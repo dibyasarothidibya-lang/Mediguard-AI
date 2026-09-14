@@ -1,5 +1,6 @@
 from urllib.parse import urlsplit
 
+from django.conf import settings
 from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils import timezone
@@ -241,3 +242,25 @@ class CatalogSourceRecord(models.Model):
 
     def __str__(self):
         return f"Row {self.row_number} ({self.get_reconciliation_status_display()})"
+
+
+class ChatInteraction(models.Model):
+    """Audit log preserving user inquiries, assistant responses, and timestamps."""
+
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name="chat_interactions",
+    )
+    question = models.TextField()
+    answer_snippet = models.TextField(blank=True)
+    created_at = models.DateTimeField(auto_now_add=True, db_index=True)
+    client_ip = models.GenericIPAddressField(null=True, blank=True)
+
+    class Meta:
+        ordering = ["-created_at"]
+        verbose_name = "Chat Interaction Audit"
+        verbose_name_plural = "Chat Interaction Audits"
+
+    def __str__(self):
+        return f"{self.user} - {self.question[:40]} ({self.created_at.strftime('%Y-%m-%d %H:%M')})"

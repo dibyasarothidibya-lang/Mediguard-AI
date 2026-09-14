@@ -5,6 +5,7 @@ from .models import (
     CatalogImportBatch,
     CatalogProduct,
     CatalogSourceRecord,
+    ChatInteraction,
     EvidenceRecord,
     TrustedSource,
 )
@@ -96,6 +97,45 @@ class CatalogSourceRecordAdmin(admin.ModelAdmin):
 
     def has_delete_permission(self, request, obj=None):
         return False
+
+
+@admin.register(ChatInteraction)
+class ChatInteractionAdmin(admin.ModelAdmin):
+    list_display = (
+        "created_at",
+        "user_identifier",
+        "short_question",
+        "short_answer",
+        "client_ip",
+    )
+    search_fields = (
+        "question",
+        "answer_snippet",
+        "user__username",
+        "user__email",
+        "user__profile__email",
+        "user__profile__display_name",
+        "client_ip",
+    )
+    list_filter = ("created_at",)
+    readonly_fields = ("created_at", "user", "question", "answer_snippet", "client_ip")
+    ordering = ("-created_at",)
+
+    def user_identifier(self, obj):
+        profile = getattr(obj.user, "profile", None)
+        return profile.email if (profile and profile.email) else (obj.user.email or obj.user.username)
+
+    user_identifier.short_description = "User / Email"
+
+    def short_question(self, obj):
+        return obj.question[:70] + ("..." if len(obj.question) > 70 else "")
+
+    short_question.short_description = "Question / Query"
+
+    def short_answer(self, obj):
+        return obj.answer_snippet[:70] + ("..." if len(obj.answer_snippet) > 70 else "")
+
+    short_answer.short_description = "AI Response Preview"
 
 
 

@@ -167,3 +167,6 @@ dist
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
 .vite/
+
+# Temporary test screenshots in root
+/*.png
