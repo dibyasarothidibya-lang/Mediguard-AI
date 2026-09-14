@@ -19,20 +19,20 @@ const robotoMono = Roboto_Mono({
 export const metadata: Metadata = {
   title: "MediGuard AI | Intelligent Medicine Verification & Safety Assistant",
   description:
-    "AI-powered multi-source medicine verification platform. Decode GS1 DataMatrix codes, inspect packaging labels, verify regulatory registries, and protect against counterfeit pharmaceuticals.",
+    "Evidence-grounded medicine verification and information platform. Decode GS1 barcodes, inspect packaging labels, and cross-reference pharmaceutical records against openFDA and DGDA-aligned catalogues.",
   keywords: [
     "medicine verification",
     "drug safety",
-    "counterfeit medicine detection",
+    "pharmaceutical cross-referencing",
     "GS1 DataMatrix",
-    "pharmaceutical OCR",
+    "packaging OCR",
     "MediGuard AI",
   ],
   authors: [{ name: "MediGuard AI Team" }],
   openGraph: {
     title: "MediGuard AI | Intelligent Medicine Verification & Safety Assistant",
     description:
-      "Verify medicine authenticity, detect packaging discrepancies, and access verified clinical drug intelligence instantly.",
+      "Cross-reference medicine records against openFDA evidence and DGDA-aligned catalogues with grounded AI explanations.",
     type: "website",
   },
 };

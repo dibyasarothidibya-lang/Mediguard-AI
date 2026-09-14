@@ -430,7 +430,7 @@ export default function AdminDashboardPage() {
                 Live Engagement & Audit Analytics
               </h1>
               <p className="mt-2 text-sm text-slate-300 leading-relaxed">
-                Real-time tracking of registered testers, active patient sessions, and exact clinical inquiries processed by MediGuard AI&apos;s zero-hallucination verification engine.
+                Real-time tracking of registered testers, active evaluation sessions, and medicine information queries processed by MediGuard AI&apos;s evidence-grounded verification engine.
               </p>
             </div>
 
