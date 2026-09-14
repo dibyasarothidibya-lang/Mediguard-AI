@@ -14,7 +14,7 @@ Instead of deploying an unconstrained chatbot that blindly forwards medical quer
 Classify Query → Extract Medicine Entities → Retrieve Trusted Evidence → Validate Source Records → Generate Grounded Interpretation → Attach Controlled Citations
 ```
 
-The system ensures that **evidence precedes generation**, reducing unsupported model outputs and maintaining strict provenance over all retrieved pharmaceutical data.
+The system is **designed to reduce unsupported or fabricated outputs** by ensuring that evidence precedes generation, maintaining strict provenance over all retrieved pharmaceutical data.
 
 ---
 
@@ -41,12 +41,12 @@ The platform retrieves structured medicine records from verified sources first, 
 
 ### 1. Evidence-Grounded AI Assistant
 * **Domain Guardrails**: Incoming queries are classified to ensure they fall strictly within supported medicine verification boundaries before triggering evidence retrieval.
-* **Restricted Interpretation Role**: The AI model (Google Gemini) is instructed to avoid generating unsupported medical assertions; it acts as an interpretation and explanation layer over pre-retrieved, validated evidence.
-* **Mandatory Terms & Conditions Gating**: Users must authenticate and explicitly acknowledge safety notices and liability terms before accessing the assistant. Declining automatically terminates the session and redirects to the homepage.
+* **Restricted Interpretation Role**: Gemini is constrained to interpret retrieved evidence, although generated outputs may still contain errors; it acts as an explanation layer rather than an unguided medical authority.
+* **Safety Terms & Conditions Gating**: Users must authenticate and explicitly acknowledge safety notices and liability terms before accessing the assistant. Declining automatically terminates the session and redirects to the homepage.
 
 ### 2. Multi-Tier Medicine Data Architecture
 * **Live openFDA Drug Label Connector**: Real-time integration with the openFDA Drug Label API for international pharmaceutical evidence, warnings, active ingredients, and indications.
-* **DGDA-Aligned Local Catalogue**: A structured Bangladesh-focused medicine catalogue aligned with Directorate General of Drug Administration (DGDA) generic classifications, dosage forms, and domestic manufacturers (imported and audited from structured pharmaceutical datasets).
+* **DGDA-Aligned Local Catalogue**: A normalized local catalogue containing structured medicine, generic, dosage-form, and manufacturer records derived from Bangladesh-focused pharmaceutical datasets.
 * **Extensible Trusted-Source Adapter Pipeline**: Modular architecture designed to incorporate additional regulatory sources without refactoring the AI orchestration core.
 
 ### 3. Defensive API & Evidence Validation
@@ -115,7 +115,7 @@ flowchart TD
 
 ### Backend
 * **Language**: [Python 3.12](https://www.python.org/)
-* **Framework**: [Django 5](https://www.djangoproject.com/) & [Django REST Framework](https://www.django-rest-framework.org/)
+* **Framework**: [Django](https://www.djangoproject.com/) & [Django REST Framework](https://www.django-rest-framework.org/)
 * **Database**: [PostgreSQL](https://www.postgresql.org/)
 * **Authentication**: [Firebase Admin SDK](https://firebase.google.com/docs/admin/setup)
 * **AI Orchestration**: [Google Gemini 2.5 Flash](https://ai.google.dev/) via HTTPX
@@ -224,8 +224,9 @@ Create a `.env` file in `backend/` and `frontend/` (ensure these are never commi
 ### Backend (`backend/.env`)
 ```env
 DJANGO_SECRET_KEY=your_django_secret_key
-DEBUG=True
+DEBUG=False
 ALLOWED_HOSTS=localhost,127.0.0.1
+CORS_ALLOWED_ORIGINS=http://localhost:3000
 
 DB_NAME=mediguard_db
 DB_USER=postgres
@@ -234,6 +235,8 @@ DB_HOST=127.0.0.1
 DB_PORT=5432
 
 GEMINI_API_KEY=your_gemini_api_key
+GEMINI_MODEL=gemini-2.5-flash
+GEMINI_TIMEOUT_MS=15000
 OPENFDA_API_KEY=your_openfda_api_key
 ADMIN_EMAILS=your_email@gmail.com
 ```
@@ -258,10 +261,10 @@ NEXT_PUBLIC_API_BASE_URL=http://127.0.0.1:8000
 | **Core Backend Architecture** | ✅ Complete | Modular Django REST Framework services |
 | **Authentication & Token Verification** | ✅ Complete | Firebase Admin SDK + Revoked Token Checking |
 | **openFDA Live Evidence Pipeline** | ✅ Complete | HTTPX connector with timeouts & schema checks |
-| **DGDA-Aligned Local Catalogue** | ✅ Complete | Structured local catalogue with checksum audit validation |
+| **DGDA-Aligned Local Catalogue** | ✅ Complete | Normalized local catalogue derived from Bangladesh-focused pharmaceutical datasets |
 | **Grounded AI Interpretation Layer** | ✅ Complete | Gemini 2.5 with controlled citation validation |
 | **Admin Cockpit & Audit Telemetry** | ✅ Complete | Role-gated at `/admin` with email whitelisting |
-| **Safety Terms Agreement Modal** | ✅ Complete | Mandatory login + popup gating on `/chat` |
+| **Safety Terms Agreement Modal** | ✅ Complete | Account authentication + popup terms gating on `/chat` |
 | **Comprehensive Legal Notice** | ✅ Complete | Full 25-section disclosure on `/about` |
 | **Automated Test Suite** | ✅ Complete | **141/141 passing** backend unit & security tests |
 | **Frontend UI/UX Polish** | ✅ Complete | Next.js 16, Turbopack, responsive mockups |

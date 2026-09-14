@@ -283,7 +283,7 @@ export default function MediGuardChatPage() {
           </h1>
 
           <p className="mt-2 text-xs leading-relaxed text-neutral-400">
-            MediGuard AI assistant and clinical verification tools are reserved for registered users to maintain patient safety compliance and audit logs.
+            MediGuard AI assistant and medicine information and verification tools are reserved for registered users to maintain safety audit logs.
           </p>
 
           <div className="mt-6 flex w-full flex-col gap-2.5">
