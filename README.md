@@ -1,6 +1,4 @@
-# Mediguard-AI
 # MediGuard AI
-
 ### Evidence-grounded medicine information and verification platform
 
 MediGuard AI is a full-stack healthcare project designed to help users understand medicines, investigate medicine information, and identify potential warning signs when verifying pharmaceutical products.
@@ -133,15 +131,13 @@ Sources can carry information such as:
 * retrieval time
 * review information
 
-The architecture currently includes configuration for sources such as:
+MediGuard currently integrates two primary medicine-data sources:
 
-* openFDA
-* Bangladesh DGDA
-* DailyMed
+* **Bangladesh DGDA** — provides Bangladesh-focused medicine catalogue and regulatory data
+* **openFDA** — provides large-scale international medicine-label evidence through the openFDA Drug Label API
 
-openFDA currently has the implemented live lookup connector. Additional regulatory sources can be connected through the same evidence architecture without redesigning the AI pipeline.
+Both sources are incorporated into MediGuard's evidence and medicine-information pipeline while preserving their provenance and intended use.
 
----
 
 ### Medicine Catalogue Pipeline
 
@@ -226,12 +222,10 @@ flowchart TD
     EXTRACT --> EVIDENCE[Evidence Coordinator]
 
     EVIDENCE --> OFDA[openFDA Connector]
-    EVIDENCE --> CAT[Local Medicine Catalogue]
-    EVIDENCE --> FUTURE[Additional Trusted Sources]
+    EVIDENCE --> DGDA[Bangladesh DGDA Medicine Catalogue]
 
     OFDA --> VALIDATE[Evidence Validation]
-    CAT --> VALIDATE
-    FUTURE --> VALIDATE
+    DGDA --> VALIDATE
 
     VALIDATE --> GROUND[Grounding Layer]
     GROUND --> AI[Gemini]
@@ -241,6 +235,7 @@ flowchart TD
     CITATION --> API
     API --> F
 ```
+
 
 A central design principle of MediGuard is that the AI model does **not** control the complete pipeline.
 
@@ -276,10 +271,8 @@ Retrieval, validation, source handling, authentication, throttling, and citation
 ## External Data
 
 * openFDA Drug Label API
-* local/imported medicine catalogue data
+* Bangladesh DGDA medicine data
 * extensible trusted-source infrastructure
-
----
 
 # Evidence and Grounding Design
 
@@ -673,6 +666,8 @@ This keeps external data acquisition separate from AI generation.
 **Medicine evidence pipeline: Complete**
 
 **openFDA live integration: Complete**
+
+**Bangladesh DGDA data integration: Complete**
 
 **Grounded AI response system: Complete**
 
