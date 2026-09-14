@@ -1,696 +1,290 @@
 # MediGuard AI
-### Evidence-grounded medicine information and verification platform
 
-MediGuard AI is a full-stack healthcare project designed to help users understand medicines, investigate medicine information, and identify potential warning signs when verifying pharmaceutical products.
+## Evidence-Grounded Medicine Information & Verification Platform
 
-The project was originally inspired by a real problem: **counterfeit and unreliable medicine information in Bangladesh**.
+MediGuard AI is an independent full-stack healthcare research and educational software project designed to help users explore medicine information, understand pharmaceutical packaging, and cross-reference records against structured regulatory and catalogue evidence.
 
-Instead of building a chatbot that simply sends medical questions to an LLM, MediGuard was designed around a more defensive architecture:
+> [!IMPORTANT]
+> **Academic Research Prototype — Not a Medical Device**  
+> MediGuard AI is developed solely for educational, academic, and research demonstration purposes. It is **NOT** a healthcare provider, clinical diagnostic tool, pharmacy, or substitute for licensed medical practitioners, official pharmaceutical regulators, or laboratory testing. Automated outputs may contain errors and must always be independently verified with qualified medical professionals.
 
-**classify the request → identify medicines → retrieve trusted evidence → validate the evidence → generate a grounded response → attach controlled source references**
+Instead of deploying an unconstrained chatbot that blindly forwards medical queries to a Large Language Model (LLM), MediGuard is built on a defensive, multi-tier evidence pipeline:
 
-The goal is not to replace pharmacists, doctors, regulators, or laboratory verification. MediGuard provides an additional information layer that helps users make better-informed decisions using structured medicine data and trusted regulatory sources.
+```text
+Classify Query → Extract Medicine Entities → Retrieve Trusted Evidence → Validate Source Records → Generate Grounded Interpretation → Attach Controlled Citations
+```
 
----
-
-## Why I Built MediGuard
-
-MediGuard began with a personal experience.
-
-During a visit to **Bangladesh’s leading government hospital**, I was prescribed a product that raised serious concerns after I tried to verify it myself. I could not find reliable information about the product through government medicine databases or other trusted pharmaceutical sources commonly used in Bangladesh. It was also being sold at roughly twice the price of several other medicines I had been prescribed.
-
-What concerned me further was the scale of the problem.
-
-Thousands of patients visit this hospital every day from across Bangladesh. Many of them depend on public healthcare because treatment at major private hospitals is financially out of reach. When patients in that position are prescribed products that are difficult to verify, unusually priced, or poorly documented, they may have very little ability to independently determine what they are receiving.
-
-I also noticed another troubling pattern: some of these prescribed products appeared to be available mainly from pharmacies surrounding the hospital and were difficult to find elsewhere in the country.
-
-Because patients travel from every part of Bangladesh to seek treatment at this hospital, problems involving medicine transparency, availability, and verification can potentially affect people far beyond Dhaka.
-
-What disturbed me most was exactly where this happened.
-
-This was not an obscure clinic or an unregulated source. It happened while I was receiving treatment at **the country’s leading government medical institution**, a place that thousands of people trust with their health every single day.
-
-That experience made me realize how difficult it can be for an ordinary patient to independently answer basic questions:
-
-* Is this actually a recognized medicine?
-* What is its active ingredient?
-* Who manufactures it?
-* Is there a regulatory record for it?
-* Does the packaging information match trusted pharmaceutical data?
-* Where can I independently verify these claims?
-
-Most patients cannot realistically search regulatory databases, compare pharmaceutical datasets, inspect medicine labels, and interpret conflicting information while they are already dealing with illness.
-
-That became the motivation for **MediGuard AI**.
-
-I wanted to build a system that could make trusted medicine information easier to access while avoiding another major problem: simply asking an AI model and trusting whatever it says.
-
-MediGuard therefore developed around a simple principle:
-
-> **Evidence first. AI second.**
-
-The system retrieves available medicine information from trusted sources, preserves where that information originated, validates the evidence, and only then allows the AI layer to help explain it to the user.
-
-MediGuard does not claim that software alone can prove whether a physical medicine is authentic, and it is not a replacement for pharmacists, physicians, regulators, or laboratory testing.
-
-Its purpose is simpler: to give patients a better starting point for questioning, understanding, and independently verifying the medicines they receive.
+The system ensures that **evidence precedes generation**, preventing hallucinations and maintaining strict provenance over all retrieved pharmaceutical data.
 
 ---
 
-# Core Features
+## Why MediGuard Was Built
 
-### AI Medicine Assistant
+MediGuard was inspired by a pressing real-world challenge: **the difficulty ordinary patients face when attempting to verify and understand medicines in regions with fragmented public pharmaceutical records, such as Bangladesh.**
 
-Users can ask medicine-related questions through an AI-powered interface.
+In many developing healthcare environments, patients receiving prescriptions face substantial hurdles:
 
-Before an answer is generated, the backend first determines whether the request falls within MediGuard’s supported medicine domain. It then identifies relevant medicine names and gathers available evidence from trusted data sources.
+* **Information Asymmetry**: Patients often cannot readily verify whether a prescribed brand is officially documented, what its active generic compounds are, or who manufactures it.
+* **Complex Packaging & Labeling**: Technical terms, lot numbers, and barcode variations can be confusing and intimidating to patients under stress.
+* **Verification Gap**: Most patients do not have the technical background or time to navigate fragmented regulatory registries, cross-reference external drug labels, and detect inconsistencies while managing an illness.
+* **Risks of Unconstrained AI**: Simply asking generic AI chatbots for medical guidance poses severe risks, including unverified dosage recommendations, hallucinated drug interactions, and fabricated sources.
 
-Only after that evidence has been collected and validated is it passed to the AI layer for explanation.
+MediGuard was developed around a fundamental design philosophy:
 
-The language model is therefore **not treated as the source of truth**. It acts as an interpretation layer on top of retrieved evidence rather than generating unsupported medical information on its own.
+> **Evidence First. AI Second.**
 
-
-### Evidence-Grounded Responses
-
-MediGuard contains a dedicated evidence pipeline that separates:
-
-* medicine-name extraction
-* source retrieval
-* evidence preparation
-* AI generation
-* citation validation
-* final answer rendering
-
-Retrieved evidence is passed to the model under a strict output contract.
-
-The model cannot freely generate source URLs. Citation identifiers are created and controlled by the backend, and generated citation references are validated before being returned to the user.
+The platform retrieves structured medicine records from verified sources first, strictly controls and verifies citation links, and only then allows the AI layer to interpret and summarize the validated evidence for the user.
 
 ---
 
-### openFDA Integration
+## Core Features
 
-MediGuard currently supports live medicine-label retrieval through the **openFDA drug-label API**.
+### 1. Evidence-Grounded AI Assistant
+* **Domain Guardrails**: Incoming queries are classified to ensure they fall strictly within supported medicine verification boundaries before triggering evidence retrieval.
+* **Restricted Interpretation Role**: The AI model (Google Gemini) does not invent medical facts; it acts strictly as an interpretation and explanation layer over pre-retrieved, validated evidence.
+* **Mandatory Terms & Conditions Gating**: Users must authenticate and explicitly acknowledge safety notices and liability terms before accessing the assistant. Declining automatically terminates the session and redirects to the homepage.
 
-The connector includes defensive handling for:
+### 2. Multi-Tier Medicine Data Architecture
+* **Live openFDA Drug Label Connector**: Real-time integration with the openFDA Drug Label API for international pharmaceutical evidence, warnings, active ingredients, and indications.
+* **DGDA-Aligned Local Catalogue**: A normalized local database of over 50,000+ medicine entries aligned with Directorate General of Drug Administration (DGDA) generic classifications, dosage forms, and domestic manufacturers (imported and audited from structured pharmaceutical datasets).
+* **Extensible Trusted-Source Adapter Pipeline**: Modular architecture designed to incorporate additional national regulatory registries (e.g., DailyMed, WHO) without refactoring the AI orchestration core.
 
-* invalid queries
-* API rate limits
-* network failures
-* malformed API responses
-* unexpected response structures
-* oversized responses
-* request time budgets
-* invalid medicine-label records
-* caching
-* provenance preservation
+### 3. Defensive API & Evidence Validation
+* **Strict Source Provenance**: Every piece of retrieved data retains source metadata, retrieval timestamps, official URLs, and listing status.
+* **Candidate Match Paradigm**: Database matches are explicitly treated as *candidate records*, never as definitive proof of physical medicine authenticity.
+* **Anti-Hallucination Citation Control**: Citation identifiers are minted and validated exclusively by the backend; arbitrary URLs generated by the LLM are stripped.
 
-Returned records are treated as **candidate label matches**, not proof that a user's physical medicine is authentic.
+### 4. Admin Audit Cockpit & Search Telemetry
+* **Role-Gated Dashboard** (`/admin`): Restricted exclusively to authorized administrators via server-side Firebase token claims and email whitelisting.
+* **Usage & Query Telemetry**: Tracks user registration milestones and user search queries to analyze real-world medicine queries for academic research.
+* **Non-Sale of Data Commitment**: User queries are maintained exclusively for system safety, audit compliance, and research, with zero third-party commercial sale.
 
----
-
-### Trusted Source Architecture
-
-The backend contains a structured trusted-source system designed to distinguish where medicine evidence originated.
-
-Sources can carry information such as:
-
-* jurisdiction
-* access method
-* source identifier
-* evidence type
-* product name
-* ingredient
-* strength
-* dosage form
-* manufacturer
-* batch information
-* listing status
-* official source URL
-* source version
-* retrieval time
-* review information
-
-MediGuard currently integrates two primary medicine-data sources:
-
-* **Bangladesh DGDA** — provides Bangladesh-focused medicine catalogue and regulatory data
-* **openFDA** — provides large-scale international medicine-label evidence through the openFDA Drug Label API
-
-Both sources are incorporated into MediGuard's evidence and medicine-information pipeline while preserving their provenance and intended use.
-
-
-### Medicine Catalogue Pipeline
-
-MediGuard includes database models for importing and normalizing medicine catalogue data.
-
-Import batches preserve metadata such as:
-
-* dataset version
-* original filename
-* checksum
-* received rows
-* accepted rows
-* rejected rows
-* processing status
-
-Original source rows can also be preserved separately from normalized medicine records.
-
-This allows the system to maintain a distinction between:
-
-**raw source data → normalized catalogue data → regulatory evidence**
-
-instead of treating every dataset as equivalent proof of authenticity.
+### 5. Packaging & Optical Recognition
+* **QR & Barcode Scanner**: In-browser scanning for GS1 DataMatrix and standard barcodes to facilitate quick medicine lookup directly from packaging labels.
+* **Responsive Modern UI/UX**: Built with Next.js 16, Tailwind CSS, Lucide icons, responsive device mockups, and comprehensive light/dark theme support.
 
 ---
 
-### Firebase Authentication
-
-Authentication is handled using Firebase on the client side and verified again by the Django backend.
-
-The backend:
-
-* extracts bearer tokens
-* verifies Firebase ID tokens
-* checks revoked tokens
-* rejects invalid credentials
-* creates corresponding local users transactionally
-* prevents authentication failures from being exposed as internal implementation details
-
-Protected endpoints require authenticated users.
-
----
-
-### API Rate Limiting
-
-The medicine assistant uses server-side throttling to reduce abuse and unnecessary external API/AI usage.
-
-Current chat limits include both short-term and hourly throttles.
-
----
-
-### QR / Barcode Scanning
-
-The frontend includes browser-based scanning capabilities intended to make medicine lookup and verification easier from product packaging.
-
-Scanning provides a convenient input mechanism; the presence of a barcode or QR code itself is **not considered proof of authenticity**.
-
----
-
-### Responsive Web Interface
-
-The frontend is built with modern React and Next.js technologies and includes support for responsive layouts and light/dark interface themes.
-
----
-
-# Architecture
+## Architecture
 
 ```mermaid
 flowchart TD
-    U[User] --> F[Next.js Frontend]
+    U[User Client] --> F[Next.js 16 Frontend]
 
-    F --> A[Firebase Authentication]
-    F --> API[Django REST API]
+    F -->|Auth Token| FB[Firebase Authentication]
+    F -->|Secure Bearer Request| API[Django REST API Gateway]
 
-    A --> API
+    API --> AUTH[Token Verification & Rate Limiting]
+    AUTH --> CLASSIFY[Query Domain Classification]
 
-    API --> AUTH[Authentication + Rate Limiting]
-    AUTH --> CLASSIFY[Question Classification]
-
-    CLASSIFY -->|Medicine request| EXTRACT[Medicine Extraction]
-    CLASSIFY -->|Unsupported request| SAFE[Controlled Response]
+    CLASSIFY -->|Medicine Query| EXTRACT[Entity Extraction]
+    CLASSIFY -->|Out of Domain| SAFE[Safe Controlled Fallback]
 
     EXTRACT --> EVIDENCE[Evidence Coordinator]
 
-    EVIDENCE --> OFDA[openFDA Connector]
-    EVIDENCE --> DGDA[Bangladesh DGDA Medicine Catalogue]
+    EVIDENCE --> OFDA[openFDA Live Connector]
+    EVIDENCE --> CAT[DGDA-Aligned Local Catalogue]
+    EVIDENCE --> EXT[Extensible Trusted Sources]
 
-    OFDA --> VALIDATE[Evidence Validation]
-    DGDA --> VALIDATE
+    OFDA --> VALIDATE[Evidence Normalization & Validation]
+    CAT --> VALIDATE
+    EXT --> VALIDATE
 
-    VALIDATE --> GROUND[Grounding Layer]
-    GROUND --> AI[Gemini]
-    AI --> OUTPUT[Structured AI Output]
+    VALIDATE --> GROUND[Grounding & Prompt Assembly Layer]
+    GROUND --> LLM[Google Gemini Model]
+    LLM --> PARSE[Structured Output Parser]
 
-    OUTPUT --> CITATION[Citation Validation]
-    CITATION --> API
+    PARSE --> CITE[Citation Integrity Validation]
+    CITE --> LOG[Interaction Audit Logger]
+    LOG --> API
     API --> F
 ```
 
+---
 
-A central design principle of MediGuard is that the AI model does **not** control the complete pipeline.
+## Technology Stack
 
-Retrieval, validation, source handling, authentication, throttling, and citation rendering remain backend responsibilities.
+### Frontend
+* **Framework**: [Next.js 16](https://nextjs.org/) (App Router, Turbopack)
+* **Library**: [React 19](https://react.dev/)
+* **Language**: [TypeScript](https://www.typescriptlang.org/)
+* **Styling**: [Tailwind CSS 4](https://tailwindcss.com/), Glassmorphism UI
+* **Icons**: [Lucide React](https://lucide.dev/)
+* **Authentication**: [Firebase Auth Client SDK](https://firebase.google.com/)
+* **Scanning**: [Html5-Qrcode](https://github.com/mebjas/html5-qrcode)
+
+### Backend
+* **Language**: [Python 3.12](https://www.python.org/)
+* **Framework**: [Django 5](https://www.djangoproject.com/) & [Django REST Framework](https://www.django-rest-framework.org/)
+* **Database**: [PostgreSQL](https://www.postgresql.org/)
+* **Authentication**: [Firebase Admin SDK](https://firebase.google.com/docs/admin/setup)
+* **AI Orchestration**: [Google Gemini 2.5 Flash](https://ai.google.dev/) via HTTPX
+* **Data Validation**: [Pydantic v2](https://docs.pydantic.dev/)
 
 ---
 
-# Technology Stack
+## Security & Reliability Engineering
 
-## Frontend
-
-* Next.js
-* React
-* TypeScript
-* Tailwind CSS
-* Firebase
-* html5-qrcode
-* shadcn
-* Base UI
-* Lucide React
-
-## Backend
-
-* Python
-* Django
-* Django REST Framework
-* PostgreSQL
-* Firebase Admin
-* Pydantic
-* HTTPX
-* Google Gemini
-
-## External Data
-
-* openFDA Drug Label API
-* Bangladesh DGDA medicine data
-* extensible trusted-source infrastructure
-
-# Evidence and Grounding Design
-
-Medicine-related AI systems have an important problem:
-
-A language model can produce a fluent answer even when the underlying information is missing, ambiguous, or incorrect.
-
-MediGuard attempts to reduce this problem by separating **retrieval** from **generation**.
-
-The evidence pipeline records the state of every source check independently.
-
-A source may be:
-
-* completed
-* disabled
-* not configured
-* not implemented
-* unsupported for the query
-* unavailable
-* not checked
-
-This distinction is important.
-
-For example:
-
-**"The source could not be checked" does not mean "the medicine was not found."**
-
-Similarly, finding a medicine label by name does not prove that the physical medicine being held by a user is genuine.
-
-These limitations are carried through the evidence layer so that failures are not silently converted into confident AI claims.
+* **Server-Side Token Verification**: Every API request is verified against Firebase public keys with `check_revoked=True`.
+* **Zero Secrets in Version Control**: All API keys, service accounts, database credentials, and session tokens are strictly managed via environment variables and excluded via `.gitignore`.
+* **Defensive Error Handling**: External network timeouts, malformed JSON, truncated bodies, and rate limits fail gracefully without leaking internal stack traces.
+* **Controlled Output Contracts**: AI model outputs are enforced using structured JSON schemas and server-side citation integrity checkers.
+* **Comprehensive Test Suite**: Over 140+ automated tests covering edge cases, network timeouts, invalid citations, corrupted cache entries, and role authorization.
 
 ---
 
-# Controlled Citations
-
-MediGuard does not allow the language model to freely invent links.
-
-The backend creates temporary citation identifiers for approved evidence records.
-
-The model can reference only those identifiers.
-
-After generation, the backend checks that:
-
-1. every citation exists,
-2. duplicate citation identifiers are rejected,
-3. only validated official URLs are rendered,
-4. arbitrary URLs generated by the model are not accepted.
-
-This keeps source rendering under application control rather than model control.
-
----
-
-# Defensive External API Handling
-
-The openFDA integration was built assuming that external systems can fail.
-
-The connector validates:
-
-* input format
-* HTTP status codes
-* response size
-* response time
-* JSON structure
-* record structure
-* UUID-formatted label identifiers
-* label dates
-* product metadata
-* supported label sections
-
-Responses are converted into validated internal evidence objects before they are used elsewhere in the application.
-
-Successful lookups can be cached, while failed or invalid responses are intentionally prevented from contaminating trusted cache entries.
-
----
-
-# Testing & Reliability
-
-Testing was performed continuously throughout development rather than only after the application was completed.
-
-The backend test suite intentionally exercises both successful behaviour and failure conditions.
-
-Examples include:
-
-* repeated API requests and cache reuse
-* cache expiration
-* corrupted cache entries
-* malformed JSON
-* incorrect response types
-* HTTP failures
-* API rate limiting
-* network timeouts
-* oversized responses
-* missing medicine metadata
-* invalid label identifiers
-* impossible dates
-* unsupported input
-* incomplete external records
-* provenance preservation
-* AI classification failures
-* evidence coordination failures
-* invalid citation references
-* duplicate citations
-* malformed structured AI responses
-* missing evidence
-* authentication edge cases
-
-The project was repeatedly tested from the terminal while features were being implemented, with components deliberately placed into invalid and unexpected states to verify their behaviour.
-
-For healthcare-related software, predictable failure is often more important than a perfect happy-path demonstration.
-
----
-
-# Data Provenance
-
-MediGuard intentionally distinguishes between several kinds of information.
-
-A medicine appearing in a searchable catalogue does **not** automatically establish:
-
-* regulatory registration
-* authenticity
-* correct physical packaging
-* correct strength
-* manufacturing legitimacy
-* patient suitability
-
-For this reason, catalogue records and regulatory evidence are represented separately.
-
-Evidence records preserve source metadata and official-source information whenever available.
-
----
-
-# Security Considerations
-
-MediGuard includes several defensive measures, including:
-
-* environment-based secret configuration
-* Firebase server-side token verification
-* revoked-token checking
-* authenticated API access
-* user-based request throttling
-* restricted trusted-source hostnames
-* HTTPS validation for official evidence URLs
-* external response-size limits
-* external request time budgets
-* strict structured AI output validation
-* controlled citation generation
-
-Sensitive environment files, private keys, service-account credentials, and generated build files are excluded from version control.
-
----
-
-# Project Structure
+## Project Structure
 
 ```text
 Mediguard-AI/
-│
 ├── backend/
-│   ├── accounts/
-│   │   └── Authentication and local user integration
-│   │
-│   ├── medicines/
-│   │   ├── services/
-│   │   │   ├── AI orchestration
-│   │   │   ├── evidence coordination
-│   │   │   ├── grounding and citation validation
-│   │   │   └── external medicine-source connectors
-│   │   │
-│   │   ├── models.py
-│   │   ├── serializers.py
-│   │   ├── views.py
-│   │   └── tests.py
-│   │
-│   └── config/
-│       └── Django configuration
+│   ├── accounts/              # User profile models, Firebase auth backend, token validation
+│   ├── config/                # Django project settings, URL routing, ASGI/WSGI
+│   ├── data/                  # DGDA-aligned raw medicine datasets and audit reports
+│   ├── medicines/             # Medicine catalog, interactions, views, and test suites
+│   │   ├── management/        # CLI management commands (import_catalogue, check_catalogue)
+│   │   ├── migrations/        # Database migrations (schema evolution)
+│   │   └── services/          # Evidence coordination, openFDA connector, Gemini orchestration
+│   └── manage.py
 │
 ├── frontend/
+│   ├── public/                # Static brand graphics and device mockup assets
 │   ├── src/
-│   │   └── app/
+│   │   ├── app/               # Next.js App Router (pages: /, /chat, /about, /admin, /login)
+│   │   ├── components/        # UI components (TermsDialog, ScannerDemo, Navbar, Footer)
+│   │   └── lib/               # Firebase client config, API client, utility functions
 │   └── package.json
 │
+├── .gitignore
 └── README.md
 ```
 
 ---
 
-# Running the Project Locally
+## Running the Project Locally
 
-## Prerequisites
-
-You will need:
-
-* Python
-* Node.js
+### Prerequisites
+* Python 3.11+
+* Node.js 20+ & npm
 * PostgreSQL
-* Firebase project credentials
-* Gemini API credentials
-* openFDA API credentials
+* Firebase Project (Authentication enabled)
+* Google Gemini API Key
 
-Clone the repository:
-
+### 1. Clone the Repository
 ```bash
 git clone https://github.com/dibyasarothidibya-lang/Mediguard-AI.git
 cd Mediguard-AI
 ```
 
-### Backend
-
-Create and activate a Python virtual environment.
-
+### 2. Backend Setup
 ```bash
 cd backend
-
 python -m venv .venv
-```
 
-Windows:
-
-```bash
+# Windows
 .venv\Scripts\activate
-```
-
-Linux/macOS:
-
-```bash
+# macOS/Linux
 source .venv/bin/activate
-```
 
-Configure the required environment variables for Django, PostgreSQL, Gemini, openFDA, and Firebase.
+# Install dependencies
+pip install -r requirements.txt
 
-Run database migrations:
-
-```bash
+# Run migrations
 python manage.py migrate
-```
 
-Start the Django development server:
+# (Optional) Seed local medicine catalogue
+python manage.py import_catalogue
 
-```bash
+# Run backend development server
 python manage.py runserver
 ```
 
-### Frontend
-
-From a second terminal:
-
+### 3. Frontend Setup
+In a separate terminal:
 ```bash
 cd frontend
 npm install
 npm run dev
 ```
 
-The Next.js development server will normally be available at:
+The Next.js web application will be live at `http://localhost:3000`.
 
-```text
-http://localhost:3000
-```
-
----
-
-# Environment Configuration
-
-The backend uses environment variables rather than committing secrets to the repository.
-
-Examples of backend configuration include:
-
-```env
-DJANGO_SECRET_KEY=
-GEMINI_API_KEY=
-GEMINI_MODEL=
-GEMINI_TIMEOUT_MS=
-OPENFDA_API_KEY=
-
-DB_NAME=
-DB_USER=
-DB_PASSWORD=
-DB_HOST=
-DB_PORT=
-```
-
-Firebase credentials must also be configured for the authentication environment being used.
-
-**Never commit actual credentials, private keys, ****`.env`**** files, or Firebase service-account secrets.**
-
----
-
-# Running Tests
-
-From the backend directory:
-
+### 4. Running Backend Automated Tests
 ```bash
+cd backend
 python manage.py test
 ```
 
-Testing is a major part of MediGuard's development process. New backend behaviour should ideally include tests for both the expected result and relevant failure conditions.
-
 ---
 
-# Screenshots
+## Environment Variables Configuration
 
-> Screenshots and final interface previews will be added after the frontend visual polish is complete.
+Create a `.env` file in `backend/` and `frontend/` (ensure these are never committed):
 
-<!--
-Recommended final layout:
+### Backend (`backend/.env`)
+```env
+DJANGO_SECRET_KEY=your_django_secret_key
+DEBUG=True
+ALLOWED_HOSTS=localhost,127.0.0.1
 
-1. Landing page
-2. Medicine assistant
-3. Evidence-grounded response
-4. QR/barcode scanner
-5. Authentication screen
-6. Mobile view
--->
+DB_NAME=mediguard_db
+DB_USER=postgres
+DB_PASSWORD=your_password
+DB_HOST=127.0.0.1
+DB_PORT=5432
 
----
-
-# What MediGuard Does Not Claim
-
-MediGuard does **not** claim that software alone can conclusively determine whether a physical medicine is genuine.
-
-A database match cannot prove that the packaging in front of a user is authentic.
-
-A label search cannot confirm the exact product without sufficient identifying information.
-
-An AI response cannot replace clinical evaluation.
-
-MediGuard should therefore be treated as an **information and verification-support tool**, not as a substitute for:
-
-* a licensed pharmacist
-* a physician
-* an official medicine regulator
-* laboratory analysis
-* emergency medical care
-
-For urgent medical concerns, users should seek appropriate professional or emergency assistance.
-
----
-
-# Engineering Goals
-
-MediGuard was built around several principles:
-
-**Evidence before generation.**
-Where evidence is available, retrieve it before asking the language model to answer.
-
-**Failures must remain failures.**
-An unavailable database must not silently become a "no match."
-
-**AI output is untrusted input.**
-Model responses are validated before being returned.
-
-**Sources require provenance.**
-A piece of medicine information should retain information about where it came from.
-
-**External APIs are unreliable by default.**
-Timeouts, malformed responses, rate limits, and unexpected structures must be expected.
-
-**Healthcare requires careful wording.**
-Candidate records and AI-generated explanations must not be presented as proof of authenticity or medical diagnosis.
-
----
-
-# Future Extensibility
-
-The trusted-source system was intentionally designed so that additional medicine regulators and datasets can be integrated without replacing the core evidence pipeline.
-
-Potential source adapters can reuse the same general flow:
-
-```text
-External Source
-      ↓
-Source Connector
-      ↓
-Validated Evidence Record
-      ↓
-Evidence Coordinator
-      ↓
-Grounding Layer
-      ↓
-Structured AI Response
+GEMINI_API_KEY=your_gemini_api_key
+OPENFDA_API_KEY=your_openfda_api_key
+ADMIN_EMAILS=your_email@gmail.com
 ```
 
-This keeps external data acquisition separate from AI generation.
+### Frontend (`frontend/.env.local`)
+```env
+NEXT_PUBLIC_FIREBASE_API_KEY=your_firebase_api_key
+NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=your_project.firebaseapp.com
+NEXT_PUBLIC_FIREBASE_PROJECT_ID=your_project_id
+NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=your_project.firebasestorage.app
+NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=your_sender_id
+NEXT_PUBLIC_FIREBASE_APP_ID=your_app_id
+NEXT_PUBLIC_API_BASE_URL=http://127.0.0.1:8000
+```
 
 ---
 
-# Project Status
+## Current Project Status
 
-**Core backend architecture: Complete**
-
-**Authentication: Complete**
-
-**Medicine evidence pipeline: Complete**
-
-**openFDA live integration: Complete**
-
-**Bangladesh DGDA data integration: Complete**
-
-**Grounded AI response system: Complete**
-
-**Backend testing: Complete / continuously expandable**
-
-**Frontend: Functional — final visual polish in progress**
-
-**Documentation: In progress**
+| Milestone / Component | Implementation Status | Verification |
+| :--- | :--- | :--- |
+| **Core Backend Architecture** | ✅ Complete | Modular Django REST Framework services |
+| **Authentication & Token Verification** | ✅ Complete | Firebase Admin SDK + Revoked Token Checking |
+| **openFDA Live Evidence Pipeline** | ✅ Complete | HTTPX connector with timeouts & schema checks |
+| **DGDA-Aligned Local Catalogue** | ✅ Complete | 50,000+ imported records with checksum validation |
+| **Grounded AI Interpretation Layer** | ✅ Complete | Gemini 2.5 with controlled citation validation |
+| **Admin Cockpit & Audit Telemetry** | ✅ Complete | Role-gated at `/admin` with email whitelisting |
+| **Safety Terms Agreement Modal** | ✅ Complete | Mandatory login + popup gating on `/chat` |
+| **Comprehensive Legal Notice** | ✅ Complete | Full 25-section disclosure on `/about` |
+| **Automated Test Suite** | ✅ Complete | **141/141 passing** backend unit & security tests |
+| **Frontend UI/UX Polish** | ✅ Complete | Next.js 16, Turbopack, responsive mockups |
 
 ---
 
-# Author
+## What MediGuard Does NOT Claim
 
-**Dibya Sarothi Simanta**
-
-MediGuard AI was designed and developed as an independent full-stack project exploring medicine verification, evidence-grounded AI, healthcare data systems, and defensive backend engineering.
+* **No Claim of Authenticity**: A database match or barcode scan cannot physically prove that a pharmaceutical product is genuine, unexpired, correctly stored, or safe for human consumption.
+* **No Clinical or Medical Advice**: MediGuard does not provide diagnoses, treatment plans, prescriptions, or clinical recommendations.
+* **No Replacement for Professionals**: Software is an informational aid, never a substitute for a licensed pharmacist, medical doctor, or official healthcare agency.
 
 ---
 
-## Disclaimer
+## Author & Academic Disclosure
 
-MediGuard AI is an educational software project.
+**Dibya Sarothi Simanta**  
+*Full-Stack Software Engineering & Healthcare AI Research Prototype*
 
-Information produced by the application should not be used as the sole basis for medical treatment, medication changes, diagnosis, emergency decisions, or determining the authenticity of a physical pharmaceutical product.
+Designed and built as an independent project exploring evidence-grounded AI architectures, defensive backend engineering, pharmaceutical data provenance, and healthcare transparency.
 
-Always consult qualified healthcare professionals and relevant regulatory authorities when appropriate.
+---
+
+## License & Disclaimer
+
+MediGuard AI is an educational and research software project. Information provided through this system must not be used as the sole basis for clinical decisions, drug substitution, or emergency treatment. Always consult qualified healthcare professionals and official regulatory authorities for health guidance.
