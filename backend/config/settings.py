@@ -13,7 +13,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 load_dotenv(BASE_DIR / ".env")
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY", "django-insecure-development-placeholder-change-in-production")
+SECRET_KEY = os.environ["DJANGO_SECRET_KEY"]
 GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY", "")
 OPENFDA_API_KEY = os.environ.get("OPENFDA_API_KEY", "")
 GEMINI_MODEL = os.environ.get("GEMINI_MODEL", "gemini-2.5-flash")
@@ -150,9 +150,9 @@ MAILERS = {
 }
 
 
-# Administrator Access Whitelist for Academic Project Audit
-ADMIN_EMAILS = [
-    email.strip().lower()
-    for email in os.getenv("ADMIN_EMAILS", "").split(",")
-    if email.strip()
+# Administrator Access Allowlist for Academic Project Audit (Firebase UIDs)
+ADMIN_FIREBASE_UIDS = [
+    uid.strip()
+    for uid in os.getenv("ADMIN_FIREBASE_UIDS", "").split(",")
+    if uid.strip()
 ]

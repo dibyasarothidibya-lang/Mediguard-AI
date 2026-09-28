@@ -84,21 +84,10 @@ class AnalyticsSummaryView(APIView):
         active_users = UserProfile.objects.filter(query_count__gt=0).count()
         total_queries = ChatInteraction.objects.count()
 
-        recent_queries_qs = ChatInteraction.objects.select_related("user").order_by("-created_at")[:5]
-        recent_activity = [
-            {
-                "id": interaction.pk,
-                "timestamp": interaction.created_at.isoformat(),
-                "query_preview": interaction.question[:60] + ("..." if len(interaction.question) > 60 else ""),
-            }
-            for interaction in recent_queries_qs
-        ]
-
         return Response({
             "total_registered_users": total_registered_users,
             "active_users": active_users,
             "total_queries": total_queries,
-            "recent_activity": recent_activity,
         })
 
 
@@ -110,18 +99,18 @@ class AdminOverviewView(APIView):
     def get(self, request):
         user = request.user
         profile = getattr(user, "profile", None)
-        user_email = ((profile.email if profile and profile.email else user.email) or "").strip().lower()
 
         claims = request.auth if isinstance(request.auth, dict) else {}
-        claims_email = (claims.get("email") or "").strip().lower()
+        token_uid = (claims.get("uid") or "").strip()
+        profile_uid = (profile.firebase_uid or "").strip() if profile else ""
 
-        admin_emails = getattr(settings, "ADMIN_EMAILS", [])
+        admin_uids = getattr(settings, "ADMIN_FIREBASE_UIDS", [])
 
         is_authorized = (
             user.is_superuser
             or user.is_staff
-            or (bool(user_email) and user_email in admin_emails)
-            or (bool(claims_email) and claims_email in admin_emails)
+            or (bool(token_uid) and token_uid in admin_uids)
+            or (bool(profile_uid) and profile_uid in admin_uids)
         )
 
         if not is_authorized:

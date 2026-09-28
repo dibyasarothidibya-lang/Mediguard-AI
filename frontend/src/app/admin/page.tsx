@@ -29,14 +29,17 @@ import {
   Eye,
 } from "lucide-react";
 
-const ADMIN_EMAILS = (process.env.NEXT_PUBLIC_ADMIN_EMAILS || "")
+const ADMIN_FIREBASE_UIDS = (process.env.NEXT_PUBLIC_ADMIN_FIREBASE_UIDS || "")
   .split(",")
-  .map((e) => e.trim().toLowerCase())
+  .map((u) => u.trim())
   .filter(Boolean);
 
 function isUserAdmin(user: User | null): boolean {
-  if (!user || !user.email) return false;
-  return ADMIN_EMAILS.includes(user.email.trim().toLowerCase());
+  if (!user) return false;
+  if (ADMIN_FIREBASE_UIDS.length > 0) {
+    return ADMIN_FIREBASE_UIDS.includes(user.uid);
+  }
+  return true;
 }
 
 export default function AdminDashboardPage() {
@@ -44,6 +47,7 @@ export default function AdminDashboardPage() {
   const [currentUser, setCurrentUser] = useState<User | null>(null);
   const [authReady, setAuthReady] = useState(false);
   const [isSigningOut, setIsSigningOut] = useState(false);
+  const [isForbidden, setIsForbidden] = useState(false);
 
   const [data, setData] = useState<AdminOverviewData | null>(null);
   const [loading, setLoading] = useState(true);
@@ -70,8 +74,14 @@ export default function AdminDashboardPage() {
     try {
       const overview = await fetchAdminOverview(targetUser);
       setData(overview);
+      setIsForbidden(false);
     } catch (err: unknown) {
-      setError(err instanceof Error ? err.message : "Failed to load admin analytics.");
+      const errMsg = err instanceof Error ? err.message : "Failed to load admin analytics.";
+      if (errMsg.includes("Access denied") || errMsg.includes("administrator permissions")) {
+        setIsForbidden(true);
+      } else {
+        setError(errMsg);
+      }
     } finally {
       setLoading(false);
       setRefreshing(false);
@@ -257,7 +267,7 @@ export default function AdminDashboardPage() {
   }
 
   // 3. Authenticated Non-Admin User (403 Forbidden Screen)
-  if (currentUser && !isUserAdmin(currentUser)) {
+  if (currentUser && (!isUserAdmin(currentUser) || isForbidden)) {
     return (
       <div className="min-h-screen bg-slate-50 text-slate-900 dark:bg-[#0d0f14] dark:text-[#ececec] flex flex-col">
         <header className="sticky top-0 z-40 border-b border-slate-200/80 bg-white/85 backdrop-blur-xl dark:border-neutral-800 dark:bg-neutral-950/85">
