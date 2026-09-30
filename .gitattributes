@@ -1,0 +1,26 @@
+# ==============================================================================
+# GitHub Linguist Overrides & Language Statistics Configuration
+# Exclude raw datasets, audit reports, presentation text pages, and AI
+# guardrails from repository code line counts and language statistics.
+# ==============================================================================
+
+# Data catalogues, audit reports, and seed datasets (~300,000 lines of data)
+backend/data/** linguist-vendored linguist-generated linguist-documentation
+frontend/package-lock.json linguist-generated linguist-vendored linguist-documentation
+
+# Binary static media assets and public uploads
+frontend/public/** binary linguist-documentation linguist-vendored
+*.png binary linguist-documentation linguist-vendored
+*.jpg binary linguist-documentation linguist-vendored
+*.jpeg binary linguist-documentation linguist-vendored
+*.webp binary linguist-documentation linguist-vendored
+*.ico binary linguist-documentation linguist-vendored
+
+# Presentation, documentation, and informational pages (raw text pages)
+frontend/src/app/about/** linguist-documentation
+frontend/src/app/howitworks/** linguist-documentation
+frontend/src/app/features/** linguist-documentation
+frontend/src/components/terms-dialog.tsx linguist-documentation
+
+# AI Guardrails, safety boundaries, and system prompt specifications
+backend/medicines/guardrails/** linguist-documentation

@@ -1,0 +1,19 @@
+# Data catalogues, audit reports, and datasets (~300,000 lines of data)
+backend/data/
+frontend/package-lock.json
+
+# Static image/media assets
+*.png
+*.jpg
+*.jpeg
+*.webp
+*.ico
+
+# Presentation and informational pages (marketing copy / raw text)
+frontend/src/app/about/
+frontend/src/app/howitworks/
+frontend/src/app/features/
+frontend/src/components/terms-dialog.tsx
+
+# Safety guardrails and system prompt specifications
+backend/medicines/guardrails/
