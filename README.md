@@ -1,5 +1,11 @@
 # MediGuard AI
 
+[![Codebase](https://img.shields.io/badge/codebase-~13k_lines_code-blue.svg?style=flat-square)](https://github.com/dibyasarothidibya-lang/Mediguard-AI)
+[![TypeScript](https://img.shields.io/badge/TypeScript-Next.js_16_Turbopack-3178C6.svg?style=flat-square&logo=typescript&logoColor=white)](https://nextjs.org/)
+[![Python](https://img.shields.io/badge/Python-Django_6_REST-3776AB.svg?style=flat-square&logo=python&logoColor=white)](https://www.djangoproject.com/)
+[![Tests](https://img.shields.io/badge/tests-143_passed-success.svg?style=flat-square&logo=pytest&logoColor=white)](https://github.com/dibyasarothidibya-lang/Mediguard-AI)
+[![DGDA Catalogue](https://img.shields.io/badge/DGDA_Catalogue-43%2C075_records-indigo.svg?style=flat-square)](https://github.com/dibyasarothidibya-lang/Mediguard-AI)
+
 ## Evidence-Grounded Medicine Information & Verification Platform
 
 MediGuard AI is an independent full-stack healthcare research and educational software project designed to help users explore medicine information, understand pharmaceutical packaging, and cross-reference records against structured regulatory and catalogue evidence.
@@ -123,6 +129,19 @@ flowchart TD
 
 ---
 
+## Codebase Metrics
+
+| Component | Technology | Files | Implementation Lines | Notes |
+| :--- | :--- | :---: | :---: | :--- |
+| **Frontend Web App** | TypeScript, React 19, Next.js 16 | 41 | ~8,360 | App Router, GS1 scanner, chat UI, responsive mockups |
+| **Backend API & Services** | Python 3.12, Django 6, DRF | 48 | ~4,275 | Firebase auth, openFDA connector, Gemini orchestration, 143 tests |
+| **Styles & Config** | Tailwind CSS 4, ESLint | 4 | ~315 | Modern glassmorphism UI styling |
+| **Safety Guardrails** | Multi-Layer Prompt Specifications | 5 | Modular Contracts | Scope classifier, clinical boundaries, evidence grounding |
+| **Pharmaceutical Catalogue** | DGDA Datasets & Audit Report | 6 | 43,075 records | Bangladesh brand/generic catalogue & dry-run audit report |
+| **Total Real Application Code** | | **93** | **~12,950 lines** | Excludes raw datasets, audit logs, and prompt contracts |
+
+---
+
 ## Security & Reliability Engineering
 
 * **Server-Side Token Verification**: Every API request is verified against Firebase public keys with `check_revoked=True`.
@@ -142,6 +161,7 @@ Mediguard-AI/
 │   ├── config/                # Django project settings, URL routing, ASGI/WSGI
 │   ├── data/                  # DGDA-aligned raw medicine datasets and audit reports
 │   ├── medicines/             # Medicine catalog, interactions, views, and test suites
+│   │   ├── guardrails/        # Multi-layer domain safety & grounding prompt contracts
 │   │   ├── management/        # CLI management commands (import_catalogue, check_catalogue)
 │   │   ├── migrations/        # Database migrations (schema evolution)
 │   │   └── services/          # Evidence coordination, openFDA connector, Gemini orchestration
@@ -155,6 +175,7 @@ Mediguard-AI/
 │   │   └── lib/               # Firebase client config, API client, utility functions
 │   └── package.json
 │
+├── .gitattributes             # GitHub Linguist statistics overrides
 ├── .gitignore
 └── README.md
 ```
