@@ -87,6 +87,9 @@ class ChatHistoryView(APIView):
         from django.utils import timezone
 
         cutoff = timezone.now() - timedelta(days=3)
+        # Purge records older than 3 days
+        ChatInteraction.objects.filter(user=request.user, created_at__lt=cutoff).delete()
+
         interactions = (
             ChatInteraction.objects.filter(user=request.user, created_at__gte=cutoff)
             .order_by("created_at")[:100]
