@@ -27,6 +27,8 @@ import {
   SquarePen,
   ThumbsDown,
   ThumbsUp,
+  Image as ImageIcon,
+  X,
 } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -37,6 +39,7 @@ type ChatMessage = {
   role: "user" | "assistant";
   content: string;
   timestamp?: number;
+  imageUrl?: string;
 };
 
 type HistorySession = {
@@ -120,6 +123,10 @@ export default function MediGuardChatPage() {
 
   const [sessions, setSessions] = useState<HistorySession[]>([]);
   const [activeSessionId, setActiveSessionId] = useState<string | null>(null);
+
+  // Attached Image state for plus button upload
+  const [attachedImage, setAttachedImage] = useState<{ url: string; name: string } | null>(null);
+  const imageInputRef = useRef<HTMLInputElement | null>(null);
 
   useEffect(() => {
     return onAuthStateChanged(auth, (currentUser) => {
@@ -227,6 +234,7 @@ export default function MediGuardChatPage() {
     setActiveSessionId(null);
     setMessages([]);
     setText("");
+    setAttachedImage(null);
     setChatError(null);
     if (textareaRef.current) {
       textareaRef.current.style.height = "auto";
@@ -237,11 +245,39 @@ export default function MediGuardChatPage() {
     setActiveSessionId(session.id);
     setMessages(session.messages);
     setText("");
+    setAttachedImage(null);
     setChatError(null);
     if (textareaRef.current) {
       textareaRef.current.style.height = "auto";
     }
   }, []);
+
+  const handleImageSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    if (!file.type.startsWith("image/")) {
+      setChatError("Please select a valid image file (JPG, PNG, WebP).");
+      return;
+    }
+
+    if (file.size > 5 * 1024 * 1024) {
+      setChatError("Image size must be less than 5 MB.");
+      return;
+    }
+
+    const reader = new FileReader();
+    reader.onload = () => {
+      if (typeof reader.result === "string") {
+        setAttachedImage({ url: reader.result, name: file.name });
+        setChatError(null);
+      }
+    };
+    reader.readAsDataURL(file);
+    if (imageInputRef.current) {
+      imageInputRef.current.value = "";
+    }
+  };
 
   const handleQrConfirm = useCallback((decodedText: string) => {
     const scannedContent = `Scanned QR content: ${decodedText}`;
@@ -255,7 +291,8 @@ export default function MediGuardChatPage() {
 
   const handleSendMessage = useCallback(
     async (textToSend?: string) => {
-      const query = (textToSend ?? text).trim();
+      const rawText = (textToSend ?? text).trim();
+      const query = rawText || (attachedImage ? `Please analyze this medicine photo: ${attachedImage.name}` : "");
 
       if (sendingRef.current) return;
 
@@ -285,11 +322,15 @@ export default function MediGuardChatPage() {
       setIsSending(true);
       setChatError(null);
 
+      const currentImg = attachedImage;
+      setAttachedImage(null);
+
       const userMessage: ChatMessage = {
         id: crypto.randomUUID(),
         role: "user",
         content: query,
         timestamp: Date.now(),
+        imageUrl: currentImg?.url,
       };
 
       const updatedMessages = [...messages, userMessage];
@@ -660,6 +701,15 @@ export default function MediGuardChatPage() {
                   {message.role === "user" ? (
                     /* User Message: Clean Right Bubble */
                     <div className="max-w-[85%] rounded-[22px] bg-[#f4f4f4] px-5 py-3 text-[15px] leading-relaxed text-neutral-900 shadow-2xs transition-all sm:max-w-[75%] dark:bg-[#2f2f2f] dark:text-[#ececec]">
+                      {message.imageUrl && (
+                        <div className="mb-2 overflow-hidden rounded-xl border border-black/10 dark:border-white/10">
+                          <img
+                            src={message.imageUrl}
+                            alt="Uploaded medicine photo"
+                            className="max-h-60 max-w-full object-contain"
+                          />
+                        </div>
+                      )}
                       <p className="whitespace-pre-wrap break-words">{message.content}</p>
                     </div>
                   ) : (
@@ -764,15 +814,49 @@ export default function MediGuardChatPage() {
 
             {/* The Iconic ChatGPT Pill Container */}
             <div className="relative flex flex-col rounded-[26px] border border-black/10 bg-[#f4f4f4] px-4 pt-3 pb-2 shadow-xs transition-all focus-within:border-black/20 focus-within:shadow-md dark:border-white/10 dark:bg-[#2f2f2f] dark:focus-within:border-white/20">
+              {/* Attached Image Preview inside Pill */}
+              {attachedImage && (
+                <div className="mb-2.5 flex items-center gap-2">
+                  <div className="relative group overflow-hidden rounded-xl border border-neutral-300 bg-white p-1 shadow-xs dark:border-white/10 dark:bg-[#222]">
+                    <img
+                      src={attachedImage.url}
+                      alt={attachedImage.name}
+                      className="size-14 rounded-lg object-cover"
+                    />
+                    <button
+                      type="button"
+                      onClick={() => setAttachedImage(null)}
+                      className="absolute -top-1 -right-1 flex size-5 items-center justify-center rounded-full bg-neutral-900 text-white shadow-sm hover:bg-rose-600 dark:bg-white dark:text-neutral-900"
+                      title="Remove image"
+                    >
+                      <X className="size-3" />
+                    </button>
+                  </div>
+                  <span className="text-xs text-neutral-500 truncate max-w-[200px] dark:text-neutral-400">
+                    {attachedImage.name}
+                  </span>
+                </div>
+              )}
+
               <textarea
                 ref={textareaRef}
                 value={text}
                 onChange={handleTextChange}
                 onKeyDown={handleKeyDown}
                 disabled={isSending || !hasAgreedTerms}
-                placeholder={hasAgreedTerms ? "Message MediGuard..." : "Please accept safety terms to use assistant..."}
+                placeholder={hasAgreedTerms ? (attachedImage ? "Add details or press Send..." : "Message MediGuard...") : "Please accept safety terms to use assistant..."}
                 rows={1}
                 className="max-h-[200px] min-h-[24px] w-full resize-none bg-transparent text-[15px] leading-relaxed text-neutral-900 outline-none placeholder:text-neutral-400 dark:text-white dark:placeholder:text-neutral-500 disabled:opacity-50"
+              />
+
+              {/* Hidden file input for plus button */}
+              <input
+                ref={imageInputRef}
+                type="file"
+                accept="image/png,image/jpeg,image/webp,image/jpg"
+                onChange={handleImageSelect}
+                className="hidden"
+                id="plus-image-upload-input"
               />
 
               {/* Bottom Action Row inside the Pill */}
@@ -780,9 +864,16 @@ export default function MediGuardChatPage() {
                 <div className="flex items-center gap-1.5">
                   <button
                     type="button"
-                    disabled
-                    title="Image attachment is coming soon"
-                    className="flex size-8 items-center justify-center rounded-full text-neutral-400 transition-transform duration-150 hover:scale-105 active:scale-95 disabled:opacity-40 dark:text-neutral-400 dark:hover:bg-white/10"
+                    onClick={() => {
+                      if (!hasAgreedTerms) {
+                        setShowTermsModal(true);
+                        return;
+                      }
+                      imageInputRef.current?.click();
+                    }}
+                    disabled={isSending || !hasAgreedTerms}
+                    title="Attach medicine photo or package label"
+                    className="flex size-8 items-center justify-center rounded-full text-neutral-600 transition-transform duration-150 hover:scale-105 active:scale-95 hover:bg-neutral-200/80 disabled:opacity-40 dark:text-neutral-300 dark:hover:bg-white/10"
                   >
                     <Plus className="size-4" />
                   </button>
@@ -809,7 +900,7 @@ export default function MediGuardChatPage() {
                 <button
                   type="button"
                   onClick={() => handleSendMessage()}
-                  disabled={!text.trim() || isSending || !hasAgreedTerms}
+                  disabled={(!text.trim() && !attachedImage) || isSending || !hasAgreedTerms}
                   className="flex size-8 items-center justify-center rounded-full bg-black text-white shadow-xs transition-all duration-150 hover:scale-105 hover:opacity-90 active:scale-90 disabled:scale-100 disabled:opacity-20 dark:bg-white dark:text-black"
                   aria-label="Send message"
                 >
