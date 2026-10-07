@@ -171,8 +171,8 @@ def classify_question(question: str, history=None) -> ScopeDecision:
 
     try:
         with create_gemini_client() as client:
-            response = client.models.generate_content(
-                model=settings.GEMINI_MODEL,
+            response = execute_gemini_with_fallback(
+                client,
                 contents=build_request_content(question, history),
                 config=types.GenerateContentConfig(
                     system_instruction=SCOPE_SYSTEM_INSTRUCTION,
@@ -257,10 +257,148 @@ def static_chat_reply(question: str) -> str | None:
     return None
 
 
-def ask_gemini(question: str, history=None) -> str:
-    static_reply = static_chat_reply(question)
+NOT_MEDICINE_REPLY = "Please provide a medicine image or QR code."
+
+def execute_gemini_with_fallback(client, contents, config=None):
+    primary = getattr(settings, "GEMINI_MODEL", "gemini-3.8-flash")
+    fallback = "gemini-3.5-flash-lite"
+    try:
+        return client.models.generate_content(
+            model=primary,
+            contents=contents,
+            config=config,
+        )
+    except Exception as exc:
+        code = getattr(exc, "code", None)
+        status = getattr(exc, "status", None)
+        is_server_error = (
+            code in (503, 504)
+            or status in ("UNAVAILABLE", "DEADLINE_EXCEEDED")
+            or "504" in str(exc)
+            or "503" in str(exc)
+            or "deadline" in str(exc).lower()
+        )
+        if primary != fallback and primary == "gemini-3.8-flash" and is_server_error:
+            logger.info("Primary model %s failed with server issue (%s), falling back to %s", primary, exc, fallback)
+            return client.models.generate_content(
+                model=fallback,
+                contents=contents,
+                config=config,
+            )
+        raise exc
+
+
+def inspect_image_content(image_data: str) -> tuple[bool, str]:
+    """Inspect base64 image to verify medicine packaging/label and extract text."""
+    import base64
+    if not image_data or not isinstance(image_data, str):
+        return True, ""
+
+    try:
+        if "," in image_data:
+            header, encoded = image_data.split(",", 1)
+            mime_type = "image/jpeg"
+            if "png" in header:
+                mime_type = "image/png"
+            elif "webp" in header:
+                mime_type = "image/webp"
+        else:
+            encoded = image_data
+            mime_type = "image/jpeg"
+
+        image_bytes = base64.b64decode(encoded)
+        if len(image_bytes) == 0:
+            return True, ""
+
+        part = types.Part.from_bytes(data=image_bytes, mime_type=mime_type)
+        prompt = (
+            "Analyze this image carefully. "
+            "Is this image related to medicine, pharmaceutical products, drug packaging, a prescription, blister pack, pills, syrup, capsules, or a medicine label? "
+            "If NO (for example: person, selfie, food, animals, vehicles, clothing, landscapes, non-medical items), respond with exactly: NOT_MEDICINE. "
+            "If YES, transcribe and extract the medicine brand/generic name, active ingredients, dosage, and manufacturer clearly."
+        )
+
+        with create_gemini_client() as client:
+            res = execute_gemini_with_fallback(client, contents=[part, prompt])
+            result_text = (res.text or "").strip()
+            if "NOT_MEDICINE" in result_text.upper():
+                return False, ""
+            return True, result_text
+    except Exception as e:
+        logger.warning("inspect_image_content error: %s", e)
+        return True, ""
+
+
+def inspect_qr_content(text: str) -> tuple[bool, str]:
+    """If the question contains scanned QR/barcode content, ensure it relates to medicine."""
+    if not isinstance(text, str):
+        return True, ""
+
+    lower = text.lower()
+    prefixes = [
+        "scanned qr content:",
+        "scanned qr:",
+        "qr content:",
+        "qr code:",
+        "scanned barcode:",
+        "barcode:",
+    ]
+    matched_prefix = next((p for p in prefixes if p in lower), None)
+    if not matched_prefix:
+        return True, ""
+
+    idx = lower.find(matched_prefix)
+    raw_code = text[idx + len(matched_prefix):].strip()
+    if not raw_code:
+        return False, ""
+
+    prompt = (
+        f"Analyze this scanned barcode or QR code text: '{raw_code}'. "
+        "Is this code or text associated with a medicine, pharmaceutical package, drug registration, GS1 healthcare barcode, prescription, or medical supply? "
+        "If NO (for example: non-medical website URL, Wi-Fi config, consumer products like electronics/clothes/shoes, arbitrary text, contact card), respond with exactly: NOT_MEDICINE. "
+        "If YES, identify the medicine name, generic name, active ingredients, or GTIN/NDC product details associated with this code."
+    )
+    try:
+        with create_gemini_client() as client:
+            res = execute_gemini_with_fallback(client, contents=prompt)
+            output = (res.text or "").strip()
+            if "NOT_MEDICINE" in output.upper():
+                return False, ""
+            return True, output
+    except Exception as e:
+        logger.warning("inspect_qr_content error: %s", e)
+        return True, ""
+
+
+def ask_gemini(question: str, history=None, image_data: str = "") -> str:
+    if not isinstance(question, str):
+        raise TypeError("The question must be text.")
+    clean_question = question.strip()
+    if not clean_question:
+        raise ValueError("The question must not be empty.")
+    if len(clean_question) > 4000:
+        raise ValueError("The question must not exceed 4000 characters.")
+
+    # 1. Non-medicine image check
+    if image_data:
+        is_medicine_img, extracted_text = inspect_image_content(image_data)
+        if not is_medicine_img:
+            return NOT_MEDICINE_REPLY
+        if extracted_text:
+            clean_question = f"{clean_question}\n\nVisible details on medicine package: {extracted_text}".strip()
+
+    # 2. Non-medicine QR check
+    is_medicine_qr, qr_details = inspect_qr_content(clean_question)
+    if not is_medicine_qr:
+        return NOT_MEDICINE_REPLY
+    if qr_details:
+        clean_question = f"{clean_question}\n\nDetails from scanned medicine code: {qr_details}".strip()
+
+    static_reply = static_chat_reply(clean_question[:4000])
     if static_reply is not None:
         return static_reply
+
+    question = clean_question
 
     choice = catalogue_chat_service.pending_choice(question, history)
     if choice is not None:
@@ -293,8 +431,8 @@ def ask_gemini(question: str, history=None) -> str:
 
     try:
         with create_gemini_client() as client:
-            response = client.models.generate_content(
-                model=settings.GEMINI_MODEL,
+            response = execute_gemini_with_fallback(
+                client,
                 contents=build_request_content(question.strip(), history, decision, evidence),
                 config=types.GenerateContentConfig(
                     system_instruction=(MEDICINE_SYSTEM_INSTRUCTION + GROUNDING_INSTRUCTION

@@ -44,13 +44,18 @@ function ScanSession({ onConfirm }: Pick<QrScannerDialogProps, "onConfirm">) {
       if (!tempDiv) {
         tempDiv = document.createElement("div");
         tempDiv.id = tempId;
-        tempDiv.style.display = "none";
+        tempDiv.style.position = "absolute";
+        tempDiv.style.top = "-9999px";
+        tempDiv.style.left = "-9999px";
+        tempDiv.style.width = "400px";
+        tempDiv.style.height = "400px";
+        tempDiv.style.overflow = "hidden";
         document.body.appendChild(tempDiv);
       }
 
       const html5QrCode = new Html5Qrcode(tempId);
       try {
-        const decodedText = await html5QrCode.scanFile(file, true);
+        const decodedText = await html5QrCode.scanFile(file, false);
         setResult(decodedText);
       } finally {
         try {

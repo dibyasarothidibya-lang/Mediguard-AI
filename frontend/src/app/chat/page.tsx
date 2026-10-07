@@ -341,7 +341,7 @@ export default function MediGuardChatPage() {
       }
 
       try {
-        const answer = await sendChatMessage(user, query, messages);
+        const answer = await sendChatMessage(user, query, messages, currentImg?.url);
 
         if (auth.currentUser?.uid !== user.uid) {
           throw new Error("Your session changed. Please sign in again.");

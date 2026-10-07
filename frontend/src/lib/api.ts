@@ -42,6 +42,7 @@ export async function sendChatMessage(
   user: User,
   question: string,
   messages: ReadonlyArray<{ role: "user" | "assistant"; content: string }> = [],
+  imageData?: string,
 ): Promise<string> {
   const token = await user.getIdToken();
 
@@ -67,7 +68,7 @@ export async function sendChatMessage(
         Authorization: `Bearer ${token}`,
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ question, history }),
+      body: JSON.stringify({ question, history, image_data: imageData || "" }),
     });
   } catch {
     throw new Error(

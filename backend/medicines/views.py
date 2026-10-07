@@ -38,9 +38,10 @@ class ChatView(APIView):
         data = cast(dict[str, Any], serializer.validated_data)
         question = data["question"]
         history = data["history"]
+        image_data = data.get("image_data", "")
 
         try:
-            answer = ask_gemini(question, history=history)
+            answer = ask_gemini(question, history=history, image_data=image_data)
         except RuntimeError:
             return Response(
                 {

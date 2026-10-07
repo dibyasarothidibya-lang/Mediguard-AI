@@ -932,3 +932,18 @@ class StaticChatReplyTests(SimpleTestCase):
         self.scope.assert_not_called()
         self.client.assert_not_called()
         self.collect.assert_not_called()
+
+    def test_non_medicine_image_returns_static_reply(self):
+        with patch.object(gemini, "inspect_image_content", return_value=(False, "")):
+            reply = gemini.ask_gemini("What is this?", image_data="data:image/png;base64,123")
+            self.assertEqual(reply, gemini.NOT_MEDICINE_REPLY)
+            self.assertEqual(reply, "Please provide a medicine image or QR code.")
+            self.scope.assert_not_called()
+
+    def test_non_medicine_qr_returns_static_reply(self):
+        with patch.object(gemini, "inspect_qr_content", return_value=(False, "")):
+            reply = gemini.ask_gemini("Scanned QR content: https://example.com")
+            self.assertEqual(reply, gemini.NOT_MEDICINE_REPLY)
+            self.assertEqual(reply, "Please provide a medicine image or QR code.")
+            self.scope.assert_not_called()
+

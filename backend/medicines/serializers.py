@@ -13,6 +13,7 @@ class ChatRequestSerializer(serializers.Serializer):
         max_length=4000,
         trim_whitespace=True,
     )
+    image_data = serializers.CharField(required=False, allow_blank=True, default="")
     history = ChatHistoryMessageSerializer(many=True, required=False, default=list)
 
     def validate_history(self, value):
