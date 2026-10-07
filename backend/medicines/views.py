@@ -60,7 +60,7 @@ class ChatView(APIView):
             ChatInteraction.objects.create(
                 user=request.user,
                 question=question,
-                answer_snippet=answer[:500] if answer else "",
+                answer_snippet=answer if answer else "",
                 client_ip=client_ip,
             )
 
@@ -74,6 +74,34 @@ class ChatView(APIView):
             pass
 
         return Response({"answer": answer})
+
+
+class ChatHistoryView(APIView):
+    """Retrieve chat history for the authenticated user with a 3-day retention limit."""
+    authentication_classes = [FirebaseAuthentication]
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        from datetime import timedelta
+        from django.utils import timezone
+
+        cutoff = timezone.now() - timedelta(days=3)
+        interactions = (
+            ChatInteraction.objects.filter(user=request.user, created_at__gte=cutoff)
+            .order_by("created_at")[:100]
+        )
+
+        history_list = [
+            {
+                "id": str(item.id),
+                "question": item.question,
+                "answer": item.answer_snippet,
+                "created_at": item.created_at.isoformat(),
+            }
+            for item in interactions
+        ]
+
+        return Response({"history": history_list})
 
 
 class AnalyticsSummaryView(APIView):

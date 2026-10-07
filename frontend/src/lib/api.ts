@@ -114,6 +114,35 @@ export async function sendChatMessage(
   return data.answer;
 }
 
+export type HistoryInteraction = {
+  id: string;
+  question: string;
+  answer: string;
+  created_at: string;
+};
+
+export async function fetchUserChatHistory(user: User): Promise<HistoryInteraction[]> {
+  const token = await user.getIdToken();
+  let response: Response;
+  try {
+    response = await fetch(`${BACKEND_URL}/api/chat/history/`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      cache: "no-store",
+    });
+  } catch {
+    return [];
+  }
+
+  if (!response.ok) {
+    return [];
+  }
+
+  const data = await response.json();
+  return Array.isArray(data?.history) ? data.history : [];
+}
+
 export type AdminOverviewData = {
   stats: {
     total_registered_users: number;

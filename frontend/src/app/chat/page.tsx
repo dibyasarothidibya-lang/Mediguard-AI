@@ -1,7 +1,7 @@
 "use client";
 
 import { Streamdown } from "streamdown";
-import { sendChatMessage } from "@/lib/api";
+import { sendChatMessage, fetchUserChatHistory } from "@/lib/api";
 import QrScannerDialog from "@/components/QR/qr-scanner-dialog";
 import TermsDialog from "@/components/terms-dialog";
 import ThemeToggle from "@/app/components/theme-toggle";
@@ -36,7 +36,45 @@ type ChatMessage = {
   id: string;
   role: "user" | "assistant";
   content: string;
+  timestamp?: number;
 };
+
+type HistorySession = {
+  id: string;
+  title: string;
+  createdAt: number;
+  updatedAt: number;
+  messages: ChatMessage[];
+};
+
+const THREE_DAYS_MS = 3 * 24 * 60 * 60 * 1000;
+
+function getStoredSessions(uid: string): HistorySession[] {
+  if (typeof window === "undefined") return [];
+  try {
+    const raw = localStorage.getItem(`mediguard_chat_sessions_${uid}`);
+    if (!raw) return [];
+    const parsed: HistorySession[] = JSON.parse(raw);
+    const cutoff = Date.now() - THREE_DAYS_MS;
+    // Filter sessions within 3 days limit
+    const valid = parsed.filter((s) => s.updatedAt >= cutoff);
+    if (valid.length !== parsed.length) {
+      localStorage.setItem(`mediguard_chat_sessions_${uid}`, JSON.stringify(valid));
+    }
+    return valid;
+  } catch {
+    return [];
+  }
+}
+
+function saveStoredSessions(uid: string, sessions: HistorySession[]) {
+  if (typeof window === "undefined") return;
+  try {
+    const cutoff = Date.now() - THREE_DAYS_MS;
+    const valid = sessions.filter((s) => s.updatedAt >= cutoff);
+    localStorage.setItem(`mediguard_chat_sessions_${uid}`, JSON.stringify(valid));
+  } catch {}
+}
 
 const SUGGESTIONS = [
   {
@@ -80,6 +118,9 @@ export default function MediGuardChatPage() {
   const sendingRef = useRef(false);
   const sessionUidRef = useRef<string | null>(null);
 
+  const [sessions, setSessions] = useState<HistorySession[]>([]);
+  const [activeSessionId, setActiveSessionId] = useState<string | null>(null);
+
   useEffect(() => {
     return onAuthStateChanged(auth, (currentUser) => {
       const nextUid = currentUser?.uid ?? null;
@@ -87,6 +128,13 @@ export default function MediGuardChatPage() {
         setMessages([]);
         setText("");
         setChatError(null);
+        setActiveSessionId(null);
+        if (nextUid) {
+          const loaded = getStoredSessions(nextUid);
+          setSessions(loaded);
+        } else {
+          setSessions([]);
+        }
       }
       sessionUidRef.current = nextUid;
       setUser(currentUser);
@@ -101,6 +149,36 @@ export default function MediGuardChatPage() {
           localStorage.getItem(`mediguard_terms_agreed_${currentUser.uid}`) === "true";
         setHasAgreedTerms(agreed);
         setShowTermsModal(!agreed);
+        const loaded = getStoredSessions(currentUser.uid);
+        setSessions(loaded);
+
+        // Fetch backend-persisted history (strictly within 3-day window)
+        fetchUserChatHistory(currentUser).then((remoteHistory) => {
+          if (!remoteHistory || remoteHistory.length === 0) return;
+          setSessions((prevSessions) => {
+            let merged = [...prevSessions];
+            remoteHistory.forEach((item) => {
+              const itemTime = new Date(item.created_at).getTime();
+              const existing = merged.some((s) =>
+                s.messages.some((m) => m.content === item.question)
+              );
+              if (!existing) {
+                merged.unshift({
+                  id: `hist-${item.id}`,
+                  title: item.question.slice(0, 36) || "Medicine inquiry",
+                  createdAt: itemTime,
+                  updatedAt: itemTime,
+                  messages: [
+                    { id: `q-${item.id}`, role: "user", content: item.question, timestamp: itemTime },
+                    { id: `a-${item.id}`, role: "assistant", content: item.answer, timestamp: itemTime },
+                  ],
+                });
+              }
+            });
+            saveStoredSessions(currentUser.uid, merged);
+            return merged;
+          });
+        }).catch(() => {});
       }
     });
   }, [router]);
@@ -146,7 +224,18 @@ export default function MediGuardChatPage() {
   };
 
   const handleStartNewChat = useCallback(() => {
+    setActiveSessionId(null);
     setMessages([]);
+    setText("");
+    setChatError(null);
+    if (textareaRef.current) {
+      textareaRef.current.style.height = "auto";
+    }
+  }, []);
+
+  const handleSelectSession = useCallback((session: HistorySession) => {
+    setActiveSessionId(session.id);
+    setMessages(session.messages);
     setText("");
     setChatError(null);
     if (textareaRef.current) {
@@ -200,9 +289,11 @@ export default function MediGuardChatPage() {
         id: crypto.randomUUID(),
         role: "user",
         content: query,
+        timestamp: Date.now(),
       };
 
-      setMessages((prev) => [...prev, userMessage]);
+      const updatedMessages = [...messages, userMessage];
+      setMessages(updatedMessages);
       setText("");
       if (textareaRef.current) {
         textareaRef.current.style.height = "auto";
@@ -219,9 +310,44 @@ export default function MediGuardChatPage() {
           id: crypto.randomUUID(),
           role: "assistant",
           content: answer,
+          timestamp: Date.now(),
         };
 
-        setMessages((prev) => [...prev, assistantMessage]);
+        const finalMessages = [...updatedMessages, assistantMessage];
+        setMessages(finalMessages);
+
+        // Persist session locally with 3-day retention limit
+        const now = Date.now();
+        const sessionId = activeSessionId || crypto.randomUUID();
+        if (!activeSessionId) {
+          setActiveSessionId(sessionId);
+        }
+
+        setSessions((prev) => {
+          const title = query.slice(0, 36) || "Medicine inquiry";
+          const existingIndex = prev.findIndex((s) => s.id === sessionId);
+          let nextSessions: HistorySession[];
+          if (existingIndex >= 0) {
+            nextSessions = prev.map((s, idx) =>
+              idx === existingIndex
+                ? { ...s, updatedAt: now, messages: finalMessages }
+                : s
+            );
+          } else {
+            nextSessions = [
+              {
+                id: sessionId,
+                title,
+                createdAt: now,
+                updatedAt: now,
+                messages: finalMessages,
+              },
+              ...prev,
+            ];
+          }
+          saveStoredSessions(user.uid, nextSessions);
+          return nextSessions;
+        });
       } catch (error) {
         setChatError(
           error instanceof Error
@@ -233,7 +359,7 @@ export default function MediGuardChatPage() {
         setIsSending(false);
       }
     },
-    [text, user, isSigningOut, messages, hasAgreedTerms]
+    [text, user, isSigningOut, messages, hasAgreedTerms, activeSessionId]
   );
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
@@ -360,20 +486,42 @@ export default function MediGuardChatPage() {
             <SquarePen className="size-4 text-neutral-400 transition-transform duration-200 group-hover:scale-110" />
           </button>
 
-          {/* Recent History / Current Context */}
-          <div className="mt-6 flex flex-col gap-1 text-xs">
-            <span className="px-3 py-1 font-semibold text-neutral-400 uppercase tracking-wider dark:text-neutral-500">
-              Active Session
-            </span>
-            <button
-              type="button"
-              className="flex items-center gap-2.5 rounded-lg bg-neutral-200/60 px-3 py-2 text-left font-medium text-neutral-900 dark:bg-[#212121] dark:text-white"
-            >
-              <MessageSquare className="size-3.5 text-indigo-500 shrink-0" />
-              <span className="truncate">
-                {messages[0]?.content.slice(0, 24) || "New conversation"}
+          {/* Recent History (3-Day Limit) */}
+          <div className="mt-6 flex flex-1 flex-col gap-1 overflow-y-auto text-xs">
+            <div className="flex items-center justify-between px-3 py-1">
+              <span className="font-semibold text-neutral-400 uppercase tracking-wider dark:text-neutral-500">
+                Recent (3 Days)
               </span>
-            </button>
+              <span className="text-[10px] text-neutral-400 dark:text-neutral-500">
+                Auto-cleared
+              </span>
+            </div>
+
+            {sessions.length === 0 ? (
+              <div className="px-3 py-2 text-neutral-400 dark:text-neutral-500 italic text-[11px]">
+                No recent chats in the last 3 days
+              </div>
+            ) : (
+              sessions.map((s) => {
+                const isActive = activeSessionId === s.id;
+                return (
+                  <button
+                    key={s.id}
+                    type="button"
+                    onClick={() => handleSelectSession(s)}
+                    className={`flex items-center gap-2.5 rounded-lg px-3 py-2 text-left font-medium transition-colors ${
+                      isActive
+                        ? "bg-neutral-200/80 text-neutral-900 dark:bg-[#282828] dark:text-white"
+                        : "text-neutral-600 hover:bg-neutral-200/50 hover:text-neutral-900 dark:text-neutral-400 dark:hover:bg-[#212121] dark:hover:text-white"
+                    }`}
+                    title={s.title}
+                  >
+                    <MessageSquare className={`size-3.5 shrink-0 ${isActive ? "text-indigo-500" : "text-neutral-400"}`} />
+                    <span className="truncate flex-1">{s.title}</span>
+                  </button>
+                );
+              })
+            )}
           </div>
         </div>
 
