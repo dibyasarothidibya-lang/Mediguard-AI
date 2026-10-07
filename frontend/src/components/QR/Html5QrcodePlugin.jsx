@@ -26,7 +26,7 @@ export default function Html5QrcodePlugin({
   disableFlip = false,
   verbose = false,
 }) {
-  const regionId = useId();
+  const [regionId] = useState(() => `reader_${Math.random().toString(36).substring(2, 9)}`);
   const [error, setError] = useState("");
 
   // Use the latest callbacks without restarting the camera on parent renders.
@@ -54,7 +54,15 @@ export default function Html5QrcodePlugin({
           qrbox,
           aspectRatio,
           disableFlip,
-          formatsToSupport: [Html5QrcodeSupportedFormats.QR_CODE],
+          formatsToSupport: [
+            Html5QrcodeSupportedFormats.QR_CODE,
+            Html5QrcodeSupportedFormats.DATA_MATRIX,
+            Html5QrcodeSupportedFormats.CODE_128,
+            Html5QrcodeSupportedFormats.CODE_39,
+            Html5QrcodeSupportedFormats.EAN_13,
+            Html5QrcodeSupportedFormats.EAN_8,
+            Html5QrcodeSupportedFormats.UPC_A,
+          ],
           rememberLastUsedCamera: false,
         },
         verbose,

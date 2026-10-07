@@ -24,16 +24,94 @@ type QrScannerDialogProps = {
 
 function ScanSession({ onConfirm }: Pick<QrScannerDialogProps, "onConfirm">) {
   const [result, setResult] = useState<string | null>(null);
+  const [fileError, setFileError] = useState<string | null>(null);
+  const [isProcessingFile, setIsProcessingFile] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
   const confirmed = useRef(false);
 
+  const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    setFileError(null);
+    setIsProcessingFile(true);
+
+    try {
+      const { Html5Qrcode } = await import("html5-qrcode");
+      // Use an off-DOM container ID or temporary element
+      const tempId = `temp_scanner_${Date.now()}`;
+      let tempDiv = document.getElementById(tempId);
+      if (!tempDiv) {
+        tempDiv = document.createElement("div");
+        tempDiv.id = tempId;
+        tempDiv.style.display = "none";
+        document.body.appendChild(tempDiv);
+      }
+
+      const html5QrCode = new Html5Qrcode(tempId);
+      try {
+        const decodedText = await html5QrCode.scanFile(file, true);
+        setResult(decodedText);
+      } finally {
+        try {
+          await html5QrCode.clear();
+        } catch {}
+        tempDiv.remove();
+      }
+    } catch (err: unknown) {
+      setFileError("No QR code or barcode found in this image. Please try a clearer picture.");
+    } finally {
+      setIsProcessingFile(false);
+      if (fileInputRef.current) {
+        fileInputRef.current.value = "";
+      }
+    }
+  };
+
   if (result === null) {
-    return <QrScanner qrCodeSuccessCallback={(text: string) => setResult(text)} />;
+    return (
+      <div className="space-y-4">
+        <QrScanner qrCodeSuccessCallback={(text: string) => setResult(text)} />
+
+        <div className="relative flex items-center justify-center my-2">
+          <div className="border-t border-muted w-full" />
+          <span className="bg-background px-2 text-xs text-muted-foreground uppercase">Or upload image</span>
+          <div className="border-t border-muted w-full" />
+        </div>
+
+        <div className="flex flex-col items-center gap-2">
+          <input
+            ref={fileInputRef}
+            type="file"
+            accept="image/*"
+            onChange={handleFileUpload}
+            className="hidden"
+            id="qr-file-upload-input"
+          />
+          <Button
+            type="button"
+            variant="outline"
+            className="w-full flex items-center justify-center gap-2"
+            disabled={isProcessingFile}
+            onClick={() => fileInputRef.current?.click()}
+          >
+            {isProcessingFile ? "Scanning image..." : "Upload medicine package photo"}
+          </Button>
+
+          {fileError && (
+            <p className="text-xs text-rose-500 font-medium text-center" role="alert">
+              {fileError}
+            </p>
+          )}
+        </div>
+      </div>
+    );
   }
 
   return (
     <div className="space-y-4">
       <div className="space-y-2" aria-live="polite">
-        <p className="font-medium">Scanned QR content</p>
+        <p className="font-medium">Scanned QR / Barcode content</p>
         <p className="max-h-48 overflow-auto whitespace-pre-wrap break-all rounded-lg border bg-muted p-3">
           {result}
         </p>
@@ -42,7 +120,14 @@ function ScanSession({ onConfirm }: Pick<QrScannerDialogProps, "onConfirm">) {
         </p>
       </div>
       <div className="flex flex-wrap justify-end gap-2">
-        <Button type="button" variant="outline" onClick={() => setResult(null)}>
+        <Button
+          type="button"
+          variant="outline"
+          onClick={() => {
+            setResult(null);
+            setFileError(null);
+          }}
+        >
           Scan again
         </Button>
         <Button
