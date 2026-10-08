@@ -1,0 +1,15 @@
+mediguard.dibyasarothi.is-a.dev {
+    handle /api/* {
+        reverse_proxy backend:8000
+    }
+    handle /static/* {
+        reverse_proxy backend:8000
+    }
+    handle {
+        reverse_proxy frontend:3000
+    }
+}
+
+140.245.109.72.sslip.io, http://140.245.109.72, http://140.245.109.72.sslip.io {
+    redir https://mediguard.dibyasarothi.is-a.dev{uri} permanent
+}

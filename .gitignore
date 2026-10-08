@@ -6,6 +6,8 @@
 *firebase-adminsdk*.json
 *service-account*.json
 *serviceAccount*.json
+docker-compose.yml
+docker-compose.override.yml
 
 # Python environments and generated files
 .venv/
