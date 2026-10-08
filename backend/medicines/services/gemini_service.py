@@ -261,7 +261,14 @@ NOT_MEDICINE_REPLY = "Please provide a medicine image or QR code."
 
 def execute_gemini_with_fallback(client, contents, config=None):
     primary = getattr(settings, "GEMINI_MODEL", "gemini-3.8-flash")
-    fallback = "gemini-3.5-flash-lite"
+    fallbacks = ["gemini-3.5-flash", "gemini-3.5-flash-lite"]
+    fallbacks = [m for m in fallbacks if m != primary]
+
+    if config is None:
+        config = types.GenerateContentConfig(
+            automatic_function_calling=types.AutomaticFunctionCallingConfig(disable=True)
+        )
+
     try:
         return client.models.generate_content(
             model=primary,
@@ -271,20 +278,31 @@ def execute_gemini_with_fallback(client, contents, config=None):
     except Exception as exc:
         code = getattr(exc, "code", None)
         status = getattr(exc, "status", None)
-        is_server_error = (
-            code in (503, 504)
-            or status in ("UNAVAILABLE", "DEADLINE_EXCEEDED")
-            or "504" in str(exc)
-            or "503" in str(exc)
-            or "deadline" in str(exc).lower()
+        exc_str = str(exc).lower()
+        is_server_issue = (
+            code in (503, 504, 429)
+            or status in ("UNAVAILABLE", "DEADLINE_EXCEEDED", "RESOURCE_EXHAUSTED")
+            or isinstance(exc, (httpx.ReadTimeout, httpx.WriteTimeout, TimeoutError))
+            or any(marker in exc_str for marker in [
+                "504", "503", "429", "deadline", "high demand",
+                "timed out", "read operation timed out", "temporarily unavailable"
+            ])
         )
-        if primary != fallback and primary == "gemini-3.8-flash" and is_server_error:
-            logger.info("Primary model %s failed with server issue (%s), falling back to %s", primary, exc, fallback)
-            return client.models.generate_content(
-                model=fallback,
-                contents=contents,
-                config=config,
-            )
+        if is_server_issue and fallbacks:
+            for fallback in fallbacks:
+                try:
+                    logger.warning(
+                        "Primary Gemini model %s failed (%s), attempting fallback to %s",
+                        primary, exc, fallback,
+                    )
+                    return client.models.generate_content(
+                        model=fallback,
+                        contents=contents,
+                        config=config,
+                    )
+                except Exception as fb_exc:
+                    logger.warning("Fallback model %s failed: %s", fallback, fb_exc)
+                    continue
         raise exc
 
 
