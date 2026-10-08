@@ -56,6 +56,16 @@ CORS_ALLOWED_ORIGINS = [
 
 CORS_URLS_REGEX = r"^/api/.*$"
 
+_csrf_env = os.getenv("CSRF_TRUSTED_ORIGINS", "")
+CSRF_TRUSTED_ORIGINS = [
+    origin.strip()
+    for origin in _csrf_env.split(",")
+    if origin.strip()
+] if _csrf_env else [
+    "https://mediguard.dibyasarothi.is-a.dev",
+    "https://140.245.109.72.sslip.io",
+]
+
 MIDDLEWARE = [
     "corsheaders.middleware.CorsMiddleware",
     "django.middleware.security.SecurityMiddleware",
