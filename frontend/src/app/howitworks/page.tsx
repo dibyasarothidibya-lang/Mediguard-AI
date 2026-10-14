@@ -95,9 +95,9 @@ export default function HowItWorks() {
                   key={stage.step}
                   className="relative overflow-hidden rounded-3xl border border-slate-200/80 bg-slate-50/60 p-8 shadow-xs transition-all duration-300 hover:border-indigo-500/40 hover:bg-white hover:shadow-lg sm:p-10 dark:border-neutral-800 dark:bg-neutral-900/60 dark:hover:bg-neutral-900"
                 >
-                  <div className="grid gap-8 lg:grid-cols-12 lg:items-center">
+                  <div className="flex flex-col gap-8 lg:flex-row lg:items-start">
                     {/* Left Step Header */}
-                    <div className="lg:col-span-4">
+                    <div className="w-full lg:w-80 lg:shrink-0">
                       <div className="flex items-center gap-3">
                         <span className="text-3xl font-black tracking-tight text-indigo-600 dark:text-indigo-400">
                           {stage.step}
@@ -116,7 +116,7 @@ export default function HowItWorks() {
                     </div>
 
                     {/* Right Content */}
-                    <div className="lg:col-span-8">
+                    <div className="flex-1 min-w-0">
                       <p className="text-sm leading-relaxed text-slate-600 sm:text-base dark:text-neutral-400">
                         {stage.description}
                       </p>
