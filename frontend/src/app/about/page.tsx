@@ -712,11 +712,14 @@ MediGuard AI is a student-developed educational project and must not be relied u
             </article>
 
             {/* Section 25: Final Acknowledgment */}
-            <article className="rounded-3xl border-2 border-slate-900 bg-slate-950 p-6 text-white shadow-xl sm:p-8 dark:border-white/20 dark:bg-neutral-900">
+            <article
+              className="rounded-3xl border-2 border-slate-800 bg-slate-900 p-6 text-white shadow-2xl sm:p-8"
+              style={{ backgroundColor: "#0f172a" }}
+            >
               <h2 className="mb-4 text-xl font-black uppercase tracking-wider text-amber-400 sm:text-2xl">
                 25. Final Acknowledgment
               </h2>
-              <div className="space-y-3 text-xs sm:text-sm leading-relaxed text-slate-300">
+              <div className="space-y-3 text-xs sm:text-sm leading-relaxed text-slate-200">
                 <p className="font-bold text-white">
                   BY USING MEDIGUARD AI, YOU ACKNOWLEDGE THAT YOU UNDERSTAND THAT THIS PLATFORM IS AN EDUCATIONAL SOFTWARE PROJECT AND NOT A MEDICAL SERVICE.
                 </p>
@@ -724,16 +727,16 @@ MediGuard AI is a student-developed educational project and must not be relied u
                 <p>YOU UNDERSTAND THAT MEDIGUARD AI CANNOT GUARANTEE THE SAFETY, QUALITY, OR AUTHENTICITY OF ANY MEDICINE.</p>
                 <p>YOU UNDERSTAND THAT HEALTHCARE DECISIONS MUST BE MADE WITH APPROPRIATELY QUALIFIED PROFESSIONALS.</p>
                 <p>YOU ACCEPT RESPONSIBILITY FOR HOW YOU USE INFORMATION OBTAINED THROUGH THE PLATFORM.</p>
-                <p className="text-amber-200/90 font-medium">
+                <p className="text-amber-300 font-semibold">
                   TO THE FULLEST EXTENT PERMITTED BY APPLICABLE LAW, MEDIGUARD AI AND ITS DEVELOPER SHALL NOT BE RESPONSIBLE FOR HARM, LOSS, INJURY, ILLNESS, DISEASE, ADVERSE HEALTH CONSEQUENCES, FINANCIAL LOSS, OR OTHER DAMAGES RESULTING FROM RELIANCE ON OR MISUSE OF INFORMATION PROVIDED THROUGH THE PLATFORM.
                 </p>
               </div>
 
-              <div className="mt-8 border-t border-white/10 pt-6">
+              <div className="mt-8 border-t border-white/15 pt-6">
                 <h3 className="mb-3 text-lg font-bold text-white">
                   Student Project — Not a Healthcare Service
                 </h3>
-                <div className="space-y-3 text-xs sm:text-sm text-slate-300">
+                <div className="space-y-3 text-xs sm:text-sm text-slate-200">
                   <p>MediGuard AI is an independent student-built educational and research project.</p>
                   <p>
                     It is not a hospital, clinic, pharmacy, healthcare provider, medical device, diagnostic service, emergency service, or regulatory authority.
@@ -741,13 +744,13 @@ MediGuard AI is a student-developed educational project and must not be relied u
                   <p>
                     Nothing provided through MediGuard AI — including AI-generated responses, medicine information, search results, packaging analysis, OCR results, barcode or QR analysis, database matches, warnings, or verification results — replaces or substitutes for a licensed doctor, pharmacist, hospital, clinic, or other qualified healthcare professional in any way.
                   </p>
-                  <p className="font-semibold text-white">
+                  <p className="font-bold text-white">
                     MediGuard AI must never be treated as an alternative to professional healthcare.
                   </p>
                   <p>
                     If you are sick, injured, experiencing symptoms, concerned about a medicine, or require medical assistance, you should contact an appropriate healthcare professional.
                   </p>
-                  <p className="font-semibold text-amber-300">
+                  <p className="font-bold text-amber-300">
                     If urgent or emergency medical care is required, contact local emergency services or visit an appropriate hospital or emergency medical facility immediately.
                   </p>
                   <p>
@@ -755,8 +758,11 @@ MediGuard AI is a student-developed educational project and must not be relied u
                   </p>
                 </div>
 
-                <div className="mt-6 rounded-2xl bg-rose-500/20 p-4 text-center ring-1 ring-rose-500/40">
-                  <span className="text-sm font-black tracking-wide text-rose-300 uppercase sm:text-base">
+                <div
+                  className="mt-6 rounded-2xl border border-rose-500/60 p-4 text-center shadow-inner"
+                  style={{ backgroundColor: "rgba(76, 5, 25, 0.85)" }}
+                >
+                  <span className="text-sm font-black tracking-wide text-rose-200 uppercase sm:text-base">
                     IF YOU DO NOT ACCEPT THESE CONDITIONS, DO NOT USE MEDIGUARD AI.
                   </span>
                 </div>
