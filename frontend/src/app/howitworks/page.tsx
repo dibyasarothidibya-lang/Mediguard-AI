@@ -7,7 +7,6 @@ import {
   ShieldCheck,
   ArrowRight,
   CheckCircle2,
-  Sparkles,
 } from "lucide-react";
 import Link from "next/link";
 
@@ -75,10 +74,7 @@ export default function HowItWorks() {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           {/* Header */}
           <div className="text-center">
-            <span className="inline-flex items-center gap-1.5 rounded-full bg-slate-100 px-3.5 py-1 text-xs font-semibold text-slate-900">
-              <Sparkles className="size-3.5" /> Optical &amp; Evidence Pipeline
-            </span>
-            <h1 className="mt-4 text-4xl font-extrabold tracking-tight sm:text-5xl lg:text-6xl">
+            <h1 className="text-4xl font-extrabold tracking-tight sm:text-5xl lg:text-6xl">
               How MediGuard AI Works
             </h1>
             <p className="mx-auto mt-4 max-w-2xl text-base text-slate-600 sm:text-lg">

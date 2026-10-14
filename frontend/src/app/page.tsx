@@ -31,11 +31,6 @@ export default function Home() {
             {/* Left Hero Main Card */}
             <div className="flex flex-col justify-between rounded-3xl border border-slate-200/80 bg-slate-50/80 p-8 sm:p-12 lg:col-span-2">
               <div>
-                <span className="mb-6 inline-flex items-center gap-2 rounded-full border border-slate-200 bg-slate-100 px-3.5 py-1.5 text-xs font-semibold tracking-wide text-slate-900 uppercase">
-                  <span className="size-2 rounded-full bg-teal-500 animate-pulse" />
-                  AI PHARMA SAFETY PLATFORM
-                </span>
-
                 <h1 className="mb-6 text-4xl font-extrabold leading-[1.1] tracking-tight sm:text-5xl lg:text-6xl text-slate-900">
                   <span>Verify Your Medicines.</span>
                   <br />

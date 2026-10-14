@@ -7,7 +7,6 @@ import {
   HeartPulse,
   FileCheck,
   ArrowRight,
-  Sparkles,
   Cpu,
   CheckCircle2,
 } from "lucide-react";
@@ -97,10 +96,7 @@ export default function Features() {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           {/* Header */}
           <div className="text-center">
-            <span className="inline-flex items-center gap-1.5 rounded-full border border-slate-200 bg-slate-100 px-3.5 py-1 text-xs font-semibold text-slate-900">
-              <Sparkles className="size-3.5" /> Engine Capabilities
-            </span>
-            <h1 className="mt-4 text-4xl font-extrabold tracking-tight sm:text-5xl lg:text-6xl text-slate-900">
+            <h1 className="text-4xl font-extrabold tracking-tight sm:text-5xl lg:text-6xl text-slate-900">
               Medication Safety Tools
             </h1>
             <p className="mx-auto mt-4 max-w-2xl text-base text-slate-600 sm:text-lg">
