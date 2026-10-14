@@ -118,15 +118,15 @@ export default function TermsDialog({
           </div>
 
           {/* Full Link to About */}
-          <div className="pt-2 flex items-center justify-between border-t border-slate-100 dark:border-neutral-800">
-            <span className="text-xs text-slate-500 dark:text-neutral-400">
+          <div className="pt-2 flex items-center justify-between border-t border-slate-100">
+            <span className="text-xs text-slate-500">
               Want to read all 25 legal sections?
             </span>
             <Link
               href="/about"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1 text-xs font-semibold text-indigo-600 hover:text-indigo-500 dark:text-indigo-400"
+              className="inline-flex items-center gap-1 text-xs font-semibold text-slate-900 hover:text-black hover:underline"
             >
               <span>View Full Terms on About Page</span>
               <ExternalLink className="size-3" />
@@ -135,12 +135,12 @@ export default function TermsDialog({
         </div>
 
         {/* Footer Actions */}
-        <div className="p-4 sm:p-5 border-t border-slate-100 dark:border-neutral-800 bg-slate-50/70 dark:bg-neutral-900/50 flex flex-col-reverse sm:flex-row items-center justify-between gap-3">
+        <div className="p-4 sm:p-5 border-t border-slate-100 bg-slate-50/70 flex flex-col-reverse sm:flex-row items-center justify-between gap-3">
           <button
             type="button"
             onClick={onDecline}
             disabled={isDeclining}
-            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-xl border border-rose-200 bg-rose-50 px-4 py-2.5 text-xs font-semibold text-rose-700 hover:bg-rose-100 dark:border-rose-900/50 dark:bg-rose-950/40 dark:text-rose-300 dark:hover:bg-rose-900/60 transition-colors disabled:opacity-50"
+            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-xl border border-rose-200 bg-rose-50 px-4 py-2.5 text-xs font-semibold text-rose-700 hover:bg-rose-100 transition-colors disabled:opacity-50"
           >
             <LogOut className="size-4" />
             <span>{isDeclining ? "Signing out..." : "I Do Not Agree / Decline"}</span>
@@ -150,7 +150,7 @@ export default function TermsDialog({
             type="button"
             onClick={onAccept}
             disabled={isDeclining}
-            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-xl bg-indigo-600 px-5 py-2.5 text-xs sm:text-sm font-bold text-white shadow-md shadow-indigo-600/25 hover:bg-indigo-500 active:scale-[0.99] transition-all disabled:opacity-50"
+            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-xl bg-slate-900 px-5 py-2.5 text-xs sm:text-sm font-bold text-white shadow-md hover:bg-black active:scale-[0.99] transition-all disabled:opacity-50"
           >
             <CheckCircle2 className="size-4" />
             <span>I Acknowledge &amp; Agree to Terms</span>

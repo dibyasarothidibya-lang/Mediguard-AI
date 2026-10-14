@@ -75,13 +75,13 @@ export default function HowItWorks() {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           {/* Header */}
           <div className="text-center">
-            <span className="inline-flex items-center gap-1.5 rounded-full bg-indigo-50 px-3.5 py-1 text-xs font-semibold text-indigo-600 dark:bg-indigo-950/50 dark:text-indigo-400">
+            <span className="inline-flex items-center gap-1.5 rounded-full bg-slate-100 px-3.5 py-1 text-xs font-semibold text-slate-900">
               <Sparkles className="size-3.5" /> Optical &amp; Evidence Pipeline
             </span>
             <h1 className="mt-4 text-4xl font-extrabold tracking-tight sm:text-5xl lg:text-6xl">
               How MediGuard AI Works
             </h1>
-            <p className="mx-auto mt-4 max-w-2xl text-base text-slate-600 sm:text-lg dark:text-neutral-400">
+            <p className="mx-auto mt-4 max-w-2xl text-base text-slate-600 sm:text-lg">
               Explore the 4-stage evidence-grounded architecture built to evaluate queries, cross-reference available catalogue records, and provide structured medicine explanations.
             </p>
           </div>
@@ -93,42 +93,42 @@ export default function HowItWorks() {
               return (
                 <div
                   key={stage.step}
-                  className="relative overflow-hidden rounded-3xl border border-slate-200/80 bg-slate-50/60 p-8 shadow-xs transition-all duration-300 hover:border-indigo-500/40 hover:bg-white hover:shadow-lg sm:p-10 dark:border-neutral-800 dark:bg-neutral-900/60 dark:hover:bg-neutral-900"
+                  className="relative overflow-hidden rounded-3xl border border-slate-200/80 bg-slate-50/60 p-8 shadow-xs transition-all duration-300 hover:border-slate-400 hover:bg-white hover:shadow-lg sm:p-10"
                 >
                   <div className="flex flex-col gap-8 lg:flex-row lg:items-start">
                     {/* Left Step Header */}
                     <div className="w-full lg:w-80 lg:shrink-0">
                       <div className="flex items-center gap-3">
-                        <span className="text-3xl font-black tracking-tight text-indigo-600 dark:text-indigo-400">
+                        <span className="text-3xl font-black tracking-tight text-slate-900">
                           {stage.step}
                         </span>
-                        <div className="flex size-11 items-center justify-center rounded-2xl bg-indigo-100 text-indigo-600 dark:bg-indigo-950 dark:text-indigo-400">
+                        <div className="flex size-11 items-center justify-center rounded-2xl bg-slate-100 text-slate-900">
                           <Icon className="size-5" />
                         </div>
                       </div>
 
-                      <h3 className="mt-4 text-2xl font-bold tracking-tight text-slate-900 dark:text-white">
+                      <h3 className="mt-4 text-2xl font-bold tracking-tight text-slate-900">
                         {stage.name}
                       </h3>
-                      <p className="mt-1 text-xs font-bold uppercase tracking-wider text-indigo-600 dark:text-indigo-400">
+                      <p className="mt-1 text-xs font-bold uppercase tracking-wider text-teal-700">
                         {stage.subtitle}
                       </p>
                     </div>
 
                     {/* Right Content */}
                     <div className="flex-1 min-w-0">
-                      <p className="text-sm leading-relaxed text-slate-600 sm:text-base dark:text-neutral-400">
+                      <p className="text-sm leading-relaxed text-slate-600 sm:text-base">
                         {stage.description}
                       </p>
 
-                      <div className="mt-6 border-t border-slate-200/80 pt-5 dark:border-neutral-800">
-                        <span className="block text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-neutral-400">
+                      <div className="mt-6 border-t border-slate-200/80 pt-5">
+                        <span className="block text-xs font-semibold uppercase tracking-wider text-slate-500">
                           Key Technical Safeguards:
                         </span>
-                        <ul className="mt-3 grid gap-2 sm:grid-cols-2 text-xs font-medium text-slate-700 dark:text-neutral-300">
+                        <ul className="mt-3 grid gap-2 sm:grid-cols-2 text-xs font-medium text-slate-700">
                           {stage.details.map((detail) => (
                             <li key={detail} className="flex items-start gap-2">
-                              <CheckCircle2 className="size-4 text-indigo-500 shrink-0 mt-0.5" />
+                              <CheckCircle2 className="size-4 text-emerald-600 shrink-0 mt-0.5" />
                               <span>{detail}</span>
                             </li>
                           ))}
@@ -142,7 +142,7 @@ export default function HowItWorks() {
           </div>
 
           {/* CTA Banner */}
-          <div className="mt-20 rounded-3xl bg-gradient-to-r from-indigo-900 via-indigo-950 to-slate-900 p-8 text-center text-white sm:p-14">
+          <div className="mt-20 rounded-3xl bg-slate-900 p-8 text-center text-white sm:p-14">
             <h2 className="text-2xl font-bold sm:text-3xl">
               Try the AI Assistant on your medicines
             </h2>
@@ -152,7 +152,7 @@ export default function HowItWorks() {
             <div className="mt-8 flex justify-center gap-4">
               <Link
                 href="/chat"
-                className="inline-flex items-center gap-2 rounded-xl bg-indigo-500 px-6 py-3.5 text-sm font-semibold text-white shadow-lg transition-all hover:bg-indigo-600"
+                className="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-teal-600 to-emerald-600 px-6 py-3.5 text-sm font-semibold text-white shadow-lg transition-all hover:from-teal-700 hover:to-emerald-700"
               >
                 Open Assistant <ArrowRight className="size-4" />
               </Link>

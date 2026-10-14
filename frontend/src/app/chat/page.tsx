@@ -431,11 +431,11 @@ export default function MediGuardChatPage() {
     return (
       <main className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden bg-slate-50 p-4 text-slate-900">
         {/* Ambient background glows */}
-        <div className="pointer-events-none absolute -top-24 size-96 rounded-full bg-indigo-500/10 blur-3xl" />
+        <div className="pointer-events-none absolute -top-24 size-96 rounded-full bg-teal-500/10 blur-3xl" />
         <div className="pointer-events-none absolute -bottom-24 size-96 rounded-full bg-cyan-500/10 blur-3xl" />
 
         <div className="relative z-10 mx-auto flex w-full max-w-md flex-col items-center rounded-3xl border border-slate-200 bg-white/95 p-8 text-center shadow-xl backdrop-blur-xl">
-          <div className="mb-4 flex size-14 items-center justify-center rounded-2xl bg-gradient-to-tr from-indigo-600 via-indigo-500 to-cyan-400 text-white shadow-lg shadow-indigo-500/25">
+          <div className="mb-4 flex size-14 items-center justify-center rounded-2xl bg-slate-900 text-white shadow-lg shadow-slate-900/25">
             <Lock className="size-7" />
           </div>
 
@@ -455,7 +455,7 @@ export default function MediGuardChatPage() {
           <div className="mt-6 flex w-full flex-col gap-2.5">
             <Link
               href="/login?redirect=/chat&required=true"
-              className="group flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-indigo-600 to-indigo-500 py-3 text-sm font-semibold text-white shadow-md shadow-indigo-600/30 transition-all hover:scale-[1.02] hover:bg-indigo-500 active:scale-[0.98]"
+              className="group flex w-full items-center justify-center gap-2 rounded-xl bg-slate-900 py-3 text-sm font-semibold text-white shadow-md hover:bg-black active:scale-[0.98] transition-all hover:scale-[1.02]"
             >
               <span>Sign In / Create Account</span>
               <ArrowUp className="size-4 rotate-45 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
@@ -471,7 +471,7 @@ export default function MediGuardChatPage() {
           </div>
 
           <div className="mt-5 flex items-center gap-2 text-[11px] text-neutral-500">
-            <div className="size-3 animate-spin rounded-full border-2 border-neutral-600 border-t-indigo-400" />
+            <div className="size-3 animate-spin rounded-full border-2 border-neutral-600 border-t-slate-900" />
             <span>Redirecting to login portal...</span>
           </div>
         </div>
@@ -524,7 +524,7 @@ export default function MediGuardChatPage() {
             className="group mt-4 flex w-full items-center justify-between rounded-xl border border-neutral-200 bg-white px-3.5 py-2.5 text-sm font-medium shadow-2xs transition-all duration-200 hover:scale-[1.01] hover:bg-neutral-50 active:scale-[0.98] dark:border-white/10 dark:bg-[#212121] dark:hover:bg-[#2a2a2a]"
           >
             <span className="flex items-center gap-2.5">
-              <Plus className="size-4 transition-transform duration-200 group-hover:rotate-90 text-indigo-500" />
+              <Plus className="size-4 transition-transform duration-200 group-hover:rotate-90 text-slate-900" />
               New chat
             </span>
             <SquarePen className="size-4 text-neutral-400 transition-transform duration-200 group-hover:scale-110" />
@@ -560,7 +560,7 @@ export default function MediGuardChatPage() {
                     }`}
                     title={s.title}
                   >
-                    <MessageSquare className={`size-3.5 shrink-0 ${isActive ? "text-indigo-500" : "text-neutral-400"}`} />
+                    <MessageSquare className={`size-3.5 shrink-0 ${isActive ? "text-slate-900" : "text-neutral-400"}`} />
                     <span className="truncate flex-1">{s.title}</span>
                   </button>
                 );
@@ -573,7 +573,7 @@ export default function MediGuardChatPage() {
         <div className="border-t border-neutral-200 p-3 dark:border-white/5">
           <div className="flex items-center justify-between rounded-xl p-2 hover:bg-neutral-200/60 dark:hover:bg-[#212121]">
             <div className="flex items-center gap-2.5 overflow-hidden">
-              <div className="flex size-8 shrink-0 items-center justify-center rounded-full bg-indigo-600 text-xs font-bold text-white uppercase">
+              <div className="flex size-8 shrink-0 items-center justify-center rounded-full bg-slate-900 text-xs font-bold text-white uppercase">
                 {user?.displayName?.[0] || user?.email?.[0] || "U"}
               </div>
               <div className="flex flex-col overflow-hidden">
@@ -680,7 +680,7 @@ export default function MediGuardChatPage() {
                     }}
                     className="group lucid-card-hover flex flex-col items-start rounded-2xl border border-neutral-200/80 bg-neutral-50/60 p-4 text-left shadow-2xs hover:bg-neutral-100/80 hover:border-neutral-300 hover:shadow-md active:scale-[0.98] dark:border-white/10 dark:bg-[#1f1f1f] dark:hover:bg-[#282828] dark:hover:border-white/20"
                   >
-                    <span className="text-sm font-medium text-neutral-900 transition-colors group-hover:text-indigo-600 dark:text-white dark:group-hover:text-indigo-400">
+                    <span className="text-sm font-medium text-neutral-900 transition-colors group-hover:text-slate-900">
                       {item.title}
                     </span>
                     <span className="mt-1 text-xs text-neutral-500 dark:text-neutral-400 line-clamp-2">
@@ -788,7 +788,7 @@ export default function MediGuardChatPage() {
 
               {isSending && (
                 <div className="animate-fade-in flex items-center gap-2 text-sm text-neutral-400">
-                  <span className="flex size-2 animate-ping rounded-full bg-indigo-500" />
+                  <span className="flex size-2 animate-ping rounded-full bg-teal-600" />
                   <span>MediGuard is thinking...</span>
                 </div>
               )}
@@ -893,7 +893,7 @@ export default function MediGuardChatPage() {
                     className="flex items-center gap-1.5 rounded-full border border-neutral-300/80 bg-white px-3 py-1 text-xs font-medium text-neutral-700 shadow-2xs transition-all duration-150 hover:scale-105 hover:bg-neutral-100 active:scale-95 disabled:opacity-40 disabled:hover:scale-100 dark:border-white/10 dark:bg-[#242424] dark:text-neutral-300 dark:hover:bg-[#2c2c2c]"
                     title="Scan GS1 DataMatrix or packaging QR"
                   >
-                    <QrCode className="size-3.5 text-indigo-500" />
+                    <QrCode className="size-3.5 text-slate-900" />
                     <span>Scan QR</span>
                   </button>
                 </div>

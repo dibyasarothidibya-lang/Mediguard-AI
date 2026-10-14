@@ -35,7 +35,7 @@ export function Footer() {
               <li>
                 <Link
                   href="/features"
-                  className="text-slate-600 transition-colors hover:text-indigo-600 dark:text-neutral-400 dark:hover:text-white"
+                  className="text-slate-600 transition-colors hover:text-slate-900"
                 >
                   Features & Tools
                 </Link>
@@ -43,7 +43,7 @@ export function Footer() {
               <li>
                 <Link
                   href="/howitworks"
-                  className="text-slate-600 transition-colors hover:text-indigo-600 dark:text-neutral-400 dark:hover:text-white"
+                  className="text-slate-600 transition-colors hover:text-slate-900"
                 >
                   Verification Pipeline
                 </Link>
@@ -51,7 +51,7 @@ export function Footer() {
               <li>
                 <Link
                   href="/chat"
-                  className="text-slate-600 transition-colors hover:text-indigo-600 dark:text-neutral-400 dark:hover:text-white"
+                  className="text-slate-600 transition-colors hover:text-slate-900"
                 >
                   AI Medicine Assistant
                 </Link>
@@ -59,7 +59,7 @@ export function Footer() {
               <li>
                 <Link
                   href="/about"
-                  className="text-slate-600 transition-colors hover:text-indigo-600 dark:text-neutral-400 dark:hover:text-white"
+                  className="text-slate-600 transition-colors hover:text-slate-900"
                 >
                   About & Safety Notice
                 </Link>
@@ -67,7 +67,7 @@ export function Footer() {
               <li>
                 <Link
                   href="/admin"
-                  className="text-indigo-600 font-semibold transition-colors hover:text-indigo-500 dark:text-indigo-400 dark:hover:text-indigo-300"
+                  className="text-slate-900 font-semibold transition-colors hover:text-black underline underline-offset-2"
                 >
                   Admin Audit Cockpit ↗
                 </Link>

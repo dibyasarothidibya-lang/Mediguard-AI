@@ -180,16 +180,16 @@ export default function AdminDashboardPage() {
   // 1. Verifying Authentication & Credentials State
   if (!authReady) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-slate-50 text-slate-900 dark:bg-[#0d0f14] dark:text-[#ececec]">
-        <div className="flex flex-col items-center gap-4 rounded-3xl border border-slate-200/80 bg-white/80 p-8 shadow-xl backdrop-blur-xl dark:border-neutral-800 dark:bg-neutral-900/80">
-          <div className="relative flex size-14 items-center justify-center rounded-2xl bg-indigo-500/10 text-indigo-600 dark:bg-indigo-500/20 dark:text-indigo-400">
+      <div className="flex min-h-screen items-center justify-center bg-slate-50 text-slate-900">
+        <div className="flex flex-col items-center gap-4 rounded-3xl border border-slate-200/80 bg-white/80 p-8 shadow-xl backdrop-blur-xl">
+          <div className="relative flex size-14 items-center justify-center rounded-2xl bg-slate-100 text-slate-900">
             <RefreshCw className="size-7 animate-spin" />
           </div>
           <div className="text-center">
-            <h2 className="text-base font-bold text-slate-900 dark:text-white">
+            <h2 className="text-base font-bold text-slate-900">
               Authenticating Administrator
             </h2>
-            <p className="mt-1 text-xs text-slate-500 dark:text-neutral-400">
+            <p className="mt-1 text-xs text-slate-500">
               Verifying security credentials & university project privileges...
             </p>
           </div>
@@ -201,8 +201,8 @@ export default function AdminDashboardPage() {
   // 2. Unauthenticated Anonymous Visitor Screen
   if (!currentUser) {
     return (
-      <div className="min-h-screen bg-slate-50 text-slate-900 dark:bg-[#0d0f14] dark:text-[#ececec] flex flex-col">
-        <header className="sticky top-0 z-40 border-b border-slate-200/80 bg-white/85 backdrop-blur-xl dark:border-neutral-800 dark:bg-neutral-950/85">
+      <div className="min-h-screen bg-slate-50 text-slate-900 flex flex-col">
+        <header className="sticky top-0 z-40 border-b border-slate-200/80 bg-white/85 backdrop-blur-xl">
           <div className="mx-auto flex h-18 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
             <Link href="/" className="flex items-center gap-2.5">
               <Image
@@ -212,14 +212,14 @@ export default function AdminDashboardPage() {
                 height={36}
                 className="size-9 object-contain drop-shadow-sm"
               />
-              <span className="text-base font-bold tracking-tight text-slate-900 dark:text-white">
-                MediGuard<span className="text-teal-600 dark:text-teal-400"> AI</span>
+              <span className="text-base font-bold tracking-tight text-slate-900">
+                MediGuard<span className="text-teal-600"> AI</span>
               </span>
             </Link>
             <div className="flex items-center gap-2">
               <Link
                 href="/"
-                className="flex items-center gap-1.5 rounded-xl border border-slate-200 px-3 py-1.5 text-xs font-semibold text-slate-600 hover:bg-slate-100 dark:border-neutral-800 dark:text-neutral-400 dark:hover:bg-neutral-900"
+                className="flex items-center gap-1.5 rounded-xl border border-slate-200 px-3 py-1.5 text-xs font-semibold text-slate-600 hover:bg-slate-100"
               >
                 <Home className="size-3.5" />
                 <span>Home</span>
@@ -229,25 +229,25 @@ export default function AdminDashboardPage() {
         </header>
 
         <main className="flex-1 flex items-center justify-center p-4 sm:p-6">
-          <div className="w-full max-w-md overflow-hidden rounded-3xl border border-slate-200/80 bg-white/95 p-6 sm:p-8 shadow-2xl backdrop-blur-xl dark:border-neutral-800 dark:bg-neutral-900/90 text-center">
-            <div className="mx-auto mb-4 flex size-16 items-center justify-center rounded-2xl bg-gradient-to-tr from-indigo-600 to-cyan-500 text-white shadow-lg shadow-indigo-500/25">
+          <div className="w-full max-w-md overflow-hidden rounded-3xl border border-slate-200/80 bg-white/95 p-6 sm:p-8 shadow-2xl backdrop-blur-xl text-center">
+            <div className="mx-auto mb-4 flex size-16 items-center justify-center rounded-2xl bg-slate-900 text-white shadow-lg shadow-slate-900/25">
               <Lock className="size-8" />
             </div>
-            <div className="inline-flex items-center gap-1.5 rounded-full border border-amber-500/30 bg-amber-500/10 px-3 py-1 text-xs font-semibold text-amber-700 dark:text-amber-400 mb-3">
+            <div className="inline-flex items-center gap-1.5 rounded-full border border-amber-500/30 bg-amber-500/10 px-3 py-1 text-xs font-semibold text-amber-700 mb-3">
               <ShieldAlert className="size-3.5" />
               Restricted Staff Console
             </div>
-            <h1 className="text-xl font-extrabold tracking-tight sm:text-2xl text-slate-900 dark:text-white">
+            <h1 className="text-xl font-extrabold tracking-tight sm:text-2xl text-slate-900">
               Administrator Access Required
             </h1>
-            <p className="mt-2 text-xs sm:text-sm text-slate-600 dark:text-neutral-300 leading-relaxed">
+            <p className="mt-2 text-xs sm:text-sm text-slate-600 leading-relaxed">
               This cockpit contains real-time university project telemetry, live tester counts, and clinical search audit logs. You must sign in with an authorized administrator account to enter.
             </p>
 
             <div className="mt-6 flex flex-col gap-3">
               <Link
                 href="/login?redirect=/admin&required=true"
-                className="inline-flex items-center justify-center gap-2 rounded-xl bg-indigo-600 px-4 py-3 text-sm font-semibold text-white shadow-lg shadow-indigo-600/25 transition-all hover:bg-indigo-500 active:scale-[0.99]"
+                className="inline-flex items-center justify-center gap-2 rounded-xl bg-slate-900 px-4 py-3 text-sm font-semibold text-white shadow-lg hover:bg-black active:scale-[0.99] transition-all"
               >
                 <span>Sign In as Administrator</span>
                 <ArrowRight className="size-4" />
@@ -260,8 +260,8 @@ export default function AdminDashboardPage() {
               </Link>
             </div>
 
-            <div className="mt-6 border-t border-slate-100 pt-4 text-[11px] text-slate-400 dark:border-neutral-800 dark:text-neutral-500">
-              Authorized Administrator: <span className="font-mono text-indigo-500 dark:text-indigo-400">Restricted Access (System Administrator)</span>
+            <div className="mt-6 border-t border-slate-100 pt-4 text-[11px] text-slate-400">
+              Authorized Administrator: <span className="font-mono text-slate-900">Restricted Access (System Administrator)</span>
             </div>
           </div>
         </main>
@@ -272,8 +272,8 @@ export default function AdminDashboardPage() {
   // 3. Authenticated Non-Admin User (403 Forbidden Screen)
   if (currentUser && (!isUserAdmin(currentUser) || isForbidden)) {
     return (
-      <div className="min-h-screen bg-slate-50 text-slate-900 dark:bg-[#0d0f14] dark:text-[#ececec] flex flex-col">
-        <header className="sticky top-0 z-40 border-b border-slate-200/80 bg-white/85 backdrop-blur-xl dark:border-neutral-800 dark:bg-neutral-950/85">
+      <div className="min-h-screen bg-slate-50 text-slate-900 flex flex-col">
+        <header className="sticky top-0 z-40 border-b border-slate-200/80 bg-white/85 backdrop-blur-xl">
           <div className="mx-auto flex h-18 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
             <Link href="/" className="flex items-center gap-2.5">
               <Image
@@ -283,8 +283,8 @@ export default function AdminDashboardPage() {
                 height={36}
                 className="size-9 object-contain drop-shadow-sm"
               />
-              <span className="text-base font-bold tracking-tight text-slate-900 dark:text-white">
-                MediGuard<span className="text-teal-600 dark:text-teal-400"> AI</span>
+              <span className="text-base font-bold tracking-tight text-slate-900">
+                MediGuard<span className="text-teal-600"> AI</span>
               </span>
             </Link>
             <div className="flex items-center gap-2">
@@ -292,7 +292,7 @@ export default function AdminDashboardPage() {
                 type="button"
                 onClick={handleSignOut}
                 disabled={isSigningOut}
-                className="flex items-center gap-1.5 rounded-xl border border-rose-200 bg-rose-50 px-3 py-1.5 text-xs font-semibold text-rose-700 hover:bg-rose-100 dark:border-rose-900/50 dark:bg-rose-950/30 dark:text-rose-400 dark:hover:bg-rose-900/40"
+                className="flex items-center gap-1.5 rounded-xl border border-rose-200 bg-rose-50 px-3 py-1.5 text-xs font-semibold text-rose-700 hover:bg-rose-100"
               >
                 <LogOut className="size-3.5" />
                 <span>Sign Out</span>
@@ -302,18 +302,18 @@ export default function AdminDashboardPage() {
         </header>
 
         <main className="flex-1 flex items-center justify-center p-4 sm:p-6">
-          <div className="w-full max-w-md overflow-hidden rounded-3xl border border-rose-200 bg-white/95 p-6 sm:p-8 shadow-2xl backdrop-blur-xl dark:border-rose-900/40 dark:bg-neutral-900/90 text-center">
+          <div className="w-full max-w-md overflow-hidden rounded-3xl border border-rose-200 bg-white/95 p-6 sm:p-8 shadow-2xl backdrop-blur-xl text-center">
             <div className="mx-auto mb-4 flex size-16 items-center justify-center rounded-2xl bg-gradient-to-tr from-rose-500 to-amber-500 text-white shadow-lg shadow-rose-500/25">
               <ShieldAlert className="size-8" />
             </div>
-            <div className="inline-flex items-center gap-1.5 rounded-full border border-rose-500/30 bg-rose-500/10 px-3 py-1 text-xs font-semibold text-rose-700 dark:text-rose-400 mb-3">
+            <div className="inline-flex items-center gap-1.5 rounded-full border border-rose-500/30 bg-rose-500/10 px-3 py-1 text-xs font-semibold text-rose-700 mb-3">
               HTTP 403 Forbidden
             </div>
-            <h1 className="text-xl font-extrabold tracking-tight sm:text-2xl text-slate-900 dark:text-white">
+            <h1 className="text-xl font-extrabold tracking-tight sm:text-2xl text-slate-900">
               Access Restricted
             </h1>
-            <p className="mt-2 text-xs sm:text-sm text-slate-600 dark:text-neutral-300 leading-relaxed">
-              You are signed in as <span className="font-semibold text-slate-900 dark:text-white">{currentUser.email}</span>. This account does not have university administrative privileges to view MediGuard telemetry or audit logs.
+            <p className="mt-2 text-xs sm:text-sm text-slate-600 leading-relaxed">
+              You are signed in as <span className="font-semibold text-slate-900">{currentUser.email}</span>. This account does not have university administrative privileges to view MediGuard telemetry or audit logs.
             </p>
 
             <div className="mt-6 flex flex-col gap-3">
@@ -328,14 +328,14 @@ export default function AdminDashboardPage() {
               </button>
               <Link
                 href="/chat"
-                className="inline-flex items-center justify-center gap-2 rounded-xl bg-indigo-600 px-4 py-2.5 text-xs font-semibold text-white shadow-md shadow-indigo-600/25 transition-all hover:bg-indigo-500"
+                className="inline-flex items-center justify-center gap-2 rounded-xl bg-slate-900 px-4 py-2.5 text-xs font-semibold text-white shadow-md hover:bg-black transition-all"
               >
                 <MessageCircle className="size-3.5" />
                 <span>Continue to MediGuard AI Chat</span>
               </Link>
               <Link
                 href="/"
-                className="inline-flex items-center justify-center gap-2 rounded-xl border border-slate-200 px-4 py-2 text-xs font-semibold text-slate-600 transition-colors hover:bg-slate-100 dark:border-neutral-800 dark:text-neutral-400 dark:hover:bg-neutral-800"
+                className="inline-flex items-center justify-center gap-2 rounded-xl border border-slate-200 px-4 py-2 text-xs font-semibold text-slate-600 transition-colors hover:bg-slate-100"
               >
                 <span>Return to Home</span>
               </Link>
@@ -374,13 +374,13 @@ export default function AdminDashboardPage() {
 
           <div className="flex items-center gap-3">
             {currentUser?.email && (
-              <span className="hidden lg:inline-flex items-center gap-1.5 rounded-full border border-indigo-500/30 bg-indigo-500/10 px-3 py-1 text-xs font-semibold text-indigo-700 dark:text-indigo-300">
-                <ShieldCheck className="size-3.5 text-indigo-500" />
+              <span className="hidden lg:inline-flex items-center gap-1.5 rounded-full border border-slate-300 bg-slate-100 px-3 py-1 text-xs font-semibold text-slate-900">
+                <ShieldCheck className="size-3.5 text-slate-900" />
                 <span>Admin: {currentUser.email}</span>
               </span>
             )}
 
-            <span className="hidden sm:inline-flex items-center gap-1.5 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-3 py-1 text-xs font-semibold text-emerald-700 dark:text-emerald-400">
+            <span className="hidden sm:inline-flex items-center gap-1.5 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-3 py-1 text-xs font-semibold text-emerald-700">
               <span className="size-2 rounded-full bg-emerald-500 animate-pulse" />
               Live DB Handshake
             </span>
@@ -389,10 +389,10 @@ export default function AdminDashboardPage() {
               type="button"
               onClick={() => loadData(true)}
               disabled={refreshing || loading}
-              className="flex items-center gap-1.5 rounded-xl border border-slate-200 bg-white px-3 py-1.5 text-xs font-semibold text-slate-700 shadow-2xs transition-all hover:bg-slate-100 disabled:opacity-50 dark:border-neutral-800 dark:bg-neutral-900 dark:text-neutral-300 dark:hover:bg-neutral-800"
+              className="flex items-center gap-1.5 rounded-xl border border-slate-200 bg-white px-3 py-1.5 text-xs font-semibold text-slate-700 shadow-2xs transition-all hover:bg-slate-100 disabled:opacity-50"
               title="Refresh telemetry"
             >
-              <RefreshCw className={`size-3.5 ${refreshing ? "animate-spin text-indigo-500" : ""}`} />
+              <RefreshCw className={`size-3.5 ${refreshing ? "animate-spin text-slate-900" : ""}`} />
               <span>Refresh</span>
             </button>
 
@@ -400,7 +400,7 @@ export default function AdminDashboardPage() {
               type="button"
               onClick={handleSignOut}
               disabled={isSigningOut}
-              className="flex items-center gap-1.5 rounded-xl border border-slate-200 bg-white px-3 py-1.5 text-xs font-semibold text-slate-700 shadow-2xs transition-all hover:bg-slate-100 disabled:opacity-50 dark:border-neutral-800 dark:bg-neutral-900 dark:text-neutral-300 dark:hover:bg-neutral-800"
+              className="flex items-center gap-1.5 rounded-xl border border-slate-200 bg-white px-3 py-1.5 text-xs font-semibold text-slate-700 shadow-2xs transition-all hover:bg-slate-100 disabled:opacity-50"
               title="Sign Out"
             >
               <LogOut className="size-3.5" />
@@ -409,7 +409,7 @@ export default function AdminDashboardPage() {
 
             <Link
               href="/chat"
-              className="flex items-center gap-1.5 rounded-xl bg-indigo-600 px-3.5 py-1.5 text-xs font-semibold text-white shadow-md shadow-indigo-600/25 transition-all hover:bg-indigo-500"
+              className="flex items-center gap-1.5 rounded-xl bg-slate-900 px-3.5 py-1.5 text-xs font-semibold text-white shadow-md hover:bg-black transition-all"
             >
               <MessageCircle className="size-3.5" />
               <span className="hidden sm:inline">Open Chat</span>
@@ -417,7 +417,7 @@ export default function AdminDashboardPage() {
 
             <Link
               href="/"
-              className="flex items-center gap-1.5 rounded-xl border border-slate-200 px-3 py-1.5 text-xs font-semibold text-slate-600 hover:bg-slate-100 dark:border-neutral-800 dark:text-neutral-400 dark:hover:bg-neutral-900"
+              className="flex items-center gap-1.5 rounded-xl border border-slate-200 px-3 py-1.5 text-xs font-semibold text-slate-600 hover:bg-slate-100"
             >
               <Home className="size-3.5" />
               <span className="hidden sm:inline">Home</span>
@@ -429,11 +429,11 @@ export default function AdminDashboardPage() {
       {/* Main Container */}
       <main className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
         {/* Academic Presentation Banner */}
-        <div className="relative mb-8 overflow-hidden rounded-3xl border border-indigo-200/80 bg-gradient-to-r from-indigo-900 via-indigo-950 to-slate-950 p-6 sm:p-8 text-white shadow-xl">
+        <div className="relative mb-8 overflow-hidden rounded-3xl border border-slate-800 bg-gradient-to-r from-slate-900 via-slate-950 to-black p-6 sm:p-8 text-white shadow-xl">
           <div className="pointer-events-none absolute -right-12 -top-12 size-64 rounded-full bg-cyan-500/10 blur-3xl" />
           <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
             <div className="max-w-2xl">
-              <div className="inline-flex items-center gap-2 rounded-full border border-indigo-400/30 bg-indigo-500/20 px-3 py-1 text-xs font-semibold text-cyan-300 backdrop-blur-md mb-3">
+              <div className="inline-flex items-center gap-2 rounded-full border border-teal-500/30 bg-teal-500/20 px-3 py-1 text-xs font-semibold text-teal-300 backdrop-blur-md mb-3">
                 <Sparkles className="size-3.5" />
                 University Project Evaluation Console
               </div>
@@ -478,92 +478,92 @@ export default function AdminDashboardPage() {
         {/* 4 Stat Overview Metric Cards */}
         <div className="mb-8 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {/* Card 1: Total Registered Users */}
-          <div className="relative overflow-hidden rounded-2xl border border-slate-200/80 bg-white p-5 shadow-xs transition-all hover:shadow-md dark:border-neutral-800 dark:bg-neutral-900">
+          <div className="relative overflow-hidden rounded-2xl border border-slate-200/80 bg-white p-5 shadow-xs transition-all hover:shadow-md">
             <div className="flex items-center justify-between">
-              <span className="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-neutral-400">
+              <span className="text-xs font-bold uppercase tracking-wider text-slate-500">
                 Total Users
               </span>
-              <div className="flex size-9 items-center justify-center rounded-xl bg-indigo-50 text-indigo-600 dark:bg-indigo-950/50 dark:text-indigo-400">
+              <div className="flex size-9 items-center justify-center rounded-xl bg-slate-100 text-slate-900">
                 <Users className="size-5" />
               </div>
             </div>
             <div className="mt-3 flex items-baseline gap-2">
-              <span className="text-3xl font-black tracking-tight text-slate-900 dark:text-white">
+              <span className="text-3xl font-black tracking-tight text-slate-900">
                 {loading ? "..." : data?.stats.total_registered_users ?? 0}
               </span>
-              <span className="text-xs font-semibold text-emerald-600 dark:text-emerald-400">
+              <span className="text-xs font-semibold text-emerald-600">
                 Registered
               </span>
             </div>
-            <p className="mt-1 text-[11px] text-slate-500 dark:text-neutral-400">
+            <p className="mt-1 text-[11px] text-slate-500">
               Verified patient & clinician accounts
             </p>
           </div>
 
           {/* Card 2: Active Clinical Inquirers */}
-          <div className="relative overflow-hidden rounded-2xl border border-slate-200/80 bg-white p-5 shadow-xs transition-all hover:shadow-md dark:border-neutral-800 dark:bg-neutral-900">
+          <div className="relative overflow-hidden rounded-2xl border border-slate-200/80 bg-white p-5 shadow-xs transition-all hover:shadow-md">
             <div className="flex items-center justify-between">
-              <span className="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-neutral-400">
+              <span className="text-xs font-bold uppercase tracking-wider text-slate-500">
                 Active Testers
               </span>
-              <div className="flex size-9 items-center justify-center rounded-xl bg-emerald-50 text-emerald-600 dark:bg-emerald-950/50 dark:text-emerald-400">
+              <div className="flex size-9 items-center justify-center rounded-xl bg-emerald-50 text-emerald-600">
                 <Activity className="size-5" />
               </div>
             </div>
             <div className="mt-3 flex items-baseline gap-2">
-              <span className="text-3xl font-black tracking-tight text-slate-900 dark:text-white">
+              <span className="text-3xl font-black tracking-tight text-slate-900">
                 {loading ? "..." : data?.stats.active_users ?? 0}
               </span>
-              <span className="text-xs font-semibold text-emerald-600 dark:text-emerald-400">
+              <span className="text-xs font-semibold text-emerald-600">
                 {data && data.stats.total_registered_users > 0
                   ? `${Math.round((data.stats.active_users / data.stats.total_registered_users) * 100)}% active`
                   : "Active"}
               </span>
             </div>
-            <p className="mt-1 text-[11px] text-slate-500 dark:text-neutral-400">
+            <p className="mt-1 text-[11px] text-slate-500">
               Users with at least 1 verified search
             </p>
           </div>
 
           {/* Card 3: Total Verified Queries */}
-          <div className="relative overflow-hidden rounded-2xl border border-slate-200/80 bg-white p-5 shadow-xs transition-all hover:shadow-md dark:border-neutral-800 dark:bg-neutral-900">
+          <div className="relative overflow-hidden rounded-2xl border border-slate-200/80 bg-white p-5 shadow-xs transition-all hover:shadow-md">
             <div className="flex items-center justify-between">
-              <span className="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-neutral-400">
+              <span className="text-xs font-bold uppercase tracking-wider text-slate-500">
                 Total Queries
               </span>
-              <div className="flex size-9 items-center justify-center rounded-xl bg-cyan-50 text-cyan-600 dark:bg-cyan-950/50 dark:text-cyan-400">
+              <div className="flex size-9 items-center justify-center rounded-xl bg-cyan-50 text-cyan-600">
                 <MessageSquare className="size-5" />
               </div>
             </div>
             <div className="mt-3 flex items-baseline gap-2">
-              <span className="text-3xl font-black tracking-tight text-slate-900 dark:text-white">
+              <span className="text-3xl font-black tracking-tight text-slate-900">
                 {loading ? "..." : data?.stats.total_queries ?? 0}
               </span>
-              <span className="text-xs font-semibold text-cyan-600 dark:text-cyan-400">
+              <span className="text-xs font-semibold text-cyan-600">
                 Questions
               </span>
             </div>
-            <p className="mt-1 text-[11px] text-slate-500 dark:text-neutral-400">
+            <p className="mt-1 text-[11px] text-slate-500">
               Clinical drug lookups & interaction checks
             </p>
           </div>
 
           {/* Card 4: Audit & Engine Status */}
-          <div className="relative overflow-hidden rounded-2xl border border-slate-200/80 bg-white p-5 shadow-xs transition-all hover:shadow-md dark:border-neutral-800 dark:bg-neutral-900">
+          <div className="relative overflow-hidden rounded-2xl border border-slate-200/80 bg-white p-5 shadow-xs transition-all hover:shadow-md">
             <div className="flex items-center justify-between">
-              <span className="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-neutral-400">
+              <span className="text-xs font-bold uppercase tracking-wider text-slate-500">
                 System Status
               </span>
-              <div className="flex size-9 items-center justify-center rounded-xl bg-purple-50 text-purple-600 dark:bg-purple-950/50 dark:text-purple-400">
+              <div className="flex size-9 items-center justify-center rounded-xl bg-teal-50 text-teal-700">
                 <Database className="size-5" />
               </div>
             </div>
             <div className="mt-3 flex items-baseline gap-2">
-              <span className="text-xl font-bold tracking-tight text-slate-900 dark:text-white">
+              <span className="text-xl font-bold tracking-tight text-slate-900">
                 PostgreSQL + DGDA
               </span>
             </div>
-            <p className="mt-1 text-[11px] text-emerald-600 dark:text-emerald-400 font-semibold flex items-center gap-1">
+            <p className="mt-1 text-[11px] text-emerald-600 font-semibold flex items-center gap-1">
               <CheckCircle2 className="size-3" />
               Audit Trail Synchronized
             </p>
@@ -571,20 +571,20 @@ export default function AdminDashboardPage() {
         </div>
 
         {/* Tab Navigation */}
-        <div className="mb-6 flex border-b border-slate-200 dark:border-neutral-800">
+        <div className="mb-6 flex border-b border-slate-200">
           <button
             type="button"
             onClick={() => setActiveTab("queries")}
             className={`flex items-center gap-2 border-b-2 px-5 py-3 text-sm font-semibold transition-all ${
               activeTab === "queries"
-                ? "border-indigo-600 text-indigo-600 dark:border-indigo-400 dark:text-indigo-400"
-                : "border-transparent text-slate-500 hover:text-slate-900 dark:text-neutral-400 dark:hover:text-white"
+                ? "border-slate-900 text-slate-900"
+                : "border-transparent text-slate-500 hover:text-slate-900"
             }`}
           >
             <MessageSquare className="size-4" />
             <span>Search Queries & Inquiries</span>
             {data && (
-              <span className="rounded-full bg-slate-200 px-2 py-0.5 text-xs text-slate-700 dark:bg-neutral-800 dark:text-neutral-300">
+              <span className="rounded-full bg-slate-200 px-2 py-0.5 text-xs text-slate-700">
                 {data.queries.length}
               </span>
             )}
@@ -595,14 +595,14 @@ export default function AdminDashboardPage() {
             onClick={() => setActiveTab("users")}
             className={`flex items-center gap-2 border-b-2 px-5 py-3 text-sm font-semibold transition-all ${
               activeTab === "users"
-                ? "border-indigo-600 text-indigo-600 dark:border-indigo-400 dark:text-indigo-400"
-                : "border-transparent text-slate-500 hover:text-slate-900 dark:text-neutral-400 dark:hover:text-white"
+                ? "border-slate-900 text-slate-900"
+                : "border-transparent text-slate-500 hover:text-slate-900"
             }`}
           >
             <Users className="size-4" />
             <span>Registered User Directory</span>
             {data && (
-              <span className="rounded-full bg-slate-200 px-2 py-0.5 text-xs text-slate-700 dark:bg-neutral-800 dark:text-neutral-300">
+              <span className="rounded-full bg-slate-200 px-2 py-0.5 text-xs text-slate-700">
                 {data.users.length}
               </span>
             )}
@@ -613,8 +613,8 @@ export default function AdminDashboardPage() {
             onClick={() => setActiveTab("project")}
             className={`flex items-center gap-2 border-b-2 px-5 py-3 text-sm font-semibold transition-all ${
               activeTab === "project"
-                ? "border-indigo-600 text-indigo-600 dark:border-indigo-400 dark:text-indigo-400"
-                : "border-transparent text-slate-500 hover:text-slate-900 dark:text-neutral-400 dark:hover:text-white"
+                ? "border-slate-900 text-slate-900"
+                : "border-transparent text-slate-500 hover:text-slate-900"
             }`}
           >
             <Sparkles className="size-4" />
@@ -633,19 +633,19 @@ export default function AdminDashboardPage() {
                   value={searchFilter}
                   onChange={(e) => setSearchFilter(e.target.value)}
                   placeholder="Search by medicine, keyword, user email..."
-                  className="w-full rounded-xl border border-slate-200 bg-white py-2 pl-10 pr-4 text-sm text-slate-900 outline-none placeholder:text-slate-400 focus:border-indigo-500 dark:border-neutral-800 dark:bg-neutral-900 dark:text-white dark:placeholder:text-neutral-500"
+                  className="w-full rounded-xl border border-slate-200 bg-white py-2 pl-10 pr-4 text-sm text-slate-900 outline-none placeholder:text-slate-400 focus:border-slate-900"
                 />
               </div>
 
-              <div className="text-xs text-slate-500 dark:text-neutral-400">
+              <div className="text-xs text-slate-500">
                 Showing {filteredQueries.length} of {data?.queries.length ?? 0} queries
               </div>
             </div>
 
-            <div className="overflow-hidden rounded-2xl border border-slate-200/80 bg-white shadow-xs dark:border-neutral-800 dark:bg-neutral-900">
+            <div className="overflow-hidden rounded-2xl border border-slate-200/80 bg-white shadow-xs">
               <div className="overflow-x-auto">
                 <table className="w-full text-left text-sm">
-                  <thead className="border-b border-slate-200 bg-slate-50/75 text-[11px] font-bold uppercase tracking-wider text-slate-500 dark:border-neutral-800 dark:bg-neutral-800/50 dark:text-neutral-400">
+                  <thead className="border-b border-slate-200 bg-slate-50/75 text-[11px] font-bold uppercase tracking-wider text-slate-500">
                     <tr>
                       <th className="px-4 py-3.5">Time</th>
                       <th className="px-4 py-3.5">User</th>
@@ -654,19 +654,19 @@ export default function AdminDashboardPage() {
                       <th className="px-4 py-3.5 text-right">Actions</th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-slate-100 dark:divide-neutral-800">
+                  <tbody className="divide-y divide-slate-100">
                     {loading ? (
                       <tr>
                         <td colSpan={5} className="py-12 text-center text-slate-400">
                           <div className="flex items-center justify-center gap-2">
-                            <div className="size-4 animate-spin rounded-full border-2 border-indigo-500 border-t-transparent" />
+                            <div className="size-4 animate-spin rounded-full border-2 border-slate-900 border-t-transparent" />
                             <span>Loading query records...</span>
                           </div>
                         </td>
                       </tr>
                     ) : filteredQueries.length === 0 ? (
                       <tr>
-                        <td colSpan={5} className="py-12 text-center text-slate-400 dark:text-neutral-500">
+                        <td colSpan={5} className="py-12 text-center text-slate-400">
                           No inquiries found matching your filter.
                         </td>
                       </tr>
@@ -674,9 +674,9 @@ export default function AdminDashboardPage() {
                       filteredQueries.map((q) => (
                         <tr
                           key={q.id}
-                          className="transition-colors hover:bg-slate-50/80 dark:hover:bg-neutral-800/40"
+                          className="transition-colors hover:bg-slate-50/80"
                         >
-                          <td className="whitespace-nowrap px-4 py-3.5 text-xs text-slate-500 dark:text-neutral-400">
+                          <td className="whitespace-nowrap px-4 py-3.5 text-xs text-slate-500">
                             <div className="flex items-center gap-1.5">
                               <Clock className="size-3 text-slate-400" />
                               <span>{formatDate(q.created_at)}</span>
@@ -684,20 +684,20 @@ export default function AdminDashboardPage() {
                           </td>
                           <td className="px-4 py-3.5">
                             <div className="flex flex-col">
-                              <span className="font-semibold text-xs text-slate-900 dark:text-white">
+                              <span className="font-semibold text-xs text-slate-900">
                                 {q.user_name || "Tester"}
                               </span>
-                              <span className="text-[11px] text-indigo-600 dark:text-indigo-400">
+                              <span className="text-[11px] text-slate-900 font-medium">
                                 {q.user_email}
                               </span>
                             </div>
                           </td>
                           <td className="max-w-md px-4 py-3.5">
-                            <p className="line-clamp-2 text-xs font-medium text-slate-800 dark:text-neutral-200">
+                            <p className="line-clamp-2 text-xs font-medium text-slate-800">
                               {q.question}
                             </p>
                           </td>
-                          <td className="max-w-xs px-4 py-3.5 text-xs text-slate-500 dark:text-neutral-400">
+                          <td className="max-w-xs px-4 py-3.5 text-xs text-slate-500">
                             <p className="line-clamp-2 leading-snug">
                               {q.answer || "No response text."}
                             </p>
@@ -706,7 +706,7 @@ export default function AdminDashboardPage() {
                             <button
                               type="button"
                               onClick={() => setSelectedQuery(q)}
-                              className="inline-flex items-center gap-1 rounded-lg border border-slate-200 bg-white px-2.5 py-1 text-xs font-semibold text-indigo-600 hover:bg-indigo-50 dark:border-neutral-700 dark:bg-neutral-800 dark:text-indigo-400 dark:hover:bg-neutral-700"
+                              className="inline-flex items-center gap-1 rounded-lg border border-slate-200 bg-white px-2.5 py-1 text-xs font-semibold text-slate-900 hover:bg-slate-100"
                             >
                               <Eye className="size-3" />
                               <span>View</span>
@@ -733,19 +733,19 @@ export default function AdminDashboardPage() {
                   value={userFilter}
                   onChange={(e) => setUserFilter(e.target.value)}
                   placeholder="Filter users by name, email, or UID..."
-                  className="w-full rounded-xl border border-slate-200 bg-white py-2 pl-10 pr-4 text-sm text-slate-900 outline-none placeholder:text-slate-400 focus:border-indigo-500 dark:border-neutral-800 dark:bg-neutral-900 dark:text-white dark:placeholder:text-neutral-500"
+                  className="w-full rounded-xl border border-slate-200 bg-white py-2 pl-10 pr-4 text-sm text-slate-900 outline-none placeholder:text-slate-400 focus:border-slate-900"
                 />
               </div>
 
-              <div className="text-xs text-slate-500 dark:text-neutral-400">
+              <div className="text-xs text-slate-500">
                 {filteredUsers.length} total users registered
               </div>
             </div>
 
-            <div className="overflow-hidden rounded-2xl border border-slate-200/80 bg-white shadow-xs dark:border-neutral-800 dark:bg-neutral-900">
+            <div className="overflow-hidden rounded-2xl border border-slate-200/80 bg-white shadow-xs">
               <div className="overflow-x-auto">
                 <table className="w-full text-left text-sm">
-                  <thead className="border-b border-slate-200 bg-slate-50/75 text-[11px] font-bold uppercase tracking-wider text-slate-500 dark:border-neutral-800 dark:bg-neutral-800/50 dark:text-neutral-400">
+                  <thead className="border-b border-slate-200 bg-slate-50/75 text-[11px] font-bold uppercase tracking-wider text-slate-500">
                     <tr>
                       <th className="px-4 py-3.5">User</th>
                       <th className="px-4 py-3.5">Email Address</th>
@@ -755,7 +755,7 @@ export default function AdminDashboardPage() {
                       <th className="px-4 py-3.5">Status</th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-slate-100 dark:divide-neutral-800">
+                  <tbody className="divide-y divide-slate-100">
                     {loading ? (
                       <tr>
                         <td colSpan={6} className="py-12 text-center text-slate-400">
@@ -764,7 +764,7 @@ export default function AdminDashboardPage() {
                       </tr>
                     ) : filteredUsers.length === 0 ? (
                       <tr>
-                        <td colSpan={6} className="py-12 text-center text-slate-400 dark:text-neutral-500">
+                        <td colSpan={6} className="py-12 text-center text-slate-400">
                           No users found matching your filter.
                         </td>
                       </tr>
@@ -772,39 +772,39 @@ export default function AdminDashboardPage() {
                       filteredUsers.map((u) => (
                         <tr
                           key={u.id}
-                          className="transition-colors hover:bg-slate-50/80 dark:hover:bg-neutral-800/40"
+                          className="transition-colors hover:bg-slate-50/80"
                         >
                           <td className="px-4 py-3.5">
                             <div className="flex items-center gap-2.5">
-                              <div className="flex size-8 shrink-0 items-center justify-center rounded-full bg-indigo-600 text-xs font-bold text-white uppercase">
+                              <div className="flex size-8 shrink-0 items-center justify-center rounded-full bg-slate-900 text-xs font-bold text-white uppercase">
                                 {u.display_name?.[0] || u.email?.[0] || "U"}
                               </div>
-                              <span className="font-semibold text-xs text-slate-900 dark:text-white">
+                              <span className="font-semibold text-xs text-slate-900">
                                 {u.display_name || "Tester"}
                               </span>
                             </div>
                           </td>
-                          <td className="px-4 py-3.5 text-xs text-slate-600 dark:text-neutral-300">
+                          <td className="px-4 py-3.5 text-xs text-slate-600">
                             {u.email}
                           </td>
                           <td className="px-4 py-3.5 text-center">
-                            <span className="inline-flex rounded-full bg-indigo-50 px-2.5 py-0.5 text-xs font-bold text-indigo-600 dark:bg-indigo-950/50 dark:text-indigo-400">
+                            <span className="inline-flex rounded-full bg-slate-100 px-2.5 py-0.5 text-xs font-bold text-slate-900">
                               {u.query_count}
                             </span>
                           </td>
-                          <td className="whitespace-nowrap px-4 py-3.5 text-xs text-slate-500 dark:text-neutral-400">
+                          <td className="whitespace-nowrap px-4 py-3.5 text-xs text-slate-500">
                             {formatDate(u.created_at)}
                           </td>
-                          <td className="whitespace-nowrap px-4 py-3.5 text-xs text-slate-500 dark:text-neutral-400">
+                          <td className="whitespace-nowrap px-4 py-3.5 text-xs text-slate-500">
                             {formatDate(u.last_active_at)}
                           </td>
                           <td className="px-4 py-3.5">
                             {u.query_count > 0 ? (
-                              <span className="inline-flex items-center gap-1 rounded-full bg-emerald-500/10 px-2.5 py-0.5 text-[10px] font-semibold text-emerald-600 dark:text-emerald-400">
+                              <span className="inline-flex items-center gap-1 rounded-full bg-emerald-500/10 px-2.5 py-0.5 text-[10px] font-semibold text-emerald-600">
                                 <span className="size-1.5 rounded-full bg-emerald-500" /> Active Tester
                               </span>
                             ) : (
-                              <span className="inline-flex items-center gap-1 rounded-full bg-slate-100 px-2.5 py-0.5 text-[10px] font-semibold text-slate-600 dark:bg-neutral-800 dark:text-neutral-400">
+                              <span className="inline-flex items-center gap-1 rounded-full bg-slate-100 px-2.5 py-0.5 text-[10px] font-semibold text-slate-600">
                                 Registered
                               </span>
                             )}
@@ -822,21 +822,21 @@ export default function AdminDashboardPage() {
         {/* TAB 3: Academic Evaluation Summary */}
         {activeTab === "project" && (
           <div className="space-y-6">
-            <div className="rounded-3xl border border-slate-200/80 bg-white p-6 sm:p-8 shadow-xs dark:border-neutral-800 dark:bg-neutral-900">
-              <h2 className="text-xl font-bold text-slate-900 dark:text-white">
+            <div className="rounded-3xl border border-slate-200/80 bg-white p-6 sm:p-8 shadow-xs">
+              <h2 className="text-xl font-bold text-slate-900">
                 MediGuard AI · University Project Evaluation Brief
               </h2>
-              <p className="mt-1 text-xs text-slate-500 dark:text-neutral-400">
+              <p className="mt-1 text-xs text-slate-500">
                 Summary of software architecture, engineering standards, and real-world evaluation telemetry.
               </p>
 
               <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div className="rounded-2xl border border-slate-200 bg-slate-50/60 p-4 dark:border-neutral-800 dark:bg-neutral-800/40">
-                  <h3 className="text-sm font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                <div className="rounded-2xl border border-slate-200 bg-slate-50/60 p-4">
+                  <h3 className="text-sm font-bold text-slate-900 flex items-center gap-2">
                     <CheckCircle2 className="size-4 text-emerald-500" />
                     Engineering Stack & Architecture
                   </h3>
-                  <ul className="mt-3 space-y-2 text-xs text-slate-600 dark:text-neutral-300">
+                  <ul className="mt-3 space-y-2 text-xs text-slate-600">
                     <li>• <strong>Frontend:</strong> Next.js 16 (App Router, Turbopack, TailwindCSS v4)</li>
                     <li>• <strong>Backend:</strong> Django 6.1 REST Framework on Python 3.13</li>
                     <li>• <strong>Database:</strong> PostgreSQL with relational catalog and audit trails</li>
@@ -845,12 +845,12 @@ export default function AdminDashboardPage() {
                   </ul>
                 </div>
 
-                <div className="rounded-2xl border border-slate-200 bg-slate-50/60 p-4 dark:border-neutral-800 dark:bg-neutral-800/40">
-                  <h3 className="text-sm font-bold text-slate-900 dark:text-white flex items-center gap-2">
-                    <CheckCircle2 className="size-4 text-indigo-500" />
+                <div className="rounded-2xl border border-slate-200 bg-slate-50/60 p-4">
+                  <h3 className="text-sm font-bold text-slate-900 flex items-center gap-2">
+                    <CheckCircle2 className="size-4 text-emerald-600" />
                     Key Innovations & Regulatory Rigor
                   </h3>
-                  <ul className="mt-3 space-y-2 text-xs text-slate-600 dark:text-neutral-300">
+                  <ul className="mt-3 space-y-2 text-xs text-slate-600">
                     <li>• <strong>Evidence Grounding:</strong> Pre-retrieval pipeline cross-referencing structured medicine records.</li>
                     <li>• <strong>Multi-Carrier Scanning:</strong> GS1 DataMatrix + barcode extraction directly in the browser.</li>
                     <li>• <strong>Mandatory Auth Gating:</strong> User access auditability protecting platform safety.</li>
@@ -865,10 +865,10 @@ export default function AdminDashboardPage() {
         {/* Modal for viewing detailed query and answer */}
         {selectedQuery && (
           <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4 backdrop-blur-sm animate-fade-in">
-            <div className="w-full max-w-2xl rounded-3xl border border-slate-200 bg-white p-6 shadow-2xl dark:border-neutral-800 dark:bg-neutral-900">
-              <div className="flex items-center justify-between border-b border-slate-100 pb-3 dark:border-neutral-800">
+            <div className="w-full max-w-2xl rounded-3xl border border-slate-200 bg-white p-6 shadow-2xl">
+              <div className="flex items-center justify-between border-b border-slate-100 pb-3">
                 <div className="flex items-center gap-2">
-                  <MessageSquare className="size-4 text-indigo-600 dark:text-indigo-400" />
+                  <MessageSquare className="size-4 text-slate-900" />
                   <span className="font-bold text-sm text-slate-900 dark:text-white">
                     Inquiry Audit Detail
                   </span>

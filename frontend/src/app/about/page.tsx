@@ -14,7 +14,7 @@ export default function AboutPage() {
           <div className="mb-6 flex items-center gap-2 text-xs font-semibold text-slate-500 dark:text-neutral-400">
             <Link
               href="/"
-              className="inline-flex items-center gap-1 hover:text-indigo-600 dark:hover:text-indigo-400"
+              className="inline-flex items-center gap-1 hover:text-slate-900"
             >
               <ArrowLeft className="size-3.5" />
               <span>Home</span>
@@ -568,7 +568,7 @@ MediGuard AI is a student-developed educational project and must not be relied u
                   ].map((item, i) => (
                     <span
                       key={i}
-                      className="rounded-lg bg-indigo-50 px-2.5 py-1 text-xs font-semibold text-indigo-700 dark:bg-indigo-950/50 dark:text-indigo-300"
+                      className="rounded-lg bg-slate-100 px-2.5 py-1 text-xs font-semibold text-slate-800"
                     >
                       {item}
                     </span>
@@ -685,7 +685,7 @@ MediGuard AI is a student-developed educational project and must not be relied u
                   "another qualified healthcare professional.",
                 ].map((item, i) => (
                   <li key={i} className="flex items-center gap-2 text-xs sm:text-sm">
-                    <span className="size-1.5 shrink-0 rounded-full bg-indigo-500" />
+                    <span className="size-1.5 shrink-0 rounded-full bg-slate-900" />
                     <span>{item}</span>
                   </li>
                 ))}
@@ -775,7 +775,7 @@ MediGuard AI is a student-developed educational project and must not be relied u
             </Link>
             <Link
               href="/chat"
-              className="inline-flex items-center gap-2 rounded-xl bg-indigo-600 px-5 py-2.5 text-sm font-semibold text-white shadow-md shadow-indigo-600/25 hover:bg-indigo-500"
+              className="inline-flex items-center gap-2 rounded-xl bg-slate-900 px-5 py-2.5 text-sm font-semibold text-white shadow-md shadow-slate-900/25 hover:bg-black"
             >
               <span>Acknowledge &amp; Open Assistant</span>
               <ExternalLink className="size-4" />

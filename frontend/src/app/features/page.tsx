@@ -97,13 +97,13 @@ export default function Features() {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           {/* Header */}
           <div className="text-center">
-            <span className="inline-flex items-center gap-1.5 rounded-full bg-indigo-50 px-3.5 py-1 text-xs font-semibold text-indigo-600 dark:bg-indigo-950/50 dark:text-indigo-400">
+            <span className="inline-flex items-center gap-1.5 rounded-full border border-slate-200 bg-slate-100 px-3.5 py-1 text-xs font-semibold text-slate-900">
               <Sparkles className="size-3.5" /> Engine Capabilities
             </span>
-            <h1 className="mt-4 text-4xl font-extrabold tracking-tight sm:text-5xl lg:text-6xl">
+            <h1 className="mt-4 text-4xl font-extrabold tracking-tight sm:text-5xl lg:text-6xl text-slate-900">
               Medication Safety Tools
             </h1>
-            <p className="mx-auto mt-4 max-w-2xl text-base text-slate-600 sm:text-lg dark:text-neutral-400">
+            <p className="mx-auto mt-4 max-w-2xl text-base text-slate-600 sm:text-lg">
               Built to help users cross-reference medicine information against available evidence and understand pharmaceutical packaging.
             </p>
           </div>
@@ -115,31 +115,31 @@ export default function Features() {
               return (
                 <div
                   key={feat.title}
-                  className="group relative flex flex-col justify-between rounded-3xl border border-slate-200/80 bg-slate-50/60 p-8 transition-all duration-300 hover:border-indigo-500/40 hover:bg-white hover:shadow-xl dark:border-neutral-800 dark:bg-neutral-900/60 dark:hover:bg-neutral-900"
+                  className="group relative flex flex-col justify-between rounded-3xl border border-slate-200/80 bg-slate-50/60 p-8 transition-all duration-300 hover:border-slate-400 hover:bg-white hover:shadow-xl"
                 >
                   <div>
-                    <div className="flex size-12 items-center justify-center rounded-2xl bg-indigo-100 text-indigo-600 transition-colors group-hover:bg-indigo-600 group-hover:text-white dark:bg-indigo-950 dark:text-indigo-400">
+                    <div className="flex size-12 items-center justify-center rounded-2xl bg-slate-100 text-slate-900 transition-colors group-hover:bg-slate-900 group-hover:text-white">
                       <Icon className="size-6" />
                     </div>
 
-                    <span className="mt-5 inline-block font-mono text-[11px] font-semibold uppercase tracking-wider text-indigo-600 dark:text-indigo-400">
+                    <span className="mt-5 inline-block font-mono text-[11px] font-bold uppercase tracking-wider text-slate-900">
                       {feat.badge}
                     </span>
 
-                    <h3 className="mt-2 text-xl font-bold tracking-tight text-slate-900 dark:text-white">
+                    <h3 className="mt-2 text-xl font-bold tracking-tight text-slate-900">
                       {feat.title}
                     </h3>
 
-                    <p className="mt-3 text-sm leading-relaxed text-slate-600 dark:text-neutral-400">
+                    <p className="mt-3 text-sm leading-relaxed text-slate-600">
                       {feat.description}
                     </p>
                   </div>
 
-                  <div className="mt-6 border-t border-slate-200/80 pt-5 dark:border-neutral-800">
-                    <ul className="space-y-2 text-xs text-slate-700 dark:text-neutral-300">
+                  <div className="mt-6 border-t border-slate-200/80 pt-5">
+                    <ul className="space-y-2 text-xs text-slate-700">
                       {feat.specs.map((spec) => (
                         <li key={spec} className="flex items-center gap-2">
-                          <CheckCircle2 className="size-3.5 text-indigo-500 shrink-0" />
+                          <CheckCircle2 className="size-3.5 text-emerald-600 shrink-0" />
                           <span>{spec}</span>
                         </li>
                       ))}
@@ -151,7 +151,7 @@ export default function Features() {
           </div>
 
           {/* Bottom Call to Action */}
-          <div className="mt-20 rounded-3xl bg-gradient-to-r from-indigo-900 via-indigo-950 to-slate-900 p-8 text-center text-white sm:p-14">
+          <div className="mt-20 rounded-3xl bg-slate-900 p-8 text-center text-white sm:p-14 shadow-xl">
             <h2 className="text-2xl font-bold sm:text-3xl">
               Experience the verification assistant live
             </h2>
@@ -161,7 +161,7 @@ export default function Features() {
             <div className="mt-8 flex justify-center">
               <Link
                 href="/chat"
-                className="inline-flex items-center gap-2 rounded-xl bg-indigo-500 px-6 py-3.5 text-sm font-semibold text-white shadow-lg transition-all hover:bg-indigo-600"
+                className="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-teal-600 to-emerald-600 px-6 py-3.5 text-sm font-semibold text-white shadow-lg shadow-teal-600/25 transition-all hover:scale-[1.03]"
               >
                 Launch MediGuard Assistant <ArrowRight className="size-4" />
               </Link>

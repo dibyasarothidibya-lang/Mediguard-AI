@@ -198,11 +198,11 @@ function AuthContent() {
   }
 
   return (
-    <div className="relative flex min-h-screen items-center justify-center overflow-hidden bg-gradient-to-br from-teal-500 via-cyan-600 to-indigo-700 p-4 sm:p-6 lg:p-10 dark:from-[#06181b] dark:via-[#092226] dark:to-[#0c1222]">
+    <div className="relative flex min-h-screen items-center justify-center overflow-hidden bg-gradient-to-br from-teal-600 via-cyan-700 to-slate-900 p-4 sm:p-6 lg:p-10">
       {/* Ambient Floating Glassmorphic Orbs */}
-      <div className="pointer-events-none absolute -top-20 -left-20 size-80 rounded-full bg-teal-300/30 blur-3xl dark:bg-teal-500/10" />
-      <div className="pointer-events-none absolute -bottom-20 -right-20 size-96 rounded-full bg-purple-500/30 blur-3xl dark:bg-purple-600/15" />
-      <div className="pointer-events-none absolute top-1/3 right-1/4 size-48 rounded-full bg-cyan-300/20 blur-2xl dark:bg-cyan-400/10" />
+      <div className="pointer-events-none absolute -top-20 -left-20 size-80 rounded-full bg-teal-300/30 blur-3xl" />
+      <div className="pointer-events-none absolute -bottom-20 -right-20 size-96 rounded-full bg-teal-500/20 blur-3xl" />
+      <div className="pointer-events-none absolute top-1/3 right-1/4 size-48 rounded-full bg-cyan-300/20 blur-2xl" />
 
       {/* Decorative Dot Matrix in Corner */}
       <div className="pointer-events-none absolute bottom-6 left-6 grid grid-cols-8 gap-1.5 opacity-40 sm:bottom-10 sm:left-10">
@@ -224,13 +224,13 @@ function AuthContent() {
       </div>
 
       {/* Main Elevated Split-Card Container */}
-      <div className="relative z-10 w-full max-w-5xl overflow-hidden rounded-[32px] border border-white/50 bg-white/95 shadow-[0_35px_60px_-15px_rgba(0,0,0,0.3)] backdrop-blur-2xl sm:rounded-[36px] dark:border-white/10 dark:bg-[#18181b]/95 my-8">
+      <div className="relative z-10 w-full max-w-5xl overflow-hidden rounded-[32px] border border-white/50 bg-white/95 shadow-[0_35px_60px_-15px_rgba(0,0,0,0.3)] backdrop-blur-2xl sm:rounded-[36px] my-8">
         <div className="grid lg:grid-cols-12 min-h-[620px]">
           {/* Left Column: Multi-Device Ecosystem Showcase (MacBook, iPad, iPhone) */}
-          <div className="relative hidden flex-col justify-between overflow-hidden bg-gradient-to-br from-slate-50 via-teal-50/50 to-indigo-50/40 p-6 sm:p-8 lg:col-span-6 lg:flex dark:from-neutral-900/90 dark:via-neutral-900/60 dark:to-neutral-950 border-r border-slate-100 dark:border-neutral-800/80">
+          <div className="relative hidden flex-col justify-between overflow-hidden bg-gradient-to-br from-slate-50 via-teal-50/30 to-slate-100 p-6 sm:p-8 lg:col-span-6 lg:flex border-r border-slate-100">
             {/* Soft Floating Geometric Accents */}
-            <div className="pointer-events-none absolute -top-6 -left-6 size-28 rotate-12 rounded-3xl bg-indigo-600/10 border border-indigo-500/20 shadow-xs dark:bg-indigo-500/15" />
-            <div className="pointer-events-none absolute bottom-12 -right-8 size-32 rounded-full bg-teal-500/15 blur-sm dark:bg-teal-400/10" />
+            <div className="pointer-events-none absolute -top-6 -left-6 size-28 rotate-12 rounded-3xl bg-teal-600/10 border border-teal-500/20 shadow-xs" />
+            <div className="pointer-events-none absolute bottom-12 -right-8 size-32 rounded-full bg-teal-500/15 blur-sm" />
 
             {/* Top Bar: Brand Badge & Interactive Device Switcher */}
             <div className="relative z-10 flex flex-wrap items-center justify-between gap-2 pb-2">
@@ -242,20 +242,20 @@ function AuthContent() {
                   height={28}
                   className="size-7 object-contain drop-shadow-xs"
                 />
-                <span className="text-xs font-bold tracking-wider text-slate-800 uppercase dark:text-white">
+                <span className="text-xs font-bold tracking-wider text-slate-800 uppercase">
                   MediGuard Ecosystem
                 </span>
               </div>
 
               {/* Device Selector Tabs */}
-              <div className="inline-flex items-center gap-0.5 rounded-full border border-slate-200/90 bg-white/80 p-0.5 shadow-xs backdrop-blur-md dark:border-neutral-800 dark:bg-neutral-900/80">
+              <div className="inline-flex items-center gap-0.5 rounded-full border border-slate-200/90 bg-white/80 p-0.5 shadow-xs backdrop-blur-md">
                 <button
                   type="button"
                   onClick={() => setSelectedDevice("trio")}
                   className={`flex items-center gap-1 rounded-full px-2.5 py-1 text-[10.5px] font-semibold transition-all ${
                     selectedDevice === "trio"
-                      ? "bg-indigo-600 text-white shadow-xs"
-                      : "text-slate-600 hover:text-slate-900 dark:text-neutral-400 dark:hover:text-white"
+                      ? "bg-slate-900 text-white shadow-xs"
+                      : "text-slate-600 hover:text-slate-900"
                   }`}
                   title="Show all devices"
                 >
@@ -267,8 +267,8 @@ function AuthContent() {
                   onClick={() => setSelectedDevice("macbook")}
                   className={`flex items-center gap-1 rounded-full px-2.5 py-1 text-[10.5px] font-semibold transition-all ${
                     selectedDevice === "macbook"
-                      ? "bg-indigo-600 text-white shadow-xs"
-                      : "text-slate-600 hover:text-slate-900 dark:text-neutral-400 dark:hover:text-white"
+                      ? "bg-slate-900 text-white shadow-xs"
+                      : "text-slate-600 hover:text-slate-900"
                   }`}
                   title="MacBook Pro"
                 >
@@ -280,8 +280,8 @@ function AuthContent() {
                   onClick={() => setSelectedDevice("ipad")}
                   className={`flex items-center gap-1 rounded-full px-2.5 py-1 text-[10.5px] font-semibold transition-all ${
                     selectedDevice === "ipad"
-                      ? "bg-indigo-600 text-white shadow-xs"
-                      : "text-slate-600 hover:text-slate-900 dark:text-neutral-400 dark:hover:text-white"
+                      ? "bg-slate-900 text-white shadow-xs"
+                      : "text-slate-600 hover:text-slate-900"
                   }`}
                   title="iPad Pro"
                 >
@@ -293,8 +293,8 @@ function AuthContent() {
                   onClick={() => setSelectedDevice("iphone")}
                   className={`flex items-center gap-1 rounded-full px-2.5 py-1 text-[10.5px] font-semibold transition-all ${
                     selectedDevice === "iphone"
-                      ? "bg-indigo-600 text-white shadow-xs"
-                      : "text-slate-600 hover:text-slate-900 dark:text-neutral-400 dark:hover:text-white"
+                      ? "bg-slate-900 text-white shadow-xs"
+                      : "text-slate-600 hover:text-slate-900"
                   }`}
                   title="iPhone 16"
                 >
@@ -369,17 +369,17 @@ function AuthContent() {
                       className="w-full drop-shadow-2xl"
                     />
                   </div>
-                  <div className="mt-4 w-full rounded-2xl border border-slate-200/80 bg-white/95 p-3.5 shadow-xs dark:border-neutral-800 dark:bg-neutral-900/95">
+                  <div className="mt-4 w-full rounded-2xl border border-slate-200/80 bg-white/95 p-3.5 shadow-xs">
                     <div className="flex items-center justify-between">
-                      <span className="text-xs font-bold text-slate-900 dark:text-white flex items-center gap-1.5">
-                        <Laptop className="size-3.5 text-indigo-600 dark:text-indigo-400" />
+                      <span className="text-xs font-bold text-slate-900 flex items-center gap-1.5">
+                        <Laptop className="size-3.5 text-slate-900" />
                         MacBook Pro · Web Console
                       </span>
-                      <span className="rounded-full bg-emerald-500/10 px-2 py-0.5 text-[9.5px] font-bold text-emerald-600 dark:bg-emerald-500/15 dark:text-emerald-400">
+                      <span className="rounded-full bg-emerald-500/10 px-2 py-0.5 text-[9.5px] font-bold text-emerald-600">
                         Multi-Source Pipeline
                       </span>
                     </div>
-                    <p className="mt-1 text-[11px] text-slate-500 dark:text-neutral-400 leading-snug">
+                    <p className="mt-1 text-[11px] text-slate-500 leading-snug">
                       Responsive web console with indexed pharmaceutical records and evidence-grounded AI explanations.
                     </p>
                   </div>
@@ -396,17 +396,17 @@ function AuthContent() {
                       className="w-full drop-shadow-2xl"
                     />
                   </div>
-                  <div className="mt-4 w-full rounded-2xl border border-slate-200/80 bg-white/95 p-3.5 shadow-xs dark:border-neutral-800 dark:bg-neutral-900/95">
+                  <div className="mt-4 w-full rounded-2xl border border-slate-200/80 bg-white/95 p-3.5 shadow-xs">
                     <div className="flex items-center justify-between">
-                      <span className="text-xs font-bold text-slate-900 dark:text-white flex items-center gap-1.5">
-                        <Tablet className="size-3.5 text-cyan-600 dark:text-cyan-400" />
+                      <span className="text-xs font-bold text-slate-900 flex items-center gap-1.5">
+                        <Tablet className="size-3.5 text-cyan-600" />
                         iPad Pro · Tablet Interface
                       </span>
-                      <span className="rounded-full bg-indigo-500/10 px-2 py-0.5 text-[9.5px] font-bold text-indigo-600 dark:bg-indigo-500/15 dark:text-indigo-400">
+                      <span className="rounded-full bg-slate-100 px-2 py-0.5 text-[9.5px] font-bold text-slate-900">
                         Responsive Layout
                       </span>
                     </div>
-                    <p className="mt-1 text-[11px] text-slate-500 dark:text-neutral-400 leading-snug">
+                    <p className="mt-1 text-[11px] text-slate-500 leading-snug">
                       Touch-friendly interface with fast medicine lookups, detailed summaries, and accessible packaging reference tools.
                     </p>
                   </div>
@@ -423,17 +423,17 @@ function AuthContent() {
                       className="w-full drop-shadow-2xl"
                     />
                   </div>
-                  <div className="mt-4 w-full rounded-2xl border border-slate-200/80 bg-white/95 p-3.5 shadow-xs dark:border-neutral-800 dark:bg-neutral-900/95">
+                  <div className="mt-4 w-full rounded-2xl border border-slate-200/80 bg-white/95 p-3.5 shadow-xs">
                     <div className="flex items-center justify-between">
-                      <span className="text-xs font-bold text-slate-900 dark:text-white flex items-center gap-1.5">
-                        <Smartphone className="size-3.5 text-emerald-600 dark:text-emerald-400" />
+                      <span className="text-xs font-bold text-slate-900 flex items-center gap-1.5">
+                        <Smartphone className="size-3.5 text-emerald-600" />
                         iPhone 16 Pro · Pocket Scanner
                       </span>
-                      <span className="rounded-full bg-emerald-500/10 px-2 py-0.5 text-[9.5px] font-bold text-emerald-600 dark:bg-emerald-500/15 dark:text-emerald-400">
+                      <span className="rounded-full bg-emerald-500/10 px-2 py-0.5 text-[9.5px] font-bold text-emerald-600">
                         Camera Scanner
                       </span>
                     </div>
-                    <p className="mt-1 text-[11px] text-slate-500 dark:text-neutral-400 leading-snug">
+                    <p className="mt-1 text-[11px] text-slate-500 leading-snug">
                       Fast browser-based 2D DataMatrix and barcode scanning to extract GTIN, lot, and expiry details directly from packaging.
                     </p>
                   </div>
@@ -442,22 +442,22 @@ function AuthContent() {
 
               {/* Multi-Device Feature Badges */}
               <div className="mt-5 flex flex-wrap justify-center gap-1.5">
-                <span className="inline-flex items-center gap-1 rounded-full bg-white/80 px-2.5 py-0.5 text-[10px] font-semibold text-slate-700 shadow-xs backdrop-blur-md dark:bg-neutral-800/80 dark:text-neutral-300">
-                  <Laptop className="size-3 text-indigo-500" /> Web Console
+                <span className="inline-flex items-center gap-1 rounded-full bg-white/80 px-2.5 py-0.5 text-[10px] font-semibold text-slate-700 shadow-xs backdrop-blur-md">
+                  <Laptop className="size-3 text-slate-900" /> Web Console
                 </span>
-                <span className="inline-flex items-center gap-1 rounded-full bg-white/80 px-2.5 py-0.5 text-[10px] font-semibold text-slate-700 shadow-xs backdrop-blur-md dark:bg-neutral-800/80 dark:text-neutral-300">
+                <span className="inline-flex items-center gap-1 rounded-full bg-white/80 px-2.5 py-0.5 text-[10px] font-semibold text-slate-700 shadow-xs backdrop-blur-md">
                   <Tablet className="size-3 text-cyan-500" /> Clinical Tablet
                 </span>
-                <span className="inline-flex items-center gap-1 rounded-full bg-white/80 px-2.5 py-0.5 text-[10px] font-semibold text-slate-700 shadow-xs backdrop-blur-md dark:bg-neutral-800/80 dark:text-neutral-300">
+                <span className="inline-flex items-center gap-1 rounded-full bg-white/80 px-2.5 py-0.5 text-[10px] font-semibold text-slate-700 shadow-xs backdrop-blur-md">
                   <Smartphone className="size-3 text-emerald-500" /> Mobile Vision
                 </span>
               </div>
             </div>
 
             {/* Bottom Note */}
-            <div className="relative z-10 flex items-center justify-between text-[11px] font-medium text-slate-500 dark:text-neutral-400 pt-3 border-t border-slate-200/60 dark:border-neutral-800">
+            <div className="relative z-10 flex items-center justify-between text-[11px] font-medium text-slate-500 pt-3 border-t border-slate-200/60">
               <span>Universal Multi-Device Pipeline</span>
-              <span className="font-mono font-semibold text-indigo-600 dark:text-indigo-400">
+              <span className="font-mono font-semibold text-teal-700">
                 v2.4 SECURE
               </span>
             </div>
@@ -498,7 +498,7 @@ function AuthContent() {
 
               {/* Active User Session Notice or Mandatory Auth Notice */}
               {activeUser ? (
-                <div className="mt-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3 rounded-2xl border border-indigo-200 bg-indigo-50/90 p-3.5 text-xs text-indigo-950 shadow-xs dark:border-indigo-900/60 dark:bg-indigo-950/40 dark:text-indigo-200 animate-fade-in">
+                <div className="mt-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3 rounded-2xl border border-slate-200 bg-slate-50/90 p-3.5 text-xs text-slate-900 shadow-xs animate-fade-in">
                   <div className="flex items-center gap-2 overflow-hidden">
                     <span className="size-2 rounded-full bg-emerald-500 animate-pulse shrink-0" />
                     <span className="truncate">
@@ -508,7 +508,7 @@ function AuthContent() {
                   <div className="flex items-center gap-2 shrink-0">
                     <Link
                       href={redirectTarget}
-                      className="rounded-lg bg-indigo-600 px-3 py-1.5 font-semibold text-white transition-all hover:bg-indigo-500 active:scale-95"
+                      className="rounded-lg bg-slate-900 px-3 py-1.5 font-semibold text-white transition-all hover:bg-black active:scale-95"
                     >
                       Continue to Chat
                     </Link>
@@ -518,7 +518,7 @@ function AuthContent() {
                         await signOut(auth);
                         setActiveUser(null);
                       }}
-                      className="flex items-center gap-1 rounded-lg border border-slate-300 bg-white px-2.5 py-1.5 font-semibold text-slate-700 transition-all hover:bg-slate-50 dark:border-neutral-700 dark:bg-neutral-800 dark:text-neutral-200 dark:hover:bg-neutral-700 active:scale-95"
+                      className="flex items-center gap-1 rounded-lg border border-slate-300 bg-white px-2.5 py-1.5 font-semibold text-slate-700 transition-all hover:bg-slate-50 active:scale-95"
                     >
                       <LogOut className="size-3 text-rose-500" />
                       <span>Sign Out</span>
@@ -526,15 +526,15 @@ function AuthContent() {
                   </div>
                 </div>
               ) : isRequired ? (
-                <div className="mt-4 flex items-start gap-3 rounded-2xl border border-amber-500/30 bg-amber-500/10 p-3.5 text-xs text-amber-900 shadow-xs dark:border-amber-500/20 dark:bg-amber-500/10 dark:text-amber-200 animate-fade-in">
-                  <div className="flex size-7 shrink-0 items-center justify-center rounded-xl bg-amber-500/20 text-amber-600 dark:text-amber-400 mt-0.5">
+                <div className="mt-4 flex items-start gap-3 rounded-2xl border border-amber-500/30 bg-amber-500/10 p-3.5 text-xs text-amber-900 shadow-xs animate-fade-in">
+                  <div className="flex size-7 shrink-0 items-center justify-center rounded-xl bg-amber-500/20 text-amber-600 mt-0.5">
                     <Lock className="size-4" />
                   </div>
                   <div className="flex-1">
-                    <p className="font-bold text-amber-950 dark:text-amber-200">
+                    <p className="font-bold text-amber-950">
                       Sign In Required to Access Chat
                     </p>
-                    <p className="mt-0.5 text-[11.5px] leading-relaxed text-amber-800/90 dark:text-amber-300/80">
+                    <p className="mt-0.5 text-[11.5px] leading-relaxed text-amber-800/90">
                       Please sign in or create an account to access the MediGuard AI Assistant and clinical verification tools.
                     </p>
                   </div>
@@ -542,7 +542,7 @@ function AuthContent() {
               ) : null}
 
               {/* Tab Selector: Sign In vs Create Account */}
-              <div className="mt-5 flex rounded-xl bg-slate-100 p-1 dark:bg-neutral-800/80">
+              <div className="mt-5 flex rounded-xl bg-slate-100 p-1">
                 <button
                   type="button"
                   onClick={() => {
@@ -551,8 +551,8 @@ function AuthContent() {
                   }}
                   className={`flex-1 rounded-lg py-1.5 text-xs font-semibold transition-all ${
                     mode === "signin"
-                      ? "bg-white text-slate-900 shadow-xs dark:bg-neutral-700 dark:text-white"
-                      : "text-slate-500 hover:text-slate-900 dark:text-neutral-400 dark:hover:text-white"
+                      ? "bg-white text-slate-900 shadow-xs"
+                      : "text-slate-500 hover:text-slate-900"
                   }`}
                 >
                   Sign In
@@ -565,8 +565,8 @@ function AuthContent() {
                   }}
                   className={`flex-1 rounded-lg py-1.5 text-xs font-semibold transition-all ${
                     mode === "signup"
-                      ? "bg-white text-slate-900 shadow-xs dark:bg-neutral-700 dark:text-white"
-                      : "text-slate-500 hover:text-slate-900 dark:text-neutral-400 dark:hover:text-white"
+                      ? "bg-white text-slate-900 shadow-xs"
+                      : "text-slate-500 hover:text-slate-900"
                   }`}
                 >
                   Create Account
@@ -575,7 +575,7 @@ function AuthContent() {
 
               {/* Error Banner */}
               {error && (
-                <div className="mt-4 animate-fade-in rounded-xl border border-rose-200 bg-rose-50/90 p-3 text-xs text-rose-700 dark:border-rose-900/60 dark:bg-rose-950/40 dark:text-rose-300">
+                <div className="mt-4 animate-fade-in rounded-xl border border-rose-200 bg-rose-50/90 p-3 text-xs text-rose-700">
                   <p className="font-semibold">Authentication Notice</p>
                   <p className="mt-0.5">{error}</p>
                 </div>
@@ -587,13 +587,13 @@ function AuthContent() {
                   type="button"
                   onClick={handleGoogleSignIn}
                   disabled={isLoading}
-                  className="group relative flex w-full items-center justify-center gap-2.5 overflow-hidden rounded-xl border border-slate-300/80 bg-white px-4 py-2.5 text-xs sm:text-sm font-semibold text-slate-800 shadow-xs transition-all duration-200 hover:scale-[1.01] hover:border-slate-400 hover:bg-slate-50/80 hover:shadow-md active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-60 dark:border-white/15 dark:bg-neutral-800 dark:text-white dark:hover:bg-neutral-700/80"
+                  className="group relative flex w-full items-center justify-center gap-2.5 overflow-hidden rounded-xl border border-slate-300/80 bg-white px-4 py-2.5 text-xs sm:text-sm font-semibold text-slate-800 shadow-xs transition-all duration-200 hover:scale-[1.01] hover:border-slate-400 hover:bg-slate-50/80 hover:shadow-md active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-60"
                 >
-                  <span className="pointer-events-none absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/40 to-transparent transition-transform duration-700 ease-out group-hover:translate-x-full dark:via-white/10" />
+                  <span className="pointer-events-none absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/40 to-transparent transition-transform duration-700 ease-out group-hover:translate-x-full" />
 
                   {isLoading ? (
                     <div className="flex items-center gap-2">
-                      <div className="size-4 animate-spin rounded-full border-2 border-slate-400 border-t-indigo-600" />
+                      <div className="size-4 animate-spin rounded-full border-2 border-slate-400 border-t-slate-900" />
                       <span>Connecting...</span>
                     </div>
                   ) : (
@@ -629,8 +629,8 @@ function AuthContent() {
 
               {/* OR Divider */}
               <div className="relative my-4 flex items-center justify-center">
-                <div className="w-full border-t border-slate-200 dark:border-neutral-800" />
-                <span className="absolute bg-white px-2.5 text-[10px] font-medium tracking-wider text-slate-400 uppercase dark:bg-[#18181b] dark:text-neutral-400">
+                <div className="w-full border-t border-slate-200" />
+                <span className="absolute bg-white px-2.5 text-[10px] font-medium tracking-wider text-slate-400 uppercase">
                   or with email
                 </span>
               </div>
@@ -640,7 +640,7 @@ function AuthContent() {
                 /* SIGN IN FORM */
                 <form onSubmit={handleEmailSignIn} className="space-y-3.5">
                   <div>
-                    <label className="block text-xs font-semibold text-slate-700 dark:text-neutral-300 mb-1">
+                    <label className="block text-xs font-semibold text-slate-700 mb-1">
                       Email Address
                     </label>
                     <div className="relative flex items-center">
@@ -651,13 +651,13 @@ function AuthContent() {
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                         placeholder="you@hospital.org"
-                        className="w-full rounded-xl border border-slate-200 bg-slate-50/50 py-2.5 pr-3 pl-9 text-xs sm:text-sm text-slate-800 placeholder-slate-400 transition-colors focus:border-indigo-500 focus:bg-white focus:outline-hidden dark:border-neutral-800 dark:bg-neutral-850 dark:text-white dark:focus:border-indigo-400"
+                        className="w-full rounded-xl border border-slate-200 bg-slate-50/50 py-2.5 pr-3 pl-9 text-xs sm:text-sm text-slate-800 placeholder-slate-400 transition-colors focus:border-slate-900 focus:bg-white focus:outline-hidden"
                       />
                     </div>
                   </div>
 
                   <div>
-                    <label className="block text-xs font-semibold text-slate-700 dark:text-neutral-300 mb-1">
+                    <label className="block text-xs font-semibold text-slate-700 mb-1">
                       Password
                     </label>
                     <div className="relative flex items-center">
@@ -668,12 +668,12 @@ function AuthContent() {
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                         placeholder="••••••••"
-                        className="w-full rounded-xl border border-slate-200 bg-slate-50/50 py-2.5 pr-10 pl-9 text-xs sm:text-sm text-slate-800 placeholder-slate-400 transition-colors focus:border-indigo-500 focus:bg-white focus:outline-hidden dark:border-neutral-800 dark:bg-neutral-850 dark:text-white dark:focus:border-indigo-400"
+                        className="w-full rounded-xl border border-slate-200 bg-slate-50/50 py-2.5 pr-10 pl-9 text-xs sm:text-sm text-slate-800 placeholder-slate-400 transition-colors focus:border-slate-900 focus:bg-white focus:outline-hidden"
                       />
                       <button
                         type="button"
                         onClick={() => setShowPassword(!showPassword)}
-                        className="absolute right-3 text-slate-400 hover:text-slate-600 dark:hover:text-neutral-200"
+                        className="absolute right-3 text-slate-400 hover:text-slate-600"
                         title={showPassword ? "Hide password" : "Show password"}
                       >
                         {showPassword ? (
@@ -688,7 +688,7 @@ function AuthContent() {
                   <button
                     type="submit"
                     disabled={isLoading}
-                    className="group relative mt-2 flex w-full items-center justify-center gap-2 overflow-hidden rounded-xl bg-indigo-600 py-2.5 px-4 text-xs sm:text-sm font-semibold text-white shadow-xs transition-all duration-200 hover:bg-indigo-700 hover:shadow-md active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-60 dark:bg-indigo-600 dark:hover:bg-indigo-500"
+                    className="group relative mt-2 flex w-full items-center justify-center gap-2 overflow-hidden rounded-xl bg-slate-900 py-2.5 px-4 text-xs sm:text-sm font-semibold text-white shadow-xs transition-all duration-200 hover:bg-black hover:shadow-md active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-60"
                   >
                     <span className="pointer-events-none absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/20 to-transparent transition-transform duration-700 ease-out group-hover:translate-x-full" />
                     {isLoading ? (
@@ -719,13 +719,13 @@ function AuthContent() {
                         value={fullName}
                         onChange={(e) => setFullName(e.target.value)}
                         placeholder="Dr. Sarah Chen"
-                        className="w-full rounded-xl border border-slate-200 bg-slate-50/50 py-2 pr-3 pl-9 text-xs sm:text-sm text-slate-800 placeholder-slate-400 transition-colors focus:border-indigo-500 focus:bg-white focus:outline-hidden dark:border-neutral-800 dark:bg-neutral-850 dark:text-white dark:focus:border-indigo-400"
+                        className="w-full rounded-xl border border-slate-200 bg-slate-50/50 py-2 pr-3 pl-9 text-xs sm:text-sm text-slate-800 placeholder-slate-400 transition-colors focus:border-slate-900 focus:bg-white focus:outline-hidden"
                       />
                     </div>
                   </div>
 
                   <div>
-                    <label className="block text-xs font-semibold text-slate-700 dark:text-neutral-300 mb-1">
+                    <label className="block text-xs font-semibold text-slate-700 mb-1">
                       Email Address
                     </label>
                     <div className="relative flex items-center">
@@ -736,13 +736,13 @@ function AuthContent() {
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                         placeholder="sarah.chen@hospital.org"
-                        className="w-full rounded-xl border border-slate-200 bg-slate-50/50 py-2 pr-3 pl-9 text-xs sm:text-sm text-slate-800 placeholder-slate-400 transition-colors focus:border-indigo-500 focus:bg-white focus:outline-hidden dark:border-neutral-800 dark:bg-neutral-850 dark:text-white dark:focus:border-indigo-400"
+                        className="w-full rounded-xl border border-slate-200 bg-slate-50/50 py-2 pr-3 pl-9 text-xs sm:text-sm text-slate-800 placeholder-slate-400 transition-colors focus:border-slate-900 focus:bg-white focus:outline-hidden"
                       />
                     </div>
                   </div>
 
                   <div>
-                    <label className="block text-xs font-semibold text-slate-700 dark:text-neutral-300 mb-1">
+                    <label className="block text-xs font-semibold text-slate-700 mb-1">
                       Password (min. 8 characters)
                     </label>
                     <div className="relative flex items-center">
@@ -753,12 +753,12 @@ function AuthContent() {
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                         placeholder="••••••••"
-                        className="w-full rounded-xl border border-slate-200 bg-slate-50/50 py-2 pr-10 pl-9 text-xs sm:text-sm text-slate-800 placeholder-slate-400 transition-colors focus:border-indigo-500 focus:bg-white focus:outline-hidden dark:border-neutral-800 dark:bg-neutral-850 dark:text-white dark:focus:border-indigo-400"
+                        className="w-full rounded-xl border border-slate-200 bg-slate-50/50 py-2 pr-10 pl-9 text-xs sm:text-sm text-slate-800 placeholder-slate-400 transition-colors focus:border-slate-900 focus:bg-white focus:outline-hidden"
                       />
                       <button
                         type="button"
                         onClick={() => setShowPassword(!showPassword)}
-                        className="absolute right-3 text-slate-400 hover:text-slate-600 dark:hover:text-neutral-200"
+                        className="absolute right-3 text-slate-400 hover:text-slate-600"
                         title={showPassword ? "Hide password" : "Show password"}
                       >
                         {showPassword ? (
@@ -771,7 +771,7 @@ function AuthContent() {
                   </div>
 
                   <div>
-                    <label className="block text-xs font-semibold text-slate-700 dark:text-neutral-300 mb-1">
+                    <label className="block text-xs font-semibold text-slate-700 mb-1">
                       Re-type Password
                     </label>
                     <div className="relative flex items-center">
@@ -782,12 +782,12 @@ function AuthContent() {
                         value={confirmPassword}
                         onChange={(e) => setConfirmPassword(e.target.value)}
                         placeholder="••••••••"
-                        className="w-full rounded-xl border border-slate-200 bg-slate-50/50 py-2 pr-10 pl-9 text-xs sm:text-sm text-slate-800 placeholder-slate-400 transition-colors focus:border-indigo-500 focus:bg-white focus:outline-hidden dark:border-neutral-800 dark:bg-neutral-850 dark:text-white dark:focus:border-indigo-400"
+                        className="w-full rounded-xl border border-slate-200 bg-slate-50/50 py-2 pr-10 pl-9 text-xs sm:text-sm text-slate-800 placeholder-slate-400 transition-colors focus:border-slate-900 focus:bg-white focus:outline-hidden"
                       />
                       <button
                         type="button"
                         onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                        className="absolute right-3 text-slate-400 hover:text-slate-600 dark:hover:text-neutral-200"
+                        className="absolute right-3 text-slate-400 hover:text-slate-600"
                         title={showConfirmPassword ? "Hide password" : "Show password"}
                       >
                         {showConfirmPassword ? (
@@ -802,7 +802,7 @@ function AuthContent() {
                   <button
                     type="submit"
                     disabled={isLoading}
-                    className="group relative mt-2 flex w-full items-center justify-center gap-2 overflow-hidden rounded-xl bg-indigo-600 py-2.5 px-4 text-xs sm:text-sm font-semibold text-white shadow-xs transition-all duration-200 hover:bg-indigo-700 hover:shadow-md active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-60 dark:bg-indigo-600 dark:hover:bg-indigo-500"
+                    className="group relative mt-2 flex w-full items-center justify-center gap-2 overflow-hidden rounded-xl bg-slate-900 py-2.5 px-4 text-xs sm:text-sm font-semibold text-white shadow-xs transition-all duration-200 hover:bg-black hover:shadow-md active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-60"
                   >
                     <span className="pointer-events-none absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/20 to-transparent transition-transform duration-700 ease-out group-hover:translate-x-full" />
                     {isLoading ? (
@@ -812,7 +812,7 @@ function AuthContent() {
                       </div>
                     ) : (
                       <>
-                        <Sparkles className="size-4 text-indigo-200" />
+                        <Sparkles className="size-4 text-emerald-300" />
                         <span>Create Account</span>
                         <ArrowRight className="size-4 transition-transform duration-200 group-hover:translate-x-1" />
                       </>
@@ -822,7 +822,7 @@ function AuthContent() {
               )}
 
               {/* Switch Mode Prompt */}
-              <div className="mt-4 text-center text-xs text-slate-600 dark:text-neutral-400">
+              <div className="mt-4 text-center text-xs text-slate-600">
                 {mode === "signin" ? (
                   <p>
                     Don&apos;t have an account?{" "}
@@ -832,7 +832,7 @@ function AuthContent() {
                         setMode("signup");
                         setError(null);
                       }}
-                      className="font-bold text-indigo-600 hover:underline dark:text-indigo-400"
+                      className="font-bold text-slate-900 hover:underline"
                     >
                       Create one
                     </button>
@@ -846,7 +846,7 @@ function AuthContent() {
                         setMode("signin");
                         setError(null);
                       }}
-                      className="font-bold text-indigo-600 hover:underline dark:text-indigo-400"
+                      className="font-bold text-slate-900 hover:underline"
                     >
                       Sign in
                     </button>
@@ -855,32 +855,32 @@ function AuthContent() {
               </div>
 
               {/* Security Features */}
-              <div className="mt-6 space-y-1.5 border-t border-slate-100 pt-4 text-[11px] text-slate-500 dark:border-neutral-800 dark:text-neutral-400">
+              <div className="mt-6 space-y-1.5 border-t border-slate-100 pt-4 text-[11px] text-slate-500">
                 <div className="flex items-center gap-2">
                   <Lock className="size-3.5 text-emerald-500" />
                   <span>256-bit Firebase Encrypted Authentication</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <Shield className="size-3.5 text-indigo-500" />
+                  <Shield className="size-3.5 text-slate-900" />
                   <span>HIPAA & Patient Data Privacy Standards</span>
                 </div>
               </div>
             </div>
 
             {/* Footer Legal Disclaimer */}
-            <div className="mt-6 pt-3 border-t border-slate-100 text-center text-[10.5px] text-slate-400 dark:border-neutral-800 dark:text-neutral-400">
+            <div className="mt-6 pt-3 border-t border-slate-100 text-center text-[10.5px] text-slate-400">
               <p>
                 By signing in or registering, you agree to our{" "}
                 <Link
                   href="/about"
-                  className="font-medium text-indigo-600 hover:underline dark:text-indigo-400"
+                  className="font-medium text-slate-900 hover:underline"
                 >
                   Terms of Service
                 </Link>{" "}
                 and{" "}
                 <Link
                   href="/about"
-                  className="font-medium text-indigo-600 hover:underline dark:text-indigo-400"
+                  className="font-medium text-slate-900 hover:underline"
                 >
                   Privacy Policy
                 </Link>
@@ -899,7 +899,7 @@ export default function LoginPage() {
     <Suspense
       fallback={
         <div className="flex min-h-screen items-center justify-center bg-slate-50 text-slate-900">
-          <div className="size-6 animate-spin rounded-full border-2 border-indigo-600 border-t-transparent" />
+          <div className="size-6 animate-spin rounded-full border-2 border-slate-900 border-t-transparent" />
         </div>
       }
     >

@@ -42,17 +42,17 @@ export function HeroScannerDemo() {
       className="relative overflow-hidden rounded-3xl border border-slate-200/80 bg-white/80 p-6 sm:p-8 text-slate-900 shadow-xl shadow-slate-900/5 backdrop-blur-xl lg:col-span-2 dark:border-neutral-800/90 dark:bg-[#111113] dark:text-white select-none transition-all duration-300"
     >
       {/* Soothing Breathing Ambient Backglow */}
-      <div className="pointer-events-none absolute -top-24 -left-24 size-64 rounded-full bg-indigo-500/15 blur-3xl dark:bg-indigo-500/20 animate-relaxing-breathe" />
-      <div className="pointer-events-none absolute -bottom-24 -right-24 size-64 rounded-full bg-cyan-500/15 blur-3xl dark:bg-cyan-500/15 animate-relaxing-breathe" />
+      <div className="pointer-events-none absolute -top-24 -left-24 size-64 rounded-full bg-teal-500/15 blur-3xl animate-relaxing-breathe" />
+      <div className="pointer-events-none absolute -bottom-24 -right-24 size-64 rounded-full bg-cyan-500/15 blur-3xl animate-relaxing-breathe" />
 
       {/* Top Header: Platform HUD Beacon & Sample Switcher */}
-      <div className="relative z-10 mb-6 flex flex-wrap items-center justify-between gap-4 border-b border-slate-200/80 pb-4 dark:border-neutral-800/80">
+      <div className="relative z-10 mb-6 flex flex-wrap items-center justify-between gap-4 border-b border-slate-200/80 pb-4">
         <div className="flex items-center gap-2.5">
           <span className="flex size-2 rounded-full bg-emerald-500 animate-pulse" />
-          <span className="text-xs font-bold tracking-wider text-slate-700 uppercase dark:text-neutral-300">
+          <span className="text-xs font-bold tracking-wider text-slate-700 uppercase">
             Multimodal Optical Inspection HUD
           </span>
-          <span className="hidden sm:inline-flex items-center gap-1 rounded-full bg-indigo-50 px-2 py-0.5 text-[10px] font-semibold text-indigo-600 dark:bg-indigo-950/70 dark:text-indigo-400">
+          <span className="hidden sm:inline-flex items-center gap-1 rounded-full bg-slate-100 px-2 py-0.5 text-[10px] font-semibold text-slate-900">
             Swipe ⟷ or Click
           </span>
         </div>
@@ -102,7 +102,7 @@ export function HeroScannerDemo() {
             {/* Packaging Header */}
             <div className="flex items-center justify-between border-b border-slate-800 pb-3">
               <div className="flex items-center gap-2">
-                <span className="flex size-6 items-center justify-center rounded-md bg-indigo-600 text-[10px] font-bold">
+                <span className="flex size-6 items-center justify-center rounded-md bg-slate-900 text-[10px] font-bold text-white">
                   Rx
                 </span>
                 <div>
@@ -123,7 +123,7 @@ export function HeroScannerDemo() {
                   key={i}
                   className="flex h-10 items-center justify-center rounded-lg bg-gradient-to-b from-slate-800 to-slate-900 border border-slate-700/60 shadow-inner"
                 >
-                  <div className="h-4 w-7 rounded-full bg-gradient-to-r from-indigo-400/70 via-cyan-300/80 to-indigo-500/70 shadow-xs opacity-90" />
+                  <div className="h-4 w-7 rounded-full bg-gradient-to-r from-teal-500/80 via-cyan-300/80 to-emerald-500/80 shadow-xs opacity-90" />
                 </div>
               ))}
             </div>
@@ -168,10 +168,10 @@ export function HeroScannerDemo() {
             <div className="group rounded-2xl border border-slate-200/80 bg-slate-50/60 p-3.5 transition-all hover:bg-white hover:shadow-xs dark:border-neutral-800 dark:bg-neutral-900/60 dark:hover:bg-neutral-850">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
-                  <div className="flex size-7 items-center justify-center rounded-lg bg-indigo-100 text-indigo-600 dark:bg-indigo-950 dark:text-indigo-400">
+                  <div className="flex size-7 items-center justify-center rounded-lg bg-slate-100 text-slate-900">
                     <ScanText className="size-4" />
                   </div>
-                  <span className="text-xs font-bold text-slate-900 dark:text-white">
+                  <span className="text-xs font-bold text-slate-900">
                     Optical Typography OCR
                   </span>
                 </div>
@@ -337,7 +337,7 @@ export function HeroScannerDemo() {
                   <span>Immediate dispensation lockout triggered</span>
                 </li>
                 <li className="flex items-center gap-2">
-                  <FileCheck2 className="size-3.5 text-indigo-500 shrink-0" />
+                  <FileCheck2 className="size-3.5 text-slate-900 shrink-0" />
                   <span>DGDA incident report draft compiled with lot #B104-Z</span>
                 </li>
               </ul>

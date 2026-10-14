@@ -72,8 +72,8 @@ export function Navbar() {
                 href={link.href}
                 className={`rounded-full px-4 py-1.5 text-sm font-medium transition-all duration-200 hover:scale-[1.03] active:scale-95 ${
                   isActive
-                    ? "bg-white text-indigo-600 shadow-xs dark:bg-neutral-800 dark:text-indigo-400"
-                    : "text-slate-600 hover:text-slate-900 dark:text-neutral-400 dark:hover:text-white"
+                    ? "bg-white text-slate-900 shadow-xs font-semibold"
+                    : "text-slate-600 hover:text-slate-900"
                 }`}
               >
                 {link.label}
@@ -88,10 +88,10 @@ export function Navbar() {
             <div className="hidden sm:flex items-center gap-2">
               <Link
                 href="/chat"
-                className="flex items-center gap-2 rounded-full border border-slate-200 bg-slate-50/80 px-3 py-1.5 text-xs font-semibold text-slate-700 backdrop-blur-md transition-all hover:bg-slate-100 hover:border-slate-300 dark:border-neutral-800 dark:bg-neutral-900/80 dark:text-neutral-200 dark:hover:bg-neutral-800"
+                className="flex items-center gap-2 rounded-full border border-slate-200 bg-slate-50/80 px-3 py-1.5 text-xs font-semibold text-slate-700 backdrop-blur-md transition-all hover:bg-slate-100 hover:border-slate-300"
                 title="Go to Chat"
               >
-                <div className="flex size-5 items-center justify-center rounded-full bg-indigo-600 text-[10px] font-bold text-white uppercase">
+                <div className="flex size-5 items-center justify-center rounded-full bg-slate-900 text-[10px] font-bold text-white uppercase">
                   {user.displayName?.[0] || user.email?.[0] || "U"}
                 </div>
                 <span className="max-w-[100px] truncate">
@@ -164,8 +164,8 @@ export function Navbar() {
                 onClick={() => setMobileMenuOpen(false)}
                 className={`rounded-xl px-4 py-2.5 text-base font-medium transition-colors ${
                   pathname === link.href
-                    ? "bg-indigo-50 text-indigo-600 dark:bg-indigo-950/40 dark:text-indigo-400"
-                    : "text-slate-700 hover:bg-slate-50 dark:text-neutral-300 dark:hover:bg-neutral-900"
+                    ? "bg-slate-100 text-slate-900 font-semibold"
+                    : "text-slate-700 hover:bg-slate-50"
                 }`}
               >
                 {link.label}
@@ -173,10 +173,10 @@ export function Navbar() {
             ))}
 
             {user ? (
-              <div className="mt-2 flex flex-col gap-2 pt-2 border-t border-slate-200 dark:border-neutral-800">
+              <div className="mt-2 flex flex-col gap-2 pt-2 border-t border-slate-200">
                 <div className="flex items-center justify-between px-2 py-1">
                   <div className="flex items-center gap-2">
-                    <div className="flex size-7 items-center justify-center rounded-full bg-indigo-600 text-xs font-bold text-white uppercase">
+                    <div className="flex size-7 items-center justify-center rounded-full bg-slate-900 text-xs font-bold text-white uppercase">
                       {user.displayName?.[0] || user.email?.[0] || "U"}
                     </div>
                     <span className="text-sm font-semibold text-slate-900 dark:text-white truncate max-w-[180px]">

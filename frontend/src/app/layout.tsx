@@ -57,7 +57,7 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className="min-h-full flex flex-col font-sans bg-background text-foreground selection:bg-indigo-500 selection:text-white">{children}</body>
+      <body className="min-h-full flex flex-col font-sans bg-background text-foreground selection:bg-slate-900 selection:text-white">{children}</body>
     </html>
   );
 }
