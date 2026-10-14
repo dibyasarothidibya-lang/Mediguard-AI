@@ -287,41 +287,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Sleek CTA Banner */}
-      <section className="py-16 sm:py-20">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-indigo-900 via-indigo-950 to-slate-900 p-8 text-center text-white sm:p-14 shadow-2xl">
-            <div className="relative z-10 mx-auto max-w-2xl">
-              <span className="inline-flex items-center gap-1.5 rounded-full bg-indigo-500/20 px-3.5 py-1 text-xs font-semibold text-indigo-300 ring-1 ring-indigo-500/30">
-                <Sparkles className="size-3.5 text-cyan-300" /> Start Protecting Your Family Today
-              </span>
-              <h2 className="mt-4 text-3xl font-extrabold sm:text-4xl">
-                Ready to verify a medication?
-              </h2>
-              <p className="mt-3 text-sm text-slate-300 sm:text-base">
-                Ask about indications, contraindications, and dosage instructions with our AI-powered clinical assistant.
-              </p>
-              <div className="mt-8 flex flex-wrap justify-center gap-4">
-                <Link
-                  href="/chat"
-                  className="group relative inline-flex items-center gap-2 overflow-hidden rounded-xl bg-indigo-600 px-6 py-3.5 text-sm font-semibold text-white shadow-lg transition-all duration-300 hover:scale-[1.03] hover:bg-indigo-500 hover:shadow-indigo-500/40 active:scale-95"
-                >
-                  <span className="pointer-events-none absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/20 to-transparent transition-transform duration-700 ease-out group-hover:translate-x-full" />
-                  <span>Launch Assistant</span>
-                  <ArrowRight className="size-4 transition-transform duration-300 group-hover:translate-x-1" />
-                </Link>
-                <Link
-                  href="/howitworks"
-                  className="inline-flex items-center gap-2 rounded-xl border border-slate-700 bg-slate-800/80 px-6 py-3.5 text-sm font-semibold text-slate-200 transition-all duration-200 hover:scale-[1.02] hover:bg-slate-800 hover:border-slate-600 active:scale-95"
-                >
-                  Learn the Pipeline
-                </Link>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
       <Footer />
     </div>
   );
