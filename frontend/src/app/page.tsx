@@ -36,15 +36,13 @@ export default function Home() {
                   AI PHARMA SAFETY PLATFORM
                 </span>
 
-                <h1 className="mb-6 text-4xl font-extrabold leading-[1.1] tracking-tight sm:text-5xl lg:text-6xl">
+                <h1 className="mb-6 text-4xl font-extrabold leading-[1.1] tracking-tight sm:text-5xl lg:text-6xl text-slate-900">
                   <span>Verify Your Medicines.</span>
                   <br />
-                  <span className="bg-gradient-to-r from-indigo-600 via-indigo-500 to-cyan-500 bg-clip-text text-transparent dark:from-indigo-400 dark:via-indigo-300 dark:to-cyan-400">
-                    Stay Safer Every Day.
-                  </span>
+                  <span>Stay Safer Every Day.</span>
                 </h1>
 
-                <p className="mb-8 max-w-xl text-base leading-relaxed text-slate-600 sm:text-lg dark:text-neutral-400">
+                <p className="mb-8 max-w-xl text-base leading-relaxed text-slate-600 sm:text-lg">
                   Multi-source evidence platform combining GS1 DataMatrix barcode decoding, a DGDA-aligned local catalogue, and openFDA retrieval to support safer medicine verification.
                 </p>
               </div>
@@ -52,16 +50,16 @@ export default function Home() {
               <div className="flex flex-wrap items-center gap-4">
                 <Link
                   href="/chat"
-                  className="group relative inline-flex items-center gap-2 overflow-hidden rounded-full bg-indigo-600 px-6 py-3.5 text-sm font-semibold text-white shadow-lg shadow-indigo-500/25 transition-all duration-300 hover:scale-[1.03] hover:bg-indigo-500 hover:shadow-indigo-500/40 active:scale-95"
+                  className="group relative inline-flex items-center gap-2 overflow-hidden rounded-full bg-gradient-to-r from-teal-600 to-emerald-600 px-6 py-3.5 text-sm font-semibold text-white shadow-lg shadow-teal-600/25 transition-all duration-300 hover:scale-[1.03] hover:from-teal-500 hover:to-emerald-500 hover:shadow-teal-600/40 active:scale-95"
                 >
                   <span className="pointer-events-none absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/20 to-transparent transition-transform duration-700 ease-out group-hover:translate-x-full" />
-                  <Sparkles className="size-4 text-cyan-300 transition-transform duration-300 group-hover:rotate-12 group-hover:scale-110" />
+                  <Sparkles className="size-4 text-emerald-100 transition-transform duration-300 group-hover:rotate-12 group-hover:scale-110" />
                   <span>Open AI Assistant</span>
                   <ArrowRight className="size-4 transition-transform duration-300 group-hover:translate-x-1" />
                 </Link>
                 <Link
                   href="/howitworks"
-                  className="inline-flex items-center gap-2 rounded-full border border-slate-300 bg-white/80 px-6 py-3.5 text-sm font-semibold text-slate-700 backdrop-blur-sm transition-all duration-200 hover:scale-[1.02] hover:border-indigo-500 hover:text-indigo-600 hover:shadow-xs active:scale-95 dark:border-neutral-800 dark:bg-neutral-900/80 dark:text-neutral-300 dark:hover:border-indigo-400 dark:hover:text-indigo-400"
+                  className="inline-flex items-center gap-2 rounded-full border border-slate-300 bg-white/80 px-6 py-3.5 text-sm font-semibold text-slate-700 backdrop-blur-sm transition-all duration-200 hover:scale-[1.02] hover:border-teal-500 hover:text-teal-700 hover:shadow-xs active:scale-95"
                 >
                   See How It Works
                 </Link>

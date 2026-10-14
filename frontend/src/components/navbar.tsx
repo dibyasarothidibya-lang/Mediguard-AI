@@ -112,10 +112,10 @@ export function Navbar() {
 
               <Link
                 href="/chat"
-                className="group relative inline-flex items-center gap-2 overflow-hidden rounded-xl bg-gradient-to-r from-indigo-600 via-indigo-500 to-indigo-700 px-4 py-2 text-sm font-semibold text-white shadow-md shadow-indigo-500/20 transition-all duration-300 hover:scale-[1.03] hover:shadow-lg hover:shadow-indigo-500/35 active:scale-95"
+                className="group relative inline-flex items-center gap-2 overflow-hidden rounded-xl bg-gradient-to-r from-teal-600 via-teal-500 to-emerald-600 px-4 py-2 text-sm font-semibold text-white shadow-md shadow-teal-600/20 transition-all duration-300 hover:scale-[1.03] hover:shadow-lg hover:shadow-teal-600/35 active:scale-95"
               >
                 <span className="pointer-events-none absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/20 to-transparent transition-transform duration-700 ease-out group-hover:translate-x-full" />
-                <Sparkles className="size-4 text-cyan-300 transition-transform duration-300 group-hover:rotate-12 group-hover:scale-110" />
+                <Sparkles className="size-4 text-emerald-100 transition-transform duration-300 group-hover:rotate-12 group-hover:scale-110" />
                 <span>Launch Assistant</span>
                 <ArrowRight className="size-3.5 transition-transform duration-300 group-hover:translate-x-1" />
               </Link>
@@ -124,17 +124,17 @@ export function Navbar() {
             <div className="hidden sm:flex items-center gap-2">
               <Link
                 href="/login"
-                className="rounded-xl px-3.5 py-2 text-xs font-semibold text-slate-600 transition-colors hover:text-indigo-600 dark:text-neutral-300 dark:hover:text-white"
+                className="rounded-xl px-3.5 py-2 text-xs font-semibold text-slate-600 transition-colors hover:text-teal-600"
               >
                 Sign In
               </Link>
 
               <Link
                 href="/login?redirect=/chat&required=true"
-                className="group relative inline-flex items-center gap-2 overflow-hidden rounded-xl bg-gradient-to-r from-indigo-600 via-indigo-500 to-indigo-700 px-4 py-2 text-sm font-semibold text-white shadow-md shadow-indigo-500/20 transition-all duration-300 hover:scale-[1.03] hover:shadow-lg hover:shadow-indigo-500/35 active:scale-95"
+                className="group relative inline-flex items-center gap-2 overflow-hidden rounded-xl bg-gradient-to-r from-teal-600 via-teal-500 to-emerald-600 px-4 py-2 text-sm font-semibold text-white shadow-md shadow-teal-600/20 transition-all duration-300 hover:scale-[1.03] hover:shadow-lg hover:shadow-teal-600/35 active:scale-95"
               >
                 <span className="pointer-events-none absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/20 to-transparent transition-transform duration-700 ease-out group-hover:translate-x-full" />
-                <Sparkles className="size-4 text-cyan-300 transition-transform duration-300 group-hover:rotate-12 group-hover:scale-110" />
+                <Sparkles className="size-4 text-emerald-100 transition-transform duration-300 group-hover:rotate-12 group-hover:scale-110" />
                 <span>Launch Assistant</span>
                 <ArrowRight className="size-3.5 transition-transform duration-300 group-hover:translate-x-1" />
               </Link>
@@ -194,27 +194,27 @@ export function Navbar() {
                 <Link
                   href="/chat"
                   onClick={() => setMobileMenuOpen(false)}
-                  className="flex items-center justify-center gap-2 rounded-xl bg-indigo-600 py-3 text-center text-base font-semibold text-white shadow-md"
+                  className="flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-teal-600 to-emerald-600 py-3 text-center text-base font-semibold text-white shadow-md shadow-teal-600/20"
                 >
-                  <Sparkles className="size-4 text-cyan-300" />
+                  <Sparkles className="size-4 text-emerald-100" />
                   Launch Assistant
                 </Link>
               </div>
             ) : (
-              <div className="mt-2 flex flex-col gap-2 pt-2 border-t border-slate-200 dark:border-neutral-800">
+              <div className="mt-2 flex flex-col gap-2 pt-2 border-t border-slate-200">
                 <Link
                   href="/login"
                   onClick={() => setMobileMenuOpen(false)}
-                  className="rounded-xl border border-slate-200 bg-slate-50 py-2.5 text-center text-sm font-semibold text-slate-700 dark:border-neutral-800 dark:bg-neutral-900 dark:text-neutral-200"
+                  className="rounded-xl border border-slate-200 bg-slate-50 py-2.5 text-center text-sm font-semibold text-slate-700"
                 >
                   Sign In / Create Account
                 </Link>
                 <Link
                   href="/login?redirect=/chat&required=true"
                   onClick={() => setMobileMenuOpen(false)}
-                  className="flex items-center justify-center gap-2 rounded-xl bg-indigo-600 py-3 text-center text-base font-semibold text-white shadow-md"
+                  className="flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-teal-600 to-emerald-600 py-3 text-center text-base font-semibold text-white shadow-md shadow-teal-600/20"
                 >
-                  <Sparkles className="size-4 text-cyan-300" />
+                  <Sparkles className="size-4 text-emerald-100" />
                   Launch Assistant
                 </Link>
               </div>
