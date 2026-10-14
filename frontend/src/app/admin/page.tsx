@@ -4,7 +4,6 @@ import { useCallback, useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import ThemeToggle from "@/app/components/theme-toggle";
 import { auth } from "@/lib/firebase";
 import { onAuthStateChanged, signOut, type User } from "firebase/auth";
 import { fetchAdminOverview, type AdminOverviewData } from "@/lib/api";
@@ -218,7 +217,6 @@ export default function AdminDashboardPage() {
               </span>
             </Link>
             <div className="flex items-center gap-2">
-              <ThemeToggle />
               <Link
                 href="/"
                 className="flex items-center gap-1.5 rounded-xl border border-slate-200 px-3 py-1.5 text-xs font-semibold text-slate-600 hover:bg-slate-100 dark:border-neutral-800 dark:text-neutral-400 dark:hover:bg-neutral-900"
@@ -290,7 +288,6 @@ export default function AdminDashboardPage() {
               </span>
             </Link>
             <div className="flex items-center gap-2">
-              <ThemeToggle />
               <button
                 type="button"
                 onClick={handleSignOut}
@@ -398,8 +395,6 @@ export default function AdminDashboardPage() {
               <RefreshCw className={`size-3.5 ${refreshing ? "animate-spin text-indigo-500" : ""}`} />
               <span>Refresh</span>
             </button>
-
-            <ThemeToggle />
 
             <button
               type="button"

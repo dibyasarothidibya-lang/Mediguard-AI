@@ -17,7 +17,6 @@ import { FirebaseError } from "firebase/app";
 import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
-import ThemeToggle from "@/app/components/theme-toggle";
 import {
   CheckCircle2,
   Lock,
@@ -212,9 +211,8 @@ function AuthContent() {
         ))}
       </div>
 
-      {/* Top Controls: Return Home & Theme Toggle */}
+      {/* Top Controls: Return Home */}
       <div className="absolute top-5 right-5 z-20 flex items-center gap-3">
-        <ThemeToggle />
         <Link
           href="/"
           className="flex items-center gap-1.5 rounded-full bg-white/20 px-3.5 py-1.5 text-xs font-semibold text-white backdrop-blur-md transition-all hover:bg-white/30 active:scale-95"
@@ -900,8 +898,8 @@ export default function LoginPage() {
   return (
     <Suspense
       fallback={
-        <div className="flex min-h-screen items-center justify-center bg-slate-950 text-white">
-          <div className="size-6 animate-spin rounded-full border-2 border-indigo-500 border-t-transparent" />
+        <div className="flex min-h-screen items-center justify-center bg-slate-50 text-slate-900">
+          <div className="size-6 animate-spin rounded-full border-2 border-indigo-600 border-t-transparent" />
         </div>
       }
     >

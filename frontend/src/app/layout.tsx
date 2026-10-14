@@ -53,7 +53,7 @@ export default function RootLayout({
         <script
           dangerouslySetInnerHTML={{
             __html:
-              '(function(){try{var s=localStorage.getItem("theme");var t=s==="light"||s==="dark"?s:window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";document.documentElement.setAttribute("data-theme",t)}catch(e){document.documentElement.setAttribute("data-theme","light")}})()',
+              '(function(){try{localStorage.removeItem("theme");document.documentElement.setAttribute("data-theme","light");document.documentElement.classList.remove("dark");}catch(e){}})()',
           }}
         />
       </head>

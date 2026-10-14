@@ -3,7 +3,6 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
-import ThemeToggle from "@/app/components/theme-toggle";
 import { auth } from "@/lib/firebase";
 import { onAuthStateChanged, signOut, type User } from "firebase/auth";
 import Image from "next/image";
@@ -85,8 +84,6 @@ export function Navbar() {
 
         {/* Right Actions */}
         <div className="flex items-center gap-3">
-          <ThemeToggle />
-
           {user ? (
             <div className="hidden sm:flex items-center gap-2">
               <Link

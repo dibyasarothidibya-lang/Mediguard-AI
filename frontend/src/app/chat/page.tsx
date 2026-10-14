@@ -4,7 +4,6 @@ import { Streamdown } from "streamdown";
 import { sendChatMessage, fetchUserChatHistory } from "@/lib/api";
 import QrScannerDialog from "@/components/QR/qr-scanner-dialog";
 import TermsDialog from "@/components/terms-dialog";
-import ThemeToggle from "@/app/components/theme-toggle";
 import { auth } from "@/lib/firebase";
 import { onAuthStateChanged, signOut, type User } from "firebase/auth";
 import {
@@ -430,26 +429,26 @@ export default function MediGuardChatPage() {
 
   if (!isAuthReady || !user) {
     return (
-      <main className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden bg-slate-950 p-4 text-white">
+      <main className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden bg-slate-50 p-4 text-slate-900">
         {/* Ambient background glows */}
         <div className="pointer-events-none absolute -top-24 size-96 rounded-full bg-indigo-500/10 blur-3xl" />
         <div className="pointer-events-none absolute -bottom-24 size-96 rounded-full bg-cyan-500/10 blur-3xl" />
 
-        <div className="relative z-10 mx-auto flex w-full max-w-md flex-col items-center rounded-3xl border border-white/10 bg-neutral-900/90 p-8 text-center shadow-2xl backdrop-blur-xl">
+        <div className="relative z-10 mx-auto flex w-full max-w-md flex-col items-center rounded-3xl border border-slate-200 bg-white/95 p-8 text-center shadow-xl backdrop-blur-xl">
           <div className="mb-4 flex size-14 items-center justify-center rounded-2xl bg-gradient-to-tr from-indigo-600 via-indigo-500 to-cyan-400 text-white shadow-lg shadow-indigo-500/25">
             <Lock className="size-7" />
           </div>
 
-          <span className="mb-2 inline-flex items-center gap-1.5 rounded-full border border-amber-500/30 bg-amber-500/10 px-3 py-1 text-xs font-semibold text-amber-300">
-            <ShieldAlert className="size-3.5 text-amber-400" />
+          <span className="mb-2 inline-flex items-center gap-1.5 rounded-full border border-amber-500/30 bg-amber-500/10 px-3 py-1 text-xs font-semibold text-amber-700">
+            <ShieldAlert className="size-3.5 text-amber-600" />
             Authentication Required
           </span>
 
-          <h1 className="text-xl font-bold tracking-tight text-white">
+          <h1 className="text-xl font-bold tracking-tight text-slate-900">
             Sign In to Access MediGuard AI
           </h1>
 
-          <p className="mt-2 text-xs leading-relaxed text-neutral-400">
+          <p className="mt-2 text-xs leading-relaxed text-slate-600">
             MediGuard AI assistant and medicine information and verification tools are reserved for registered users to maintain safety audit logs.
           </p>
 
@@ -464,7 +463,7 @@ export default function MediGuardChatPage() {
 
             <Link
               href="/"
-              className="flex w-full items-center justify-center gap-1.5 rounded-xl border border-white/10 py-2.5 text-xs font-medium text-neutral-400 transition-all hover:bg-white/5 hover:text-white"
+              className="flex w-full items-center justify-center gap-1.5 rounded-xl border border-slate-200 py-2.5 text-xs font-medium text-slate-600 transition-all hover:bg-slate-50 hover:text-slate-900"
             >
               <Home className="size-3.5" />
               <span>Return to Homepage</span>
@@ -588,7 +587,6 @@ export default function MediGuardChatPage() {
             </div>
 
             <div className="flex items-center gap-1">
-              <ThemeToggle />
               <button
                 type="button"
                 onClick={handleSignOut}
