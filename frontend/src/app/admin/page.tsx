@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import ThemeToggle from "@/app/components/theme-toggle";
 import { auth } from "@/lib/firebase";
@@ -205,11 +206,15 @@ export default function AdminDashboardPage() {
         <header className="sticky top-0 z-40 border-b border-slate-200/80 bg-white/85 backdrop-blur-xl dark:border-neutral-800 dark:bg-neutral-950/85">
           <div className="mx-auto flex h-18 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
             <Link href="/" className="flex items-center gap-2.5">
-              <div className="flex size-9 items-center justify-center rounded-xl bg-gradient-to-tr from-indigo-600 to-cyan-500 text-white shadow-md shadow-indigo-500/20">
-                <ShieldCheck className="size-5" />
-              </div>
+              <Image
+                src="/logo-icon.png"
+                alt="MediGuard AI"
+                width={36}
+                height={36}
+                className="size-9 object-contain drop-shadow-sm"
+              />
               <span className="text-base font-bold tracking-tight text-slate-900 dark:text-white">
-                MediGuard<span className="text-indigo-600 dark:text-indigo-400"> AI</span>
+                MediGuard<span className="text-teal-600 dark:text-teal-400"> AI</span>
               </span>
             </Link>
             <div className="flex items-center gap-2">
@@ -273,11 +278,15 @@ export default function AdminDashboardPage() {
         <header className="sticky top-0 z-40 border-b border-slate-200/80 bg-white/85 backdrop-blur-xl dark:border-neutral-800 dark:bg-neutral-950/85">
           <div className="mx-auto flex h-18 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
             <Link href="/" className="flex items-center gap-2.5">
-              <div className="flex size-9 items-center justify-center rounded-xl bg-gradient-to-tr from-indigo-600 to-cyan-500 text-white shadow-md shadow-indigo-500/20">
-                <ShieldCheck className="size-5" />
-              </div>
+              <Image
+                src="/logo-icon.png"
+                alt="MediGuard AI"
+                width={36}
+                height={36}
+                className="size-9 object-contain drop-shadow-sm"
+              />
               <span className="text-base font-bold tracking-tight text-slate-900 dark:text-white">
-                MediGuard<span className="text-indigo-600 dark:text-indigo-400"> AI</span>
+                MediGuard<span className="text-teal-600 dark:text-teal-400"> AI</span>
               </span>
             </Link>
             <div className="flex items-center gap-2">
@@ -348,14 +357,18 @@ export default function AdminDashboardPage() {
         <div className="mx-auto flex h-18 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
           <div className="flex items-center gap-3">
             <Link href="/" className="flex items-center gap-2.5">
-              <div className="flex size-9 items-center justify-center rounded-xl bg-gradient-to-tr from-indigo-600 to-cyan-500 text-white shadow-md shadow-indigo-500/20">
-                <ShieldCheck className="size-5" />
-              </div>
+              <Image
+                src="/logo-icon.png"
+                alt="MediGuard AI"
+                width={36}
+                height={36}
+                className="size-9 object-contain drop-shadow-sm"
+              />
               <div>
                 <span className="text-base font-bold tracking-tight text-slate-900 dark:text-white">
-                  MediGuard<span className="text-indigo-600 dark:text-indigo-400"> AI</span>
+                  MediGuard<span className="text-teal-600 dark:text-teal-400"> AI</span>
                 </span>
-                <span className="ml-2 rounded-md bg-indigo-500/10 px-2 py-0.5 text-[10px] font-extrabold uppercase tracking-wider text-indigo-600 dark:bg-indigo-500/20 dark:text-indigo-400">
+                <span className="ml-2 rounded-md bg-teal-500/10 px-2 py-0.5 text-[10px] font-extrabold uppercase tracking-wider text-teal-600 dark:bg-teal-500/20 dark:text-teal-400">
                   Admin Audit Cockpit
                 </span>
               </div>

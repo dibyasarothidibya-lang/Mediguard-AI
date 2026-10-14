@@ -16,9 +16,9 @@ import {
 import { FirebaseError } from "firebase/app";
 import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
+import Image from "next/image";
 import ThemeToggle from "@/app/components/theme-toggle";
 import {
-  ShieldCheck,
   CheckCircle2,
   Lock,
   QrCode,
@@ -237,9 +237,13 @@ function AuthContent() {
             {/* Top Bar: Brand Badge & Interactive Device Switcher */}
             <div className="relative z-10 flex flex-wrap items-center justify-between gap-2 pb-2">
               <div className="flex items-center gap-2">
-                <span className="flex size-7 items-center justify-center rounded-lg bg-indigo-600 text-white shadow-xs">
-                  <ShieldCheck className="size-4" />
-                </span>
+                <Image
+                  src="/logo-icon.png"
+                  alt="MediGuard AI"
+                  width={28}
+                  height={28}
+                  className="size-7 object-contain drop-shadow-xs"
+                />
                 <span className="text-xs font-bold tracking-wider text-slate-800 uppercase dark:text-white">
                   MediGuard Ecosystem
                 </span>
@@ -467,11 +471,15 @@ function AuthContent() {
               {/* Brand Header */}
               <div className="flex items-center justify-between mb-4">
                 <div className="flex items-center gap-2.5">
-                  <div className="flex size-9 items-center justify-center rounded-xl bg-gradient-to-tr from-indigo-600 to-cyan-400 text-white shadow-xs">
-                    <ShieldCheck className="size-5" />
-                  </div>
+                  <Image
+                    src="/logo-icon.png"
+                    alt="MediGuard AI"
+                    width={36}
+                    height={36}
+                    className="size-9 object-contain drop-shadow-sm"
+                  />
                   <span className="text-base font-bold tracking-tight text-slate-900 dark:text-white">
-                    MediGuard<span className="text-indigo-600 dark:text-indigo-400"> AI</span>
+                    MediGuard<span className="text-teal-600 dark:text-teal-400"> AI</span>
                   </span>
                 </div>
 

@@ -6,7 +6,8 @@ import { useEffect, useState } from "react";
 import ThemeToggle from "@/app/components/theme-toggle";
 import { auth } from "@/lib/firebase";
 import { onAuthStateChanged, signOut, type User } from "firebase/auth";
-import { ShieldCheck, Menu, X, Sparkles, ArrowRight, LogOut } from "lucide-react";
+import Image from "next/image";
+import { Menu, X, Sparkles, ArrowRight, LogOut } from "lucide-react";
 
 const NAV_LINKS = [
   { href: "/features", label: "Features" },
@@ -38,16 +39,23 @@ export function Navbar() {
       <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
         {/* Brand Logo */}
         <Link href="/" className="group flex items-center gap-3 outline-none">
-          <div className="relative flex size-10 items-center justify-center rounded-xl bg-gradient-to-tr from-indigo-600 via-indigo-500 to-cyan-400 text-white shadow-md shadow-indigo-500/20 transition-transform duration-300 group-hover:scale-105">
-            <ShieldCheck className="size-5 transition-transform duration-300 group-hover:rotate-6" />
-            <span className="absolute -top-1 -right-1 flex size-2.5">
-              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-cyan-400 opacity-75" />
-              <span className="relative inline-flex size-2.5 rounded-full bg-cyan-500" />
+          <div className="relative flex size-10 items-center justify-center transition-transform duration-300 group-hover:scale-105">
+            <Image
+              src="/logo-icon.png"
+              alt="MediGuard AI Logo"
+              width={40}
+              height={40}
+              priority
+              className="size-10 object-contain drop-shadow-sm transition-transform duration-300 group-hover:rotate-3"
+            />
+            <span className="absolute -top-0.5 -right-0.5 flex size-2.5">
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-teal-400 opacity-75" />
+              <span className="relative inline-flex size-2.5 rounded-full bg-teal-500" />
             </span>
           </div>
           <div className="flex flex-col">
             <span className="text-base font-bold tracking-tight text-slate-900 dark:text-white">
-              MediGuard<span className="text-indigo-600 dark:text-indigo-400"> AI</span>
+              MediGuard<span className="text-teal-600 dark:text-teal-400"> AI</span>
             </span>
             <span className="text-[10px] font-medium tracking-wider text-slate-400 uppercase dark:text-neutral-500">
               Pharma Safety Engine

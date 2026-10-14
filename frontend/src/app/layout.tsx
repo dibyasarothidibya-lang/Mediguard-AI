@@ -20,6 +20,15 @@ export const metadata: Metadata = {
       "Cross-reference medicine records against openFDA evidence and DGDA-aligned catalogues with grounded AI explanations.",
     type: "website",
   },
+  icons: {
+    icon: [
+      { url: "/favicon.ico" },
+      { url: "/logo-icon.png", sizes: "512x512", type: "image/png" },
+    ],
+    apple: [
+      { url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" },
+    ],
+  },
 };
 
 export default function RootLayout({

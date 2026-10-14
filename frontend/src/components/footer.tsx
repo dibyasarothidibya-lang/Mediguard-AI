@@ -1,5 +1,6 @@
 import Link from "next/link";
-import { ShieldCheck, ExternalLink, Heart } from "lucide-react";
+import Image from "next/image";
+import { ExternalLink, Heart } from "lucide-react";
 
 export function Footer() {
   return (
@@ -9,11 +10,15 @@ export function Footer() {
           {/* Col 1: Brand Info */}
           <div className="space-y-4">
             <div className="flex items-center gap-3">
-              <div className="flex size-9 items-center justify-center rounded-xl bg-gradient-to-tr from-indigo-600 to-cyan-400 text-white shadow-sm">
-                <ShieldCheck className="size-5" />
-              </div>
+              <Image
+                src="/logo-icon.png"
+                alt="MediGuard AI Logo"
+                width={36}
+                height={36}
+                className="size-9 object-contain drop-shadow-sm"
+              />
               <span className="text-lg font-bold tracking-tight text-slate-900 dark:text-white">
-                MediGuard<span className="text-indigo-600 dark:text-indigo-400"> AI</span>
+                MediGuard<span className="text-teal-600 dark:text-teal-400"> AI</span>
               </span>
             </div>
             <p className="text-xs leading-relaxed text-slate-600 dark:text-neutral-400">

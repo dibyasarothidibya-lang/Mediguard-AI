@@ -22,7 +22,6 @@ import {
   Plus,
   QrCode,
   ShieldAlert,
-  ShieldCheck,
   Sparkles,
   SquarePen,
   ThumbsDown,
@@ -30,6 +29,7 @@ import {
   Image as ImageIcon,
   X,
 } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useRef, useState } from "react";
@@ -495,12 +495,16 @@ export default function MediGuardChatPage() {
           <div className="flex items-center justify-between">
             <Link
               href="/"
-              className="flex items-center gap-2 rounded-lg p-2 hover:bg-neutral-200/60 dark:hover:bg-[#212121]"
+              className="flex items-center gap-2.5 rounded-lg p-2 hover:bg-neutral-200/60 dark:hover:bg-[#212121]"
               title="MediGuard AI Homepage"
             >
-              <div className="flex size-7 items-center justify-center rounded-lg bg-indigo-600 text-white shadow-xs">
-                <ShieldCheck className="size-4" />
-              </div>
+              <Image
+                src="/logo-icon.png"
+                alt="MediGuard AI"
+                width={28}
+                height={28}
+                className="size-7 object-contain drop-shadow-xs"
+              />
               <span className="text-sm font-semibold tracking-tight">MediGuard AI</span>
             </Link>
 
