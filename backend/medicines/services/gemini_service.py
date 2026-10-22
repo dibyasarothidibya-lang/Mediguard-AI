@@ -260,12 +260,12 @@ def static_chat_reply(question: str) -> str | None:
 NOT_MEDICINE_REPLY = "Please provide a medicine image or QR code."
 
 def execute_gemini_with_fallback(client, contents, config=None):
-    primary = getattr(settings, "GEMINI_MODEL", "gemini-3.5-flash-lite")
+    primary = getattr(settings, "GEMINI_MODEL", "gemini-3.8-flash")
     fallbacks = [
+        "gemini-3.8-flash",
+        "gemini-3.5-flash",
         "gemini-3.5-flash-lite",
         "gemini-3.1-flash-lite",
-        "gemini-3.5-flash",
-        "gemini-3.8-flash",
     ]
     fallbacks = [m for m in fallbacks if m != primary]
 

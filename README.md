@@ -89,7 +89,7 @@ sequenceDiagram
     participant Coordinator as Evidence Coordinator
     participant DGDA as PostgreSQL DGDA DB (43k records)
     participant FDA as Live openFDA REST API
-    participant LLM as Google Gemini 2.5 Flash
+    participant LLM as Google Gemini 3.8 Flash
     participant Validator as Citation Integrity Validator
 
     Patient->>Web: Submits medicine query / scans GS1 barcode
@@ -160,7 +160,7 @@ In typical LLM implementations, language models generate arbitrary citations con
 ┌─────────────────────────────┐                     ┌─────────────────────────────┐
 │ Next.js 16 (App Router)     │                     │ Python 3.12 + Django 6 REST │
 │ React 19 + TypeScript       │                     │ PostgreSQL Relational Store │
-│ Tailwind CSS v4             │◄──── REST API ─────►│ Google Gemini 2.5 Flash API │
+│ Tailwind CSS v4             │◄──── REST API ─────►│ Google Gemini 3.8 Flash API │
 │ Turbopack Build Engine      │                     │ openFDA Dynamic Connector   │
 │ Client-Side GS1 Decoders    │                     │ Firebase Admin SDK (IAM)    │
 │ WCAG 2.1 Contrast Standards │                     │ Pydantic v2 Schema Enforcers│
@@ -176,7 +176,7 @@ In typical LLM implementations, language models generate arbitrary citations con
 | **Backend Framework** | Django 6.0 + DRF | Web API Gateway & Services | Modular app architecture, middleware security, ORM |
 | **Primary Language** | Python 3.12 | Backend business logic | Modern async capabilities, type annotations, high throughput |
 | **Database** | PostgreSQL 16 | Relational Storage & Indexing | Normalized schema for 43k+ medicines, B-Tree indexes |
-| **AI Inference** | Google Gemini 2.5 Flash | Evidence interpretation | Constrained prompt contract execution via HTTPX |
+| **AI Inference** | Google Gemini 3.8 Flash | Evidence interpretation | Constrained prompt contract execution via HTTPX |
 | **Identity & IAM** | Firebase Auth | User authentication | RSA-256 JWT validation with real-time revocation checks |
 | **Testing Harness** | Django Test / Pytest | Regression & security testing | 145 automated test cases executed in under 1.5 seconds |
 
