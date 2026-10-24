@@ -97,6 +97,18 @@ const SUGGESTIONS = [
   },
 ];
 
+function getHasAgreedTerms(uid: string): boolean {
+  if (typeof window === "undefined") return false;
+  try {
+    return (
+      window.localStorage.getItem(`mediguard_terms_agreed_${uid}`) === "true" ||
+      window.localStorage.getItem("mediguard_terms_agreed") === "true"
+    );
+  } catch {
+    return false;
+  }
+}
+
 export default function MediGuardChatPage() {
   const router = useRouter();
   const [text, setText] = useState("");
@@ -150,10 +162,7 @@ export default function MediGuardChatPage() {
         setShowTermsModal(false);
         router.replace("/login?redirect=/chat&required=true");
       } else {
-        const agreed =
-          typeof window !== "undefined" &&
-          (localStorage.getItem(`mediguard_terms_agreed_${currentUser.uid}`) === "true" ||
-            localStorage.getItem("mediguard_terms_agreed") === "true");
+        const agreed = getHasAgreedTerms(currentUser.uid);
         setHasAgreedTerms(agreed);
         setShowTermsModal(!agreed);
         const loaded = getStoredSessions(currentUser.uid);
@@ -192,14 +201,14 @@ export default function MediGuardChatPage() {
 
   const handleAcceptTerms = useCallback(() => {
     const currentUid = user?.uid || auth.currentUser?.uid;
-    if (currentUid) {
+    if (typeof window !== "undefined") {
       try {
-        localStorage.setItem(`mediguard_terms_agreed_${currentUid}`, "true");
+        if (currentUid) {
+          window.localStorage.setItem(`mediguard_terms_agreed_${currentUid}`, "true");
+        }
+        window.localStorage.setItem("mediguard_terms_agreed", "true");
       } catch {}
     }
-    try {
-      localStorage.setItem("mediguard_terms_agreed", "true");
-    } catch {}
     setHasAgreedTerms(true);
     setShowTermsModal(false);
   }, [user]);
@@ -208,14 +217,14 @@ export default function MediGuardChatPage() {
     setIsDecliningTerms(true);
     try {
       const currentUid = user?.uid || auth.currentUser?.uid;
-      if (currentUid) {
+      if (typeof window !== "undefined") {
         try {
-          localStorage.removeItem(`mediguard_terms_agreed_${currentUid}`);
+          if (currentUid) {
+            window.localStorage.removeItem(`mediguard_terms_agreed_${currentUid}`);
+          }
+          window.localStorage.removeItem("mediguard_terms_agreed");
         } catch {}
       }
-      try {
-        localStorage.removeItem("mediguard_terms_agreed");
-      } catch {}
       await signOut(auth);
       router.replace("/");
     } finally {
