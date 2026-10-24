@@ -152,7 +152,8 @@ export default function MediGuardChatPage() {
       } else {
         const agreed =
           typeof window !== "undefined" &&
-          localStorage.getItem(`mediguard_terms_agreed_${currentUser.uid}`) === "true";
+          (localStorage.getItem(`mediguard_terms_agreed_${currentUser.uid}`) === "true" ||
+            localStorage.getItem("mediguard_terms_agreed") === "true");
         setHasAgreedTerms(agreed);
         setShowTermsModal(!agreed);
         const loaded = getStoredSessions(currentUser.uid);
@@ -190,9 +191,15 @@ export default function MediGuardChatPage() {
   }, [router]);
 
   const handleAcceptTerms = useCallback(() => {
-    if (user) {
-      localStorage.setItem(`mediguard_terms_agreed_${user.uid}`, "true");
+    const currentUid = user?.uid || auth.currentUser?.uid;
+    if (currentUid) {
+      try {
+        localStorage.setItem(`mediguard_terms_agreed_${currentUid}`, "true");
+      } catch {}
     }
+    try {
+      localStorage.setItem("mediguard_terms_agreed", "true");
+    } catch {}
     setHasAgreedTerms(true);
     setShowTermsModal(false);
   }, [user]);
@@ -200,9 +207,15 @@ export default function MediGuardChatPage() {
   const handleDeclineTerms = useCallback(async () => {
     setIsDecliningTerms(true);
     try {
-      if (user) {
-        localStorage.removeItem(`mediguard_terms_agreed_${user.uid}`);
+      const currentUid = user?.uid || auth.currentUser?.uid;
+      if (currentUid) {
+        try {
+          localStorage.removeItem(`mediguard_terms_agreed_${currentUid}`);
+        } catch {}
       }
+      try {
+        localStorage.removeItem("mediguard_terms_agreed");
+      } catch {}
       await signOut(auth);
       router.replace("/");
     } finally {
